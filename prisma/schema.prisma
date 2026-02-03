@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  extensions = [pgcrypto] // Enable pgcrypto for UUID generation
+}
+
+model User {
+  id            String       @id @default(cuid())
+  nis           String?      @unique
+  name          String?
+  email         String?      @unique
+  password      String?
+  image         String?      @db.Text
+  role          Role         @default(STUDENT)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  aspirations   Aspiration[]
+
+  @@map("users") // Explicit table name mapping
+}
+
+model Aspiration {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text
+  category  String
+  status    String   @default("PENDING") // PENDING, REVIEWED, COMPLETED
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("aspirations") // Explicit table name mapping
+}
+
+enum Role {
+  ADMINISTRATOR @map("administrator")
+  PEMBINA       @map("pembina")
+  DEWAN         @map("dewan")
+  OSIS_OFFICER  @map("osis_officer")
+  MPK_OFFICER   @map("mpk_officer")
+  STUDENT       @map("student")
+  
+  @@map("user_roles") // Explicit enum name mapping
+}
