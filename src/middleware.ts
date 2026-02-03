@@ -12,13 +12,15 @@ export default withAuth(
             return NextResponse.redirect(new URL("/login", req.url));
         }
 
-        if (isLoginRoute && isAuth) {
+        const tokenEmail = token?.email as string | null;
+        const isEmailValid = !tokenEmail || tokenEmail.endsWith("@smkn11bdg.sch.id");
+
+        if (isLoginRoute && isAuth && isEmailValid) {
             return NextResponse.redirect(new URL("/student/dashboard", req.url));
         }
 
         // Domain restriction check for students
-        if (isAuth && token?.email && !token.email.endsWith("@smkn11bdg.sch.id")) {
-            // Technically this should be handled at login time, but as a fallback:
+        if (isAuth && !isEmailValid && !isLoginRoute) {
             return NextResponse.redirect(new URL("/login?error=restricted_domain", req.url));
         }
 
