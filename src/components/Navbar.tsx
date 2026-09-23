@@ -9,8 +9,7 @@ import Image from "next/image";
 const publicLinks = [
     { name: "Beranda", href: "/" },
     { name: "Visi & Misi", href: "/vision-mission" },
-    { name: "Struktur", href: "/structure" },
-    { name: "Sekbid", href: "/departments" },
+    { name: "Struktur & Sekbid", href: "/structure" },
     { name: "Dokumentasi", href: "/activities" },
 ];
 
@@ -33,50 +32,47 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "py-2 md:py-4" : "py-4 md:py-8"}`}>
-            <div className={`container mx-auto px-4 md:px-6 flex items-center justify-between transition-all duration-500 ${isScrolled ? "glass border border-white/20 py-3 rounded-2xl md:rounded-[2rem] max-w-5xl shadow-2xl shadow-purple-500/10 mx-4 md:mx-auto" : ""}`}>
-                <Link href="/" className="group flex items-center gap-4">
-                    <div className="logo-orb w-12 h-12 md:w-14 md:h-14 p-1.5 shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "py-2 md:py-3" : "py-4 md:py-6"}`}>
+            <div className={`container mx-auto px-4 md:px-6 flex items-center justify-between transition-all duration-300 ${isScrolled ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 py-2.5 rounded-2xl max-w-5xl shadow-sm mx-4 md:mx-auto" : ""}`}>
+                <Link href="/" className="group flex items-center gap-3">
+                    <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1 flex items-center justify-center shadow-sm">
                         <Image
                             src="/images/logos/smkn11.jpg"
                             alt="SMKN 11 Bandung"
-                            width={48}
-                            height={48}
-                            className="object-contain"
+                            width={36}
+                            height={36}
+                            className="object-contain rounded-lg"
                         />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-xl md:text-2xl font-black tracking-tighter text-foreground leading-none group-hover:text-brand-primary transition-colors">
+                        <span className="text-lg md:text-xl font-black tracking-tight text-slate-900 dark:text-white leading-none">
                             OSIS-MPK
                         </span>
-                        <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-brand-primary/80 mt-1 flex items-center gap-1.5">
-                            <span className="w-1 h-1 rounded-full bg-brand-accent animate-pulse" />
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-400 mt-0.5">
                             SMKN 11 Bandung
                         </span>
                     </div>
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-10">
+                <div className="hidden md:flex items-center gap-8">
                     {!user ? (
                         <>
                             {publicLinks.map((link) => (
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className="text-[13px] font-bold uppercase tracking-widest text-foreground/60 hover:text-brand-primary transition-all relative group"
+                                    className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
                                 >
                                     {link.name}
-                                    <span className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-primary rounded-full transition-all group-hover:w-full" />
                                 </Link>
                             ))}
-                            <div className="h-6 w-[1px] bg-border/50 mx-2" />
+                            <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1" />
                             <Link
                                 href="/login"
-                                className="relative px-7 py-3.5 bg-gradient-primary text-white text-[13px] font-black uppercase tracking-widest rounded-xl hover:shadow-2xl hover:shadow-purple-500/40 transition-all active:scale-95 overflow-hidden group"
+                                className="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm"
                             >
-                                <span className="relative z-10">Login Siswa</span>
-                                <div className="absolute inset-0 bg-gradient-vibrant opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                Login Siswa
                             </Link>
                         </>
                     ) : (
@@ -85,50 +81,51 @@ export default function Navbar() {
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className="text-[13px] font-bold uppercase tracking-widest text-foreground/50 hover:text-brand-primary transition-all relative group"
+                                    className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
                                 >
                                     {link.name}
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-primary transition-all group-hover:w-full" />
                                 </Link>
                             ))}
-                            {['ADMINISTRATOR', 'PEMBINA', 'DEWAN'].includes(user.role as any) && (
-                                <Link
-                                    href="/admin/aspirations"
-                                    className="text-[13px] font-bold uppercase tracking-widest text-foreground/50 hover:text-brand-primary transition-all relative group"
-                                >
-                                    Suara Siswa
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-primary transition-all group-hover:w-full" />
-                                </Link>
+                            {['ADMINISTRATOR', 'KEPALA_SEKOLAH', 'KESISWAAN', 'PEMBINA', 'BPH_OSIS', 'BPH_MPK', 'SEKBID_OFFICER', 'KOMISI_OFFICER', 'DEWAN', 'OSIS_OFFICER', 'MPK_OFFICER'].includes(user.role as any) ? (
+                                <>
+                                    <Link
+                                        href="/admin"
+                                        className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+                                    >
+                                        Executive Suite
+                                    </Link>
+                                    <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1" />
+                                    <Link
+                                        href="/admin"
+                                        className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+                                    >
+                                        <span>📊</span>
+                                        <span>Dashboard Pengurus</span>
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1" />
+                                    <Link
+                                        href="/student/dashboard"
+                                        className="px-5 py-2 bg-slate-900 dark:bg-emerald-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm"
+                                    >
+                                        Dashboard Siswa
+                                    </Link>
+                                </>
                             )}
-                            {user.role === 'ADMINISTRATOR' && (
-                                <Link
-                                    href="/admin/users"
-                                    className="text-[13px] font-bold uppercase tracking-widest text-foreground/50 hover:text-brand-primary transition-all relative group"
-                                >
-                                    Kelola Akun
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-primary transition-all group-hover:w-full" />
-                                </Link>
-                            )}
-                            <div className="h-6 w-[1px] bg-border mx-2" />
-                            <Link
-                                href="/student/dashboard"
-                                className="px-6 py-3 bg-brand-primary text-white text-[13px] font-black uppercase tracking-widest rounded-xl hover:shadow-2xl hover:shadow-brand-primary/30 transition-all active:scale-95 flex items-center gap-2"
-                            >
-                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                My Account
-                            </Link>
                         </>
                     )}
                 </div>
 
                 {/* Mobile Toggle */}
                 <button
-                    className="md:hidden flex flex-col gap-1.5 p-2"
+                    className="md:hidden flex flex-col gap-1 p-2"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
-                    <span className={`w-6 h-0.5 bg-foreground transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
-                    <span className={`w-4 h-0.5 bg-foreground transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`} />
-                    <span className={`w-6 h-0.5 bg-foreground transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+                    <span className={`w-5 h-0.5 bg-slate-800 dark:bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
+                    <span className={`w-3.5 h-0.5 bg-slate-800 dark:bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`} />
+                    <span className={`w-5 h-0.5 bg-slate-800 dark:bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
                 </button>
             </div>
 
@@ -136,123 +133,64 @@ export default function Navbar() {
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
+                        initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="fixed inset-0 bg-background/95 backdrop-blur-2xl z-[60] md:hidden p-8 flex flex-col"
+                        exit={{ opacity: 0, y: -10 }}
+                        className="fixed inset-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl z-[60] md:hidden p-8 flex flex-col"
                     >
-                        <div className="flex justify-between items-center mb-12">
-                            <span className="text-xl font-black tracking-tight text-foreground">OSIS-MPK</span>
+                        <div className="flex justify-between items-center mb-8">
+                            <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white">OSIS-MPK SMKN 11</span>
                             <button
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="w-10 h-10 flex items-center justify-center rounded-full bg-foreground/5"
+                                className="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white"
                             >
-                                <span className="text-2xl">✕</span>
+                                ✕
                             </button>
                         </div>
-                        <div className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-4">
                             {!user ? (
                                 <>
-                                    {publicLinks.map((link, i) => (
-                                        <motion.div
+                                    {publicLinks.map((link) => (
+                                        <Link
                                             key={link.name}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: i * 0.1 }}
+                                            href={link.href}
+                                            className="text-2xl font-black text-slate-800 dark:text-slate-100 hover:text-emerald-700 transition-colors"
+                                            onClick={() => setIsMobileMenuOpen(false)}
                                         >
-                                            <Link
-                                                href={link.href}
-                                                className="text-4xl font-black text-foreground hover:text-brand-primary transition-colors"
-                                                onClick={() => setIsMobileMenuOpen(false)}
-                                            >
-                                                {link.name}
-                                            </Link>
-                                        </motion.div>
+                                            {link.name}
+                                        </Link>
                                     ))}
-                                    <motion.div
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: publicLinks.length * 0.1 }}
-                                        className="pt-8 border-t border-border"
-                                    >
+                                    <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
                                         <Link
                                             href="/login"
-                                            className="text-3xl font-black text-foreground"
+                                            className="text-xl font-black text-emerald-700 dark:text-emerald-400"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
                                             → Login Siswa
                                         </Link>
-                                    </motion.div>
+                                    </div>
                                 </>
                             ) : (
                                 <>
-                                    {memberLinks.map((link, i) => (
-                                        <motion.div
-                                            key={link.name}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: i * 0.1 }}
-                                        >
-                                            <Link
-                                                href={link.href}
-                                                className="text-4xl font-black text-foreground hover:text-brand-primary transition-colors"
-                                                onClick={() => setIsMobileMenuOpen(false)}
-                                            >
-                                                {link.name}
-                                            </Link>
-                                        </motion.div>
-                                    ))}
-                                    {['ADMINISTRATOR', 'PEMBINA', 'DEWAN'].includes(user.role as any) && (
-                                        <motion.div
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: memberLinks.length * 0.1 }}
-                                        >
-                                            <Link
-                                                href="/admin/aspirations"
-                                                className="text-4xl font-black text-foreground hover:text-brand-primary"
-                                                onClick={() => setIsMobileMenuOpen(false)}
-                                            >
-                                                Suara Siswa
-                                            </Link>
-                                        </motion.div>
-                                    )}
-                                    {user.role === 'ADMINISTRATOR' && (
-                                        <motion.div
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: (memberLinks.length + 1) * 0.1 }}
-                                        >
-                                            <Link
-                                                href="/admin/users"
-                                                className="text-4xl font-black text-foreground hover:text-brand-primary"
-                                                onClick={() => setIsMobileMenuOpen(false)}
-                                            >
-                                                Kelola Akun
-                                            </Link>
-                                        </motion.div>
-                                    )}
-                                    <motion.div
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: (memberLinks.length + 1) * 0.1 }}
-                                        className="pt-8 border-t border-border"
-                                    >
+                                    {memberLinks.map((link) => (
                                         <Link
-                                            href="/"
-                                            className="text-2xl font-bold text-foreground/40 mb-4 block"
+                                            key={link.name}
+                                            href={link.href}
+                                            className="text-2xl font-black text-slate-800 dark:text-slate-100 hover:text-emerald-700"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
-                                            Halaman Publik
+                                            {link.name}
                                         </Link>
+                                    ))}
+                                    <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
                                         <Link
                                             href="/student/dashboard"
-                                            className="text-3xl font-black text-brand-primary"
+                                            className="text-xl font-black text-emerald-700 dark:text-emerald-400"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
-                                            → Profil Saya
+                                            → Dashboard Saya
                                         </Link>
-                                    </motion.div>
+                                    </div>
                                 </>
                             )}
                         </div>

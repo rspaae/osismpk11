@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import ConditionalShell from "@/components/ConditionalShell";
 import { NextAuthProvider } from "@/components/Providers";
 
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
     subsets: ["latin"],
-    variable: "--font-inter",
-    display: 'swap',
-});
-
-const outfit = Outfit({
-    subsets: ["latin"],
-    variable: "--font-outfit",
+    weight: ["400", "500", "600", "700", "800"],
+    variable: "--font-jakarta",
     display: 'swap',
 });
 
@@ -28,12 +22,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="id">
-            <body className={`${inter.variable} ${outfit.variable} font-sans antialiased selection:bg-brand-accent selection:text-brand-primary`}>
+        <html lang="id" suppressHydrationWarning>
+            <body
+                suppressHydrationWarning
+                className={`${jakarta.variable} font-sans antialiased selection:bg-emerald-200 selection:text-emerald-950`}
+            >
                 <NextAuthProvider>
-                    <Navbar />
-                    {children}
-                    <Footer />
+                    <ConditionalShell>
+                        {children}
+                    </ConditionalShell>
                 </NextAuthProvider>
             </body>
         </html>

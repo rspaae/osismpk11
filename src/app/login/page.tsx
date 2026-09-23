@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
+import { sanitizeRedirectUrl } from '@/lib/security';
+
 function LoginForm() {
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
@@ -16,6 +18,7 @@ function LoginForm() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const errorCode = searchParams?.get('error');
+    const callbackUrlParam = searchParams?.get('callbackUrl');
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,16 +34,23 @@ function LoginForm() {
         }
 
         const result = await signIn('credentials', {
-            identifier,
+            identifier: identifier.trim(),
             password,
             redirect: false,
         });
 
         if (result?.error) {
-            setError("Email atau password tidak sesuai.");
+            // Tampilkan pesan error aktual (seperti akun terkunci / rate-limit)
+            if (result.error.includes("dibekukan") || result.error.includes("dinonaktifkan") || result.error.includes("pola berbahaya")) {
+                setError(result.error);
+            } else {
+                setError("NIS/Email atau kata sandi tidak sesuai.");
+            }
             setLoading(false);
         } else {
-            router.push('/student/dashboard');
+            // Open Redirect Shield: Pastikan hanya redirect ke internal path lokal
+            const safeRedirect = sanitizeRedirectUrl(callbackUrlParam, '/student/dashboard');
+            router.push(safeRedirect);
             router.refresh();
         }
     };

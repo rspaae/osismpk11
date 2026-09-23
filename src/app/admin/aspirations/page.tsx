@@ -2,159 +2,330 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface Aspiration {
     id: string;
     title: string;
     content: string;
     category: string;
-    status: string;
+    status: "PENDING" | "IN_REVIEW" | "APPROVED" | "REJECTED" | "RESOLVED";
+    response?: string | null;
+    respondedAt?: string | null;
+    isAnonymous: boolean;
+    attachmentUrl?: string | null;
+    upvotesCount: number;
+    targetDivision: string;
     createdAt: string;
     user: {
         name: string;
-        email: string;
+        email: string | null;
+        nis?: string | null;
+        kelas?: string | null;
     };
+    respondedBy?: {
+        name: string;
+        position?: string | null;
+    } | null;
 }
 
-export default function AdminAspirations() {
-    const { data: session, status } = useSession();
+export default function AdminAspirationsPage() {
+    const { data: session } = useSession();
     const [aspirations, setAspirations] = useState<Aspiration[]>([]);
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [statusFilter, setStatusFilter] = useState("ALL");
+    const [categoryFilter, setCategoryFilter] = useState("ALL");
+
+    // Modal or active response input state
+    const [activeReplyAsp, setActiveReplyAsp] = useState<Aspiration | null>(null);
+    const [replyText, setReplyText] = useState("");
+    const [replyStatus, setReplyStatus] = useState<string>("IN_REVIEW");
+    const [isSavingReply, setIsSavingReply] = useState(false);
 
     useEffect(() => {
-        if (session) {
-            fetchAspirations();
-        }
-    }, [session]);
+        fetchAspirations();
+    }, []);
 
     const fetchAspirations = async () => {
         try {
+            setLoading(true);
             const res = await fetch("/api/aspirations");
-            const data = await res.json();
-            setAspirations(data);
+            if (res.ok) {
+                const result = await res.json();
+                const list = Array.isArray(result) ? result : result.data || [];
+                setAspirations(list);
+            } else {
+                setAspirations([]);
+            }
         } catch (error) {
-            console.error("Error fetching aspirations:", error);
+            console.error("Gagal mengambil aspirasi:", error);
+            setAspirations([]);
         } finally {
             setLoading(false);
         }
     };
 
-    const updateStatus = async (id: string, newStatus: string) => {
+    const handleSaveResponse = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!activeReplyAsp || !replyText.trim()) return;
+
         try {
-            const res = await fetch(`/api/aspirations/${id}`, {
+            setIsSavingReply(true);
+            const res = await fetch(`/api/aspirations/${activeReplyAsp.id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ status: newStatus }),
+                body: JSON.stringify({
+                    response: replyText.trim(),
+                    status: replyStatus,
+                }),
             });
+
             if (res.ok) {
-                setAspirations(aspirations.map(a => a.id === id ? { ...a, status: newStatus } : a));
+                await fetchAspirations();
+                setActiveReplyAsp(null);
+                setReplyText("");
             }
         } catch (error) {
-            console.error("Error updating status:", error);
+            console.error("Gagal menyimpan respons aspirasi:", error);
+        } finally {
+            setIsSavingReply(false);
         }
     };
 
-    if (status === "loading") return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-    if (!session) redirect("/login");
-    if (!['ADMINISTRATOR', 'PEMBINA', 'DEWAN'].includes(session.user.role as any)) redirect("/student/dashboard");
+    const filteredAspirations = aspirations.filter((a) => {
+        const matchStatus = statusFilter === "ALL" || a.status === statusFilter;
+        const matchCategory = categoryFilter === "ALL" || a.category === categoryFilter;
+        const matchSearch =
+            !searchQuery ||
+            a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            a.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (a.user?.name && a.user.name.toLowerCase().includes(searchQuery.toLowerCase()));
+        return matchStatus && matchCategory && matchSearch;
+    });
 
     return (
-        <main className="min-h-screen pt-24 md:pt-44 pb-12 md:pb-32 px-4 md:px-6 bg-background">
-            <div className="container mx-auto max-w-6xl">
-                <header className="mb-12 md:mb-20 text-center md:text-left">
-                    <h1 className="text-3xl md:text-6xl font-black tracking-tighter mb-4 text-foreground leading-tight">Suara Siswa</h1>
-                    <p className="text-foreground/50 font-medium text-base md:text-lg italic">Kelola aspirasi dan masukan dari seluruh warga sekolah.</p>
-                </header>
-
-                {loading ? (
-                    <div className="text-center py-20 text-foreground/20 font-black uppercase tracking-widest italic">Memuat data...</div>
-                ) : (
-                    <div className="grid gap-10">
-                        <AnimatePresence>
-                            {aspirations.map((asp, i) => (
-                                <motion.div
-                                    key={asp.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.05 }}
-                                    className="glass p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] border-[1.5px] border-border-strong/20 hover:border-brand-primary/40 transition-all shadow-3xl shadow-brand-primary/5 relative overflow-hidden group"
-                                >
-                                    <div className="flex flex-col lg:flex-row justify-between gap-10 md:gap-14 items-start">
-                                        <div className="flex-1 w-full">
-                                            <div className="flex flex-wrap items-center gap-4 mb-8">
-                                                <span className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border ${asp.status === 'PENDING' ? 'bg-amber-500/10 text-amber-600 border-amber-500/20' :
-                                                    asp.status === 'REVIEWED' ? 'bg-blue-500/10 text-blue-600 border-blue-500/20' :
-                                                        'bg-emerald-500/10 text-emerald-600 border-emerald-500/20'
-                                                    }`}>
-                                                    {asp.status}
-                                                </span>
-                                                <span className="px-6 py-2 rounded-full text-[10px] font-black text-foreground/40 uppercase tracking-[0.2em] border border-border/50 bg-foreground/[0.02]">
-                                                    {asp.category}
-                                                </span>
-                                            </div>
-
-                                            <h2 className="text-2xl md:text-3xl font-black mb-6 tracking-tight group-hover:text-brand-primary transition-colors leading-tight">
-                                                {asp.title}
-                                            </h2>
-
-                                            <div className="relative mb-10">
-                                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-primary/20 rounded-full" />
-                                                <p className="text-foreground/70 leading-relaxed font-medium pl-8 py-2 italic text-lg">
-                                                    "{asp.content}"
-                                                </p>
-                                            </div>
-
-                                            <div className="flex items-center gap-5 p-5 glass rounded-[2rem] bg-foreground/[0.02] border-border/30 w-fit">
-                                                <div className="w-12 h-12 rounded-2xl bg-brand-primary shadow-lg shadow-brand-primary/20 flex items-center justify-center text-white text-lg font-black">
-                                                    {asp.user.name.charAt(0)}
-                                                </div>
-                                                <div>
-                                                    <p className="text-foreground font-black uppercase text-[10px] tracking-[0.2em] mb-1">{asp.user.name}</p>
-                                                    <p className="text-[10px] font-bold text-foreground/40 uppercase">{new Date(asp.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex flex-col sm:flex-row lg:flex-col gap-4 justify-center min-w-[220px] w-full lg:w-auto pt-8 lg:pt-0 border-t lg:border-t-0 lg:border-l border-border/20 lg:pl-10">
-                                            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground/30 text-center mb-4 w-full sm:hidden lg:block">Navigasi Status</p>
-                                            <button
-                                                onClick={() => updateStatus(asp.id, 'PENDING')}
-                                                className={`flex-1 py-4 px-6 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all border-2 ${asp.status === 'PENDING' ? 'bg-amber-500 text-white border-amber-500 shadow-xl shadow-amber-500/20 scale-105' : 'glass border-transparent hover:border-amber-500/30 hover:bg-amber-500/5'}`}
-                                            >
-                                                Set Pending
-                                            </button>
-                                            <button
-                                                onClick={() => updateStatus(asp.id, 'REVIEWED')}
-                                                className={`flex-1 py-4 px-6 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all border-2 ${asp.status === 'REVIEWED' ? 'bg-blue-500 text-white border-blue-500 shadow-xl shadow-blue-500/20 scale-105' : 'glass border-transparent hover:border-blue-500/30 hover:bg-blue-500/5'}`}
-                                            >
-                                                Set Reviewed
-                                            </button>
-                                            <button
-                                                onClick={() => updateStatus(asp.id, 'COMPLETED')}
-                                                className={`flex-1 py-4 px-6 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all border-2 ${asp.status === 'COMPLETED' ? 'bg-emerald-500 text-white border-emerald-500 shadow-xl shadow-emerald-500/20 scale-105' : 'glass border-transparent hover:border-emerald-500/30 hover:bg-emerald-500/5'}`}
-                                            >
-                                                Set Completed
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    {/* Decor */}
-                                    <div className="absolute -top-24 -right-24 w-64 h-64 bg-brand-primary/5 blur-[100px] rounded-full -z-10 group-hover:bg-brand-primary/10 transition-colors" />
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
-
-                        {aspirations.length === 0 && (
-                            <div className="text-center py-40 glass rounded-[3rem] text-foreground/20 font-black uppercase tracking-[0.3em] italic">
-                                Belum ada aspirasi yang masuk.
-                            </div>
-                        )}
-                    </div>
-                )}
+        <div className="space-y-6">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+                        <span>🗳️</span> Kotak Aspirasi & Advokasi Siswa
+                    </h1>
+                    <p className="text-sm text-slate-400 mt-1">
+                        Pusat pengelolaan suara, keluhan, saran, dan aspirasi siswa SMKN 11 Bandung yang dikelola Komisi B MPK.
+                    </p>
+                </div>
             </div>
-        </main>
+
+            {/* Filter Bar */}
+            <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Status Aspirasi</label>
+                    <select
+                        value={statusFilter}
+                        onChange={(e) => setStatusFilter(e.target.value)}
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                    >
+                        <option value="ALL">Semua Status</option>
+                        <option value="PENDING">PENDING (Menunggu)</option>
+                        <option value="IN_REVIEW">IN_REVIEW (Sedang Ditinjau)</option>
+                        <option value="APPROVED">APPROVED (Disetujui/Diteruskan)</option>
+                        <option value="RESOLVED">RESOLVED (Telah Selesai)</option>
+                        <option value="REJECTED">REJECTED (Ditolak)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Kategori</label>
+                    <select
+                        value={categoryFilter}
+                        onChange={(e) => setCategoryFilter(e.target.value)}
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                    >
+                        <option value="ALL">Semua Kategori</option>
+                        <option value="Fasilitas">🏫 Fasilitas Sekolah</option>
+                        <option value="Akademik">📚 Pembelajaran & Akademik</option>
+                        <option value="Kegiatan">🎉 Kegiatan & Event</option>
+                        <option value="Tata Tertib">📜 Tata Tertib & Kedisiplinan</option>
+                        <option value="Ekstrakurikuler">⚽ Ekstrakurikuler</option>
+                        <option value="Lainnya">📝 Lainnya</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Cari Aspirasi</label>
+                    <input
+                        type="text"
+                        placeholder="Cari judul, konten, nama siswa..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                    />
+                </div>
+            </div>
+
+            {/* Aspirations List */}
+            {loading ? (
+                <div className="py-12 text-center text-slate-500 text-xs">Memuat data aspirasi...</div>
+            ) : filteredAspirations.length === 0 ? (
+                <div className="py-16 text-center border border-dashed border-slate-800 rounded-3xl p-8">
+                    <div className="text-3xl mb-2">🗳️</div>
+                    <div className="text-sm font-bold text-slate-200">Belum ada aspirasi masuk</div>
+                    <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
+                        Aspirasi siswa yang disampaikan melalui formulir suara siswa akan masuk dan tercatat di sini.
+                    </p>
+                </div>
+            ) : (
+                <div className="space-y-4">
+                    {filteredAspirations.map((asp) => (
+                        <div
+                            key={asp.id}
+                            className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all"
+                        >
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider">
+                                        {asp.category}
+                                    </span>
+                                    <span className="text-[10px] text-slate-500">
+                                        Target: {asp.targetDivision?.replace(/_/g, " ") || "Komisi B"}
+                                    </span>
+                                    {asp.isAnonymous && (
+                                        <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-[10px] font-semibold border border-slate-700">
+                                            🔒 Anonim
+                                        </span>
+                                    )}
+                                </div>
+                                <div>
+                                    <span
+                                        className={`text-[10px] font-bold px-3 py-1 rounded-full border ${
+                                            asp.status === "PENDING"
+                                                ? "bg-amber-500/10 text-amber-300 border-amber-500/30"
+                                                : asp.status === "RESOLVED" || asp.status === "APPROVED"
+                                                ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/30"
+                                                : "bg-blue-500/10 text-blue-300 border-blue-500/30"
+                                        }`}
+                                    >
+                                        {asp.status}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="my-3">
+                                <h3 className="text-base font-bold text-white">{asp.title}</h3>
+                                <p className="text-xs text-slate-300 mt-2 leading-relaxed whitespace-pre-line">{asp.content}</p>
+                            </div>
+
+                            {/* Response Box if Exists */}
+                            {asp.response && (
+                                <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/30 my-3">
+                                    <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 mb-1 flex items-center gap-1.5">
+                                        <span>💬</span>
+                                        <span>Tanggapan Resmi Pengurus:</span>
+                                    </div>
+                                    <p className="text-xs text-emerald-100 whitespace-pre-line leading-relaxed">{asp.response}</p>
+                                    <div className="text-[10px] text-emerald-400/70 mt-2">
+                                        Ditanggapi pada: {asp.respondedAt ? new Date(asp.respondedAt).toLocaleString("id-ID") : "-"}
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500">
+                                <div>
+                                    Pengirim:{" "}
+                                    <span className="font-semibold text-slate-300">
+                                        {asp.isAnonymous ? "Siswa SMKN 11 (Anonim)" : `${asp.user?.name || "Siswa"} (${asp.user?.kelas || "-"})`}
+                                    </span>{" "}
+                                    • {new Date(asp.createdAt).toLocaleDateString("id-ID")}
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        setActiveReplyAsp(asp);
+                                        setReplyText(asp.response || "");
+                                        setReplyStatus(asp.status === "PENDING" ? "IN_REVIEW" : asp.status);
+                                    }}
+                                    className="px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition-all self-start sm:self-auto flex items-center gap-1.5"
+                                >
+                                    <span>💬</span>
+                                    <span>{asp.response ? "Edit Tanggapan" : "Beri Tanggapan Resmi"}</span>
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {/* Modal Reply Aspiration */}
+            {activeReplyAsp && (
+                <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+                    <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
+                        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                            <div>
+                                <h2 className="text-lg font-bold text-white">Tanggapan Advokasi Aspirasi</h2>
+                                <div className="text-xs text-emerald-400 font-semibold mt-0.5 truncate max-w-sm">
+                                    {activeReplyAsp.title}
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setActiveReplyAsp(null)}
+                                className="text-slate-400 hover:text-white text-sm"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleSaveResponse} className="space-y-4 mt-4">
+                            <div className="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 text-xs text-slate-300">
+                                <div className="font-bold text-white mb-1">Aspirasi Siswa:</div>
+                                {activeReplyAsp.content}
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-slate-300 mb-1">Status Penanganan</label>
+                                <select
+                                    value={replyStatus}
+                                    onChange={(e) => setReplyStatus(e.target.value)}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                >
+                                    <option value="IN_REVIEW">IN_REVIEW (Sedang Ditinjau & Dikoordinasikan)</option>
+                                    <option value="APPROVED">APPROVED (Disetujui & Diteruskan ke Pihak Sekolah)</option>
+                                    <option value="RESOLVED">RESOLVED (Telah Terealisasi / Selesai)</option>
+                                    <option value="REJECTED">REJECTED (Tidak Dapat Ditindaklanjuti)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-slate-300 mb-1">Tulis Tanggapan Resmi *</label>
+                                <textarea
+                                    required
+                                    rows={4}
+                                    placeholder="Tuliskan jawaban atau langkah tindak lanjut resmi dari MPK/OSIS..."
+                                    value={replyText}
+                                    onChange={(e) => setReplyText(e.target.value)}
+                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                />
+                            </div>
+
+                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                                <button
+                                    type="button"
+                                    onClick={() => setActiveReplyAsp(null)}
+                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                                >
+                                    Batal
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isSavingReply}
+                                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20"
+                                >
+                                    {isSavingReply ? "Menyimpan..." : "Kirim Tanggapan Resmi"}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+        </div>
     );
 }

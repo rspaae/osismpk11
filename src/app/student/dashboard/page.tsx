@@ -1,14 +1,53 @@
 'use client';
 
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import SignOutButton from "@/components/SignOutButton";
 import { motion, AnimatePresence } from "framer-motion";
 import AspirationForm from "@/components/AspirationForm";
 import Image from "next/image";
+import Link from "next/link";
+
+interface MyAspiration {
+    id: string;
+    title: string;
+    content: string;
+    category: string;
+    status: "PENDING" | "REVIEWED" | "COMPLETED";
+    response?: string | null;
+    respondedAt?: string | null;
+    isAnonymous: boolean;
+    createdAt: string;
+}
 
 export default function StudentDashboard() {
     const { data: session, status } = useSession();
+    const [myAspirations, setMyAspirations] = useState<MyAspiration[]>([]);
+    const [loadingAspirations, setLoadingAspirations] = useState(true);
+
+    const user = session?.user;
+
+    useEffect(() => {
+        if (session && user?.role === "STUDENT") {
+            fetchMyAspirations();
+        }
+    }, [session, user?.role]);
+
+    const fetchMyAspirations = async () => {
+        try {
+            setLoadingAspirations(true);
+            const res = await fetch("/api/aspirations/my");
+            if (res.ok) {
+                const data = await res.json();
+                setMyAspirations(data);
+            }
+        } catch (error) {
+            console.error("Error fetching my aspirations:", error);
+        } finally {
+            setLoadingAspirations(false);
+        }
+    };
 
     if (status === "loading") {
         return (
@@ -22,10 +61,8 @@ export default function StudentDashboard() {
         redirect("/login");
     }
 
-    const user = session.user;
-
     return (
-        <main className="min-h-screen pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-6 bg-brand-soft/50 dark:bg-background">
+        <main className="min-h-screen pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 bg-brand-soft/50 dark:bg-background">
             <div className="container mx-auto max-w-7xl">
                 {/* Header Section */}
                 <header className="mb-8 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 text-center md:text-left">
@@ -34,7 +71,9 @@ export default function StudentDashboard() {
                         animate={{ opacity: 1, x: 0 }}
                     >
                         <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-foreground">Dashboard Siswa</h1>
-                        <p className="text-foreground/50 font-medium text-lg italic">Selamat datang di pusat kendali inspirasi Anda, {user?.name?.split(' ')[0]}.</p>
+                        <p className="text-foreground/50 font-medium text-base md:text-lg italic">
+                            Selamat datang di pusat kendali inspirasi Anda, {user?.name?.split(' ')[0]}.
+                        </p>
                     </motion.div>
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
@@ -77,7 +116,7 @@ export default function StudentDashboard() {
                                 <div className="flex gap-4 md:gap-8 items-center mb-10 md:mb-16">
                                     <div className="logo-orb w-20 h-20 md:w-28 md:h-28 p-3 shadow-2xl border-white/20">
                                         <Image
-                                            src={user?.role === 'MPK_OFFICER' ? "/images/logos/mpk.jpg" : "/images/logos/osis.jpg"}
+                                            src={user?.role === 'BPH_MPK' || user?.role === 'KOMISI_OFFICER' ? "/images/logos/mpk.jpg" : "/images/logos/osis.jpg"}
                                             alt="Org Logo"
                                             width={100}
                                             height={100}
@@ -89,10 +128,14 @@ export default function StudentDashboard() {
                                         <div className="px-4 py-1.5 bg-brand-accent text-brand-primary text-[9px] md:text-[11px] font-black rounded-full inline-block uppercase tracking-widest shadow-xl shadow-brand-accent/20">
                                             {
                                                 user?.role === 'ADMINISTRATOR' ? 'Sistem Admin' :
-                                                    user?.role === 'PEMBINA' ? 'Pembina OSIS-MPK' :
-                                                        user?.role === 'DEWAN' ? 'Dewan Pengurus' :
-                                                            user?.role === 'OSIS_OFFICER' ? 'Pengurus OSIS' :
-                                                                user?.role === 'MPK_OFFICER' ? 'Pengurus MPK' : 'Siswa Aktif'
+                                                user?.role === 'KEPALA_SEKOLAH' ? 'Kepala Sekolah' :
+                                                user?.role === 'KESISWAAN' ? 'Wakasek Kesiswaan' :
+                                                user?.role === 'PEMBINA' ? 'Pembina OSIS-MPK' :
+                                                user?.role === 'BPH_OSIS' ? 'BPH OSIS Navastra' :
+                                                user?.role === 'BPH_MPK' ? 'BPH MPK Navandya' :
+                                                user?.role === 'SEKBID_OFFICER' ? (user?.position || 'Pengurus Sekbid OSIS') :
+                                                user?.role === 'KOMISI_OFFICER' ? (user?.position || 'Pengurus Komisi MPK') :
+                                                'Siswa Aktif'
                                             }
                                         </div>
                                     </div>
@@ -101,7 +144,7 @@ export default function StudentDashboard() {
                                 <div className="flex justify-between items-end">
                                     <div>
                                         <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Email Institusi</p>
-                                        <p className="text-white font-bold text-sm tracking-wide">{user?.email}</p>
+                                        <p className="text-white font-bold text-sm tracking-wide">{user?.email || '-'}</p>
                                     </div>
                                     <div className="text-right">
                                         <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] mb-1">ID Siswa</p>
@@ -118,10 +161,10 @@ export default function StudentDashboard() {
                     {/* Right Column: Content Grid */}
                     <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-8">
                         {[
-                            { title: "Status Aktivitas", value: "Aktif", icon: "✨", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-                            { title: "Point Kontribusi", value: "145", icon: "🏆", color: "text-amber-500", bg: "bg-amber-500/10" },
-                            { title: "Agenda Terdekat", value: "Rapat Mingguan", icon: "📅", color: "text-blue-500", bg: "bg-blue-500/10" },
-                            { title: "Pesan Baru", value: "3 Pesan", icon: "✉️", color: "text-purple-500", bg: "bg-purple-500/10" }
+                            { title: "Status Akun", value: "Aktif", icon: "✨", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+                            { title: "Aspirasi Dikirim", value: `${myAspirations.length} Suara`, icon: "💡", color: "text-purple-500", bg: "bg-purple-500/10" },
+                            { title: "Agenda Terdekat", value: "Rapat Rutin", icon: "📅", color: "text-blue-500", bg: "bg-blue-500/10" },
+                            { title: "Status Verifikasi", value: "Terverifikasi", icon: "🛡️", color: "text-amber-500", bg: "bg-amber-500/10" }
                         ].map((stat, i) => (
                             <motion.div
                                 key={i}
@@ -138,27 +181,28 @@ export default function StudentDashboard() {
                             </motion.div>
                         ))}
 
+
                         {/* Announcements Card */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
-                            className="md:col-span-2 glass p-10 rounded-[2.5rem] border-white/50"
+                            className="md:col-span-2 glass p-8 md:p-10 rounded-[2.5rem] border-white/50"
                         >
-                            <h3 className="text-xl font-black tracking-tight mb-8 flex items-center gap-3 text-foreground">
+                            <h3 className="text-xl font-black tracking-tight mb-6 flex items-center gap-3 text-foreground">
                                 <span className="w-2 h-6 bg-brand-primary rounded-full" />
-                                Pengumuman Terbaru
+                                Pengumuman Resmi
                             </h3>
-                            <div className="space-y-6">
+                            <div className="space-y-4">
                                 {[
-                                    { date: "2 Feb", text: "Registrasi LDK 2026 telah dibuka untuk seluruh siswa." },
-                                    { date: "31 Jan", text: "Hasil pemilihan Ketua OSIS periode 2026 sudah dapat dilihat." },
+                                    { date: "Maret 2026", text: "Portal Aspirasi Terbuka untuk seluruh siswa SMKN 11 Bandung." },
+                                    { date: "Februari 2026", text: "Kegiatan LDK dan Musyawarah Perwakilan Kelas Tahun Ajaran Aktif." },
                                 ].map((news, i) => (
-                                    <div key={i} className="flex gap-6 items-start group cursor-pointer">
-                                        <div className="px-3 py-2 bg-foreground/5 rounded-xl text-[11px] font-black text-foreground/40 group-hover:bg-brand-primary group-hover:text-white transition-all">
+                                    <div key={i} className="flex gap-4 items-start group">
+                                        <div className="px-3 py-1.5 bg-foreground/5 rounded-xl text-[10px] font-black text-foreground/50 group-hover:bg-brand-primary group-hover:text-white transition-all whitespace-nowrap">
                                             {news.date}
                                         </div>
-                                        <p className="text-sm font-bold text-foreground/60 leading-relaxed group-hover:text-foreground transition-all">
+                                        <p className="text-xs md:text-sm font-semibold text-foreground/70 leading-relaxed group-hover:text-foreground transition-all">
                                             {news.text}
                                         </p>
                                     </div>
@@ -166,19 +210,142 @@ export default function StudentDashboard() {
                             </div>
                         </motion.div>
                     </div>
+
                     {/* Aspiration Section - Only for Students */}
                     {user?.role === 'STUDENT' && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8 }}
-                            className="lg:col-span-12 mt-8 md:mt-16"
-                        >
-                            <AspirationForm />
-                        </motion.div>
+                        <>
+                            {/* Submit Form */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.7 }}
+                                className="lg:col-span-12 mt-4"
+                            >
+                                <AspirationForm onAspirationSubmitted={fetchMyAspirations} />
+                            </motion.div>
+
+                            {/* My Aspirations History */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.8 }}
+                                className="lg:col-span-12 mt-6"
+                            >
+                                <div className="glass p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border-white/40 dark:border-white/10 shadow-3xl shadow-brand-primary/5">
+                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                                        <div>
+                                            <h3 className="text-xl md:text-2xl font-black tracking-tight flex items-center gap-3 text-foreground">
+                                                <span className="w-2.5 h-6 bg-brand-primary rounded-full" />
+                                                Riwayat Aspirasi Saya
+                                            </h3>
+                                            <p className="text-foreground/50 text-xs md:text-sm mt-1">
+                                                Pantau proses dan tanggapan langsung dari pengurus OSIS & MPK.
+                                            </p>
+                                        </div>
+                                        <button
+                                            onClick={fetchMyAspirations}
+                                            className="px-5 py-2.5 rounded-xl glass border border-border text-xs font-bold hover:bg-foreground/5 transition-all flex items-center gap-2 cursor-pointer"
+                                        >
+                                            <span>🔄</span> Muat Ulang
+                                        </button>
+                                    </div>
+
+                                    {loadingAspirations ? (
+                                        <div className="text-center py-16 text-foreground/40 font-bold text-sm">
+                                            Memuat riwayat aspirasi...
+                                        </div>
+                                    ) : myAspirations.length === 0 ? (
+                                        <div className="text-center py-16 glass rounded-3xl border border-dashed border-border text-foreground/40 font-bold text-sm">
+                                            Belum ada aspirasi yang dikirim. Kirimkan ide atau saran Anda melalui form di atas!
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-6">
+                                            <AnimatePresence>
+                                                {myAspirations.map((asp, idx) => (
+                                                    <motion.div
+                                                        key={asp.id}
+                                                        initial={{ opacity: 0, y: 15 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        transition={{ delay: idx * 0.05 }}
+                                                        className="p-6 md:p-8 rounded-3xl bg-foreground/[0.02] border border-border/80 hover:border-brand-primary/40 transition-all shadow-sm"
+                                                    >
+                                                        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                                                            <div className="flex flex-wrap items-center gap-3">
+                                                                <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider border ${
+                                                                    asp.status === 'PENDING'
+                                                                        ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
+                                                                        : asp.status === 'REVIEWED'
+                                                                        ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
+                                                                        : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                                                                }`}>
+                                                                    {asp.status === 'PENDING' && '⏳ Menunggu'}
+                                                                    {asp.status === 'REVIEWED' && '🔍 Sedang Ditinjau'}
+                                                                    {asp.status === 'COMPLETED' && '✅ Selesai'}
+                                                                </span>
+                                                                <span className="px-4 py-1.5 rounded-full text-[10px] font-bold text-foreground/50 border border-border/60 bg-foreground/[0.02]">
+                                                                    {asp.category}
+                                                                </span>
+                                                                {asp.isAnonymous && (
+                                                                    <span className="px-3 py-1 rounded-full text-[9px] font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                                                                        🕵️ Anonim
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                            <span className="text-[11px] font-medium text-foreground/40">
+                                                                {new Date(asp.createdAt).toLocaleDateString('id-ID', {
+                                                                    day: 'numeric',
+                                                                    month: 'long',
+                                                                    year: 'numeric'
+                                                                })}
+                                                            </span>
+                                                        </div>
+
+                                                        <h4 className="text-lg md:text-xl font-black text-foreground mb-3">
+                                                            {asp.title}
+                                                        </h4>
+                                                        <p className="text-foreground/70 text-sm leading-relaxed mb-6 font-medium">
+                                                            {asp.content}
+                                                        </p>
+
+                                                        {/* Official Admin / OSIS Response */}
+                                                        {asp.response ? (
+                                                            <div className="p-5 rounded-2xl bg-brand-primary/5 dark:bg-brand-primary/10 border border-brand-primary/20">
+                                                                <div className="flex items-center gap-2 mb-2">
+                                                                    <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
+                                                                    <span className="text-xs font-black uppercase tracking-wider text-brand-primary">
+                                                                        Tanggapan Resmi OSIS & MPK
+                                                                    </span>
+                                                                    {asp.respondedAt && (
+                                                                        <span className="text-[10px] text-foreground/40 ml-auto">
+                                                                            {new Date(asp.respondedAt).toLocaleDateString('id-ID', {
+                                                                                day: 'numeric',
+                                                                                month: 'short',
+                                                                                year: 'numeric'
+                                                                            })}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                                <p className="text-foreground/80 text-sm leading-relaxed italic font-medium">
+                                                                    "{asp.response}"
+                                                                </p>
+                                                            </div>
+                                                        ) : (
+                                                            <div className="text-xs text-foreground/40 italic flex items-center gap-2">
+                                                                <span>💬</span> Belum ada tanggapan resmi dari tim pengurus.
+                                                            </div>
+                                                        )}
+                                                    </motion.div>
+                                                ))}
+                                            </AnimatePresence>
+                                        </div>
+                                    )}
+                                </div>
+                            </motion.div>
+                        </>
                     )}
                 </div>
             </div>
         </main>
     );
 }
+
