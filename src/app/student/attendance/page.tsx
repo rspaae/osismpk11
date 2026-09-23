@@ -61,12 +61,13 @@ export default function StudentAttendancePage() {
         }
     }, []);
 
-    useEffect(() => { fetchData(); }, [fetchData]);
+    useEffect(() => {
+        if (session) fetchData();
+    }, [session, fetchData]);
 
     const getMyRecord = (sessionId: string) =>
         myRecords.find(r => r.sessionId === sessionId);
 
-    // ── Submit Absensi ──────────────────────────────────────────────────────
     const handleAbsen = async () => {
         if (!confirmSession) return;
         setSubmitting(true);
@@ -77,12 +78,11 @@ export default function StudentAttendancePage() {
                 body: JSON.stringify({ sessionId: confirmSession.id }),
             });
             const json = await res.json();
+
             if (res.status === 200 && json.data) {
-                // Already checked in
                 showToast("Kamu sudah melakukan absensi di kegiatan ini sebelumnya.", "info");
             } else if (res.status === 201) {
                 showToast("✅ Absensi berhasil dicatat! Selamat hadir.");
-                // Update local myRecords
                 setMyRecords(prev => [...prev, {
                     sessionId: confirmSession.id,
                     status: "PRESENT",
@@ -101,8 +101,8 @@ export default function StudentAttendancePage() {
 
     if (status === "loading" || loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center pt-24">
-                <div className="w-10 h-10 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
+            <div className="min-h-screen flex items-center justify-center pt-24 bg-[#f7faf7] dark:bg-[#141c18]">
+                <div className="w-8 h-8 border-3 border-[#468366]/30 border-t-[#468366] rounded-full animate-spin" />
             </div>
         );
     }
@@ -113,48 +113,48 @@ export default function StudentAttendancePage() {
     }
 
     const toastColors: Record<string, string> = {
-        success: "bg-emerald-900/90 border-emerald-500/40 text-emerald-300",
-        error: "bg-red-900/90 border-red-500/40 text-red-300",
-        info: "bg-blue-900/90 border-blue-500/40 text-blue-300",
+        success: "bg-[#e8f2ec] border-[#d4e6db] text-[#2b6144]",
+        error: "bg-[#fae8e8] border-[#f0c2c2] text-[#8c3636]",
+        info: "bg-[#e6effa] border-[#c2d7ed] text-[#335982]",
     };
 
     return (
-        <main className="min-h-screen pt-24 md:pt-32 pb-16 px-4 md:px-6 bg-brand-soft/50 dark:bg-background">
+        <main className="min-h-screen pt-24 md:pt-32 pb-16 px-4 md:px-6 bg-[#f7faf7] dark:bg-[#141c18] text-[#334139] dark:text-[#dce6e0]">
             {/* Toast */}
             {toast && (
-                <div className={`fixed top-6 right-6 z-50 px-5 py-3 rounded-xl text-sm font-bold shadow-2xl border ${toastColors[toast.type]}`}>
+                <div className={`fixed top-6 right-6 z-50 px-4 py-2.5 rounded-xl text-xs font-semibold shadow-xs border ${toastColors[toast.type]}`}>
                     {toast.msg}
                 </div>
             )}
 
             <div className="container mx-auto max-w-3xl">
                 {/* Header */}
-                <div className="mb-8">
-                    <div className="flex items-center justify-between mb-2">
-                        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground">
+                <div className="mb-6">
+                    <div className="flex items-center justify-between mb-1">
+                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-[#2c3831] dark:text-[#dce6e0]">
                             📅 Absensi Kegiatan
                         </h1>
                         <Link
                             href="/student/attendance/history"
-                            className="px-4 py-2 text-xs font-bold border border-border rounded-xl hover:bg-foreground/5 transition-all text-foreground/70 hover:text-foreground"
+                            className="px-3.5 py-1.5 text-xs font-semibold border border-[#d2ded6] dark:border-[#24342c] rounded-xl hover:bg-[#edf5f0] transition-colors text-[#5f7167] dark:text-[#a5b8ad]"
                         >
                             📋 Riwayat Saya
                         </Link>
                     </div>
-                    <p className="text-foreground/50 text-sm font-medium">
-                        Kegiatan Sekbid OSIS yang sedang membuka absensi
+                    <p className="text-[#5f7167] dark:text-[#a5b8ad] text-xs sm:text-sm">
+                        Kegiatan Sekbid OSIS yang sedang membuka sesi absensi
                     </p>
                 </div>
 
-                {/* Absensi kamu */}
+                {/* Account Card */}
                 {session.user && (
-                    <div className="glass border border-border/50 rounded-2xl p-5 mb-6 flex items-center gap-4">
-                        <div className="w-11 h-11 rounded-full bg-brand-primary/10 flex items-center justify-center text-lg font-black text-brand-primary">
+                    <div className="bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-4 mb-5 flex items-center gap-3 shadow-xs">
+                        <div className="w-10 h-10 rounded-xl bg-[#e8f2ec] dark:bg-[#1d2c25] flex items-center justify-center text-base font-bold text-[#396953] dark:text-[#a3d4bd]">
                             {(session.user.name || "?").charAt(0).toUpperCase()}
                         </div>
                         <div>
-                            <p className="font-black text-foreground">{session.user.name || "Pengguna"}</p>
-                            <p className="text-foreground/50 text-xs">
+                            <p className="font-bold text-sm text-[#2c3831] dark:text-[#dce6e0]">{session.user.name || "Pengguna"}</p>
+                            <p className="text-[#8a9a91] text-xs">
                                 {session.user.kelas ? `${session.user.kelas} · ` : ""}
                                 Absensi tercatat atas nama akun ini
                             </p>
@@ -163,10 +163,10 @@ export default function StudentAttendancePage() {
                 )}
 
                 {/* Refresh */}
-                <div className="flex justify-end mb-4">
+                <div className="flex justify-end mb-3">
                     <button
                         onClick={fetchData}
-                        className="text-xs font-bold text-foreground/40 hover:text-foreground/70 transition-all flex items-center gap-1.5"
+                        className="text-xs font-semibold text-[#5f7167] hover:text-[#468366] transition-colors flex items-center gap-1 cursor-pointer"
                     >
                         🔄 Muat Ulang
                     </button>
@@ -174,18 +174,18 @@ export default function StudentAttendancePage() {
 
                 {/* Sessions */}
                 {openSessions.length === 0 ? (
-                    <div className="glass border border-dashed border-border rounded-2xl p-12 text-center">
-                        <p className="text-4xl mb-4">📭</p>
-                        <p className="font-black text-foreground/60 text-lg">Tidak Ada Kegiatan Aktif</p>
-                        <p className="text-foreground/40 text-sm mt-2">
-                            Belum ada kegiatan Sekbid yang sedang membuka absensi saat ini.
+                    <div className="bg-white dark:bg-[#19241f] border border-dashed border-[#d2ded6] dark:border-[#24342c] rounded-2xl p-10 text-center">
+                        <p className="text-3xl mb-3">📭</p>
+                        <p className="font-bold text-[#2c3831] dark:text-[#dce6e0] text-base">Tidak Ada Kegiatan Aktif</p>
+                        <p className="text-[#8a9a91] text-xs mt-1">
+                            Belum ada kegiatan Sekbid yang membuka absensi saat ini.
                         </p>
-                        <Link href="/student/attendance/history" className="inline-block mt-5 text-sm font-bold text-brand-primary hover:underline">
+                        <Link href="/student/attendance/history" className="inline-block mt-4 text-xs font-semibold text-[#468366] hover:underline">
                             Lihat riwayat absensi kamu →
                         </Link>
                     </div>
                 ) : (
-                    <div className="space-y-4">
+                    <div className="space-y-3.5">
                         {openSessions.map(s => {
                             const myRec = getMyRecord(s.id);
                             const divMeta = DIVISIONS_METADATA[s.targetDivision as keyof typeof DIVISIONS_METADATA];
@@ -194,32 +194,32 @@ export default function StudentAttendancePage() {
                             return (
                                 <div
                                     key={s.id}
-                                    className={`glass border rounded-2xl p-5 transition-all ${
+                                    className={`bg-white dark:bg-[#19241f] border rounded-2xl p-5 transition-all shadow-xs ${
                                         alreadyDone
-                                            ? "border-emerald-500/30 bg-emerald-500/5"
-                                            : "border-border/60 hover:border-brand-primary/30"
+                                            ? "border-[#d4e6db] dark:border-[#24342c]"
+                                            : "border-[#e3ece6] dark:border-[#24342c] hover:border-[#468366]/40"
                                     }`}
                                 >
                                     <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                                         <div className="flex-1 min-w-0">
                                             {/* Badges */}
                                             <div className="flex flex-wrap items-center gap-2 mb-2">
-                                                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#e8f2ec] dark:bg-[#1d2c25] text-[#396953] dark:text-[#a3d4bd] border border-[#d4e6db] dark:border-[#24342c]">
                                                     🟢 Dibuka
                                                 </span>
-                                                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-foreground/5 text-foreground/60 border border-border/50">
+                                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-[#f7faf7] dark:bg-[#141c18] text-[#5f7167] dark:text-[#a5b8ad] border border-[#e3ece6] dark:border-[#24342c]">
                                                     {divMeta?.icon} {divMeta?.label || s.targetDivision}
                                                 </span>
                                             </div>
 
                                             {/* Title */}
-                                            <h3 className="font-black text-foreground text-base leading-snug">{s.title}</h3>
+                                            <h3 className="font-bold text-[#2c3831] dark:text-[#dce6e0] text-sm md:text-base leading-snug">{s.title}</h3>
 
                                             {/* Details */}
-                                            <div className="flex flex-wrap gap-3 mt-1.5 text-foreground/50 text-xs font-medium">
+                                            <div className="flex flex-wrap gap-3 mt-1.5 text-[#8a9a91] text-xs">
                                                 <span>
                                                     📅 {new Date(s.date).toLocaleDateString("id-ID", {
-                                                        weekday: "long", day: "numeric", month: "long", year: "numeric"
+                                                        weekday: "long", day: "numeric", month: "short", year: "numeric"
                                                     })}
                                                 </span>
                                                 {s.startTime && (
@@ -229,21 +229,21 @@ export default function StudentAttendancePage() {
                                             </div>
 
                                             {s.description && (
-                                                <p className="text-foreground/40 text-xs mt-2">{s.description}</p>
+                                                <p className="text-[#5f7167] dark:text-[#a5b8ad] text-xs mt-2">{s.description}</p>
                                             )}
 
-                                            <p className="text-foreground/30 text-xs mt-2">{s._count.records} peserta sudah absen</p>
+                                            <p className="text-[#8a9a91] text-[11px] mt-2">{s._count.records} peserta sudah absen</p>
                                         </div>
 
                                         {/* CTA */}
-                                        <div className="flex-shrink-0">
+                                        <div className="shrink-0">
                                             {alreadyDone ? (
                                                 <div className="text-right">
-                                                    <div className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
-                                                        <span className="text-emerald-500 text-base">✅</span>
+                                                    <div className="inline-flex items-center gap-2 px-3.5 py-2 bg-[#e8f2ec] dark:bg-[#1d2c25] border border-[#d4e6db] dark:border-[#24342c] rounded-xl">
+                                                        <span className="text-[#396953]">✓</span>
                                                         <div>
-                                                            <p className="text-emerald-600 dark:text-emerald-400 text-xs font-black">Sudah Absen</p>
-                                                            <p className="text-emerald-500/70 text-[10px] font-semibold">
+                                                            <p className="text-[#396953] dark:text-[#a3d4bd] text-xs font-bold">Sudah Absen</p>
+                                                            <p className="text-[#5f7167] dark:text-[#a5b8ad] text-[10px]">
                                                                 {new Date(myRec!.checkInTime).toLocaleTimeString("id-ID", {
                                                                     hour: "2-digit", minute: "2-digit"
                                                                 })}
@@ -254,7 +254,7 @@ export default function StudentAttendancePage() {
                                             ) : (
                                                 <button
                                                     onClick={() => setConfirmSession(s)}
-                                                    className="px-5 py-3 bg-brand-primary hover:bg-brand-primary/90 text-white font-black text-sm rounded-xl transition-all shadow-lg shadow-brand-primary/20"
+                                                    className="px-4 py-2.5 bg-[#468366] hover:bg-[#396953] text-white font-semibold text-xs uppercase tracking-wider rounded-xl transition-all shadow-xs cursor-pointer"
                                                 >
                                                     Absen Sekarang →
                                                 </button>
@@ -267,9 +267,9 @@ export default function StudentAttendancePage() {
                     </div>
                 )}
 
-                {/* Link ke dashboard */}
-                <div className="text-center mt-10">
-                    <Link href="/student/dashboard" className="text-sm text-foreground/40 hover:text-foreground/70 font-semibold transition-all">
+                {/* Back to dashboard */}
+                <div className="text-center mt-8">
+                    <Link href="/student/dashboard" className="text-xs text-[#5f7167] hover:text-[#468366] font-semibold transition-colors">
                         ← Kembali ke Dashboard
                     </Link>
                 </div>
@@ -278,64 +278,62 @@ export default function StudentAttendancePage() {
             {/* ── Modal Konfirmasi Absensi ──────────────────────────── */}
             {confirmSession && (
                 <div
-                    className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+                    className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4"
                     onClick={e => { if (e.target === e.currentTarget && !submitting) setConfirmSession(null); }}
                 >
-                    <div className="bg-background border border-border rounded-3xl w-full max-w-sm shadow-2xl">
-                        <div className="p-6">
-                            <div className="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-3xl mx-auto mb-5">
-                                📋
-                            </div>
-                            <h2 className="text-xl font-black text-foreground text-center mb-1">
-                                Konfirmasi Absensi
-                            </h2>
-                            <p className="text-foreground/50 text-sm text-center mb-5">
-                                Absensi tidak dapat dibatalkan setelah dikonfirmasi.
-                            </p>
+                    <div className="bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] rounded-3xl w-full max-w-sm shadow-xl p-6">
+                        <div className="w-12 h-12 rounded-2xl bg-[#e8f2ec] dark:bg-[#1d2c25] flex items-center justify-center text-2xl mx-auto mb-4 text-[#396953]">
+                            📋
+                        </div>
+                        <h2 className="text-lg font-bold text-[#2c3831] dark:text-[#dce6e0] text-center mb-1">
+                            Konfirmasi Absensi
+                        </h2>
+                        <p className="text-[#5f7167] dark:text-[#a5b8ad] text-xs text-center mb-4">
+                            Absensi tidak dapat dibatalkan setelah dikonfirmasi.
+                        </p>
 
-                            <div className="bg-foreground/[0.03] border border-border/60 rounded-2xl p-4 mb-5 space-y-2 text-sm">
-                                <div className="flex justify-between">
-                                    <span className="text-foreground/50">Kegiatan</span>
-                                    <span className="text-foreground font-bold text-right max-w-[60%]">{confirmSession.title}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-foreground/50">Sekbid</span>
-                                    <span className="text-foreground font-bold">
-                                        {DIVISIONS_METADATA[confirmSession.targetDivision as keyof typeof DIVISIONS_METADATA]?.label}
-                                    </span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-foreground/50">Tanggal</span>
-                                    <span className="text-foreground font-bold">
-                                        {new Date(confirmSession.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
-                                    </span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-foreground/50">Atas nama</span>
-                                    <span className="text-foreground font-bold">{session.user?.name || "Kamu"}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-foreground/50">Status</span>
-                                    <span className="text-emerald-500 font-black">✅ Hadir</span>
-                                </div>
+                        <div className="bg-[#f7faf7] dark:bg-[#141c18] border border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-4 mb-5 space-y-2 text-xs">
+                            <div className="flex justify-between">
+                                <span className="text-[#5f7167]">Kegiatan</span>
+                                <span className="text-[#2c3831] dark:text-[#dce6e0] font-semibold text-right max-w-[60%]">{confirmSession.title}</span>
                             </div>
+                            <div className="flex justify-between">
+                                <span className="text-[#5f7167]">Sekbid</span>
+                                <span className="text-[#2c3831] dark:text-[#dce6e0] font-semibold">
+                                    {DIVISIONS_METADATA[confirmSession.targetDivision as keyof typeof DIVISIONS_METADATA]?.label}
+                                </span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-[#5f7167]">Tanggal</span>
+                                <span className="text-[#2c3831] dark:text-[#dce6e0] font-semibold">
+                                    {new Date(confirmSession.date).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
+                                </span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-[#5f7167]">Atas nama</span>
+                                <span className="text-[#2c3831] dark:text-[#dce6e0] font-semibold">{session.user?.name || "Kamu"}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-[#5f7167]">Status</span>
+                                <span className="text-[#396953] dark:text-[#a3d4bd] font-bold">✓ Hadir</span>
+                            </div>
+                        </div>
 
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={() => setConfirmSession(null)}
-                                    disabled={submitting}
-                                    className="flex-1 py-3 border border-border rounded-2xl text-sm font-bold text-foreground/60 hover:text-foreground transition-all disabled:opacity-50"
-                                >
-                                    Batal
-                                </button>
-                                <button
-                                    onClick={handleAbsen}
-                                    disabled={submitting}
-                                    className="flex-1 py-3 bg-brand-primary hover:bg-brand-primary/90 text-white font-black text-sm rounded-2xl transition-all shadow-lg shadow-brand-primary/20 disabled:opacity-60"
-                                >
-                                    {submitting ? "Mencatat..." : "Ya, Absen Sekarang"}
-                                </button>
-                            </div>
+                        <div className="flex gap-2.5">
+                            <button
+                                onClick={() => setConfirmSession(null)}
+                                disabled={submitting}
+                                className="flex-1 py-2.5 border border-[#d2ded6] dark:border-[#24342c] rounded-xl text-xs font-semibold text-[#5f7167] hover:bg-[#edf5f0] transition-colors disabled:opacity-50 cursor-pointer"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                onClick={handleAbsen}
+                                disabled={submitting}
+                                className="flex-1 py-2.5 bg-[#468366] hover:bg-[#396953] text-white font-semibold text-xs rounded-xl transition-colors shadow-xs disabled:opacity-60 cursor-pointer"
+                            >
+                                {submitting ? "Mencatat..." : "Ya, Absen"}
+                            </button>
                         </div>
                     </div>
                 </div>

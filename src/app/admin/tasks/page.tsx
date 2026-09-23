@@ -168,18 +168,25 @@ export default function TasksPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
-                        <span>📌</span> Manajemen Tugas Pengurus
+                    <h1 className="text-2xl md:text-3xl font-bold text-[#202924] dark:text-white tracking-tight flex items-center gap-2.5">
+                        <span className="w-10 h-10 rounded-xl bg-[#e8f2ec] dark:bg-[#1c2823] text-[#468366] flex items-center justify-center border border-[#d4e6db] dark:border-[#2a3c33] text-lg">
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                            </svg>
+                        </span>
+                        <span>Penugasan Pengurus</span>
                     </h1>
-                    <p className="text-sm text-slate-400 mt-1">
-                        Delegasi tugas internal, tracking tenggat waktu, dan verifikasi submission kerja anggota OSIS & MPK.
+                    <p className="text-sm text-[#5f7167] dark:text-slate-400 mt-1">
+                        Delegasi tugas internal, pemantauan tenggat waktu, dan verifikasi laporan kerja anggota OSIS & MPK.
                     </p>
                 </div>
                 <button
                     onClick={() => setIsCreateOpen(true)}
-                    className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20 flex items-center gap-2 self-start"
+                    className="px-4 py-2.5 rounded-xl bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold transition-all shadow-sm flex items-center gap-2 self-start"
                 >
-                    <span>+</span>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
                     <span>Berikan Tugas Baru</span>
                 </button>
             </div>
@@ -188,18 +195,18 @@ export default function TasksPage() {
             <div className="flex flex-wrap gap-2">
                 {[
                     { id: "ALL", label: "Semua Tugas" },
-                    { id: "TODO", label: "Belum Dikerjakan (Todo)" },
+                    { id: "TODO", label: "Belum Dikerjakan" },
                     { id: "IN_PROGRESS", label: "Sedang Dikerjakan" },
-                    { id: "SUBMITTED", label: "Diserahkan (Review)" },
+                    { id: "SUBMITTED", label: "Menunggu Review" },
                     { id: "COMPLETED", label: "Selesai Diverifikasi" },
                 ].map((tab) => (
                     <button
                         key={tab.id}
                         onClick={() => setStatusFilter(tab.id)}
-                        className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all shadow-sm ${
                             statusFilter === tab.id
-                                ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
-                                : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-white border border-slate-800"
+                                ? "bg-[#468366] text-white"
+                                : "bg-white dark:bg-[#19241f] text-[#5f7167] dark:text-slate-300 hover:bg-[#f5f8f6] dark:hover:bg-[#202d27] border border-[#d4e6db] dark:border-[#2a3c33]"
                         }`}
                     >
                         {tab.label}
@@ -209,13 +216,15 @@ export default function TasksPage() {
 
             {/* Tasks Grid */}
             {loading ? (
-                <div className="py-12 text-center text-slate-500 text-xs">Memuat daftar tugas...</div>
+                <div className="py-12 text-center text-[#718579] text-xs">Memuat daftar tugas...</div>
             ) : filteredTasks.length === 0 ? (
-                <div className="py-16 text-center border border-dashed border-slate-800 rounded-3xl p-8">
-                    <div className="text-3xl mb-2">📌</div>
-                    <div className="text-sm font-bold text-slate-200">Belum ada tugas dalam kategori ini</div>
-                    <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
-                        Gunakan tombol &ldquo;Berikan Tugas Baru&rdquo; untuk mendelegasikan tugas ke anggota atau pengurus.
+                <div className="py-16 text-center border border-dashed border-[#d4e6db] dark:border-[#2a3c33] rounded-2xl p-8 bg-white/50 dark:bg-[#19241f]/50">
+                    <div className="w-12 h-12 rounded-full bg-[#e8f2ec] text-[#468366] flex items-center justify-center mx-auto mb-2 text-xl font-bold">
+                        📋
+                    </div>
+                    <div className="text-sm font-bold text-[#202924] dark:text-white">Belum ada tugas dalam kategori ini</div>
+                    <p className="text-xs text-[#718579] mt-1 max-w-md mx-auto">
+                        Gunakan tombol &ldquo;Berikan Tugas Baru&rdquo; untuk mendelegasikan tugas ke pengurus OSIS atau MPK.
                     </p>
                 </div>
             ) : (
@@ -223,48 +232,48 @@ export default function TasksPage() {
                     {filteredTasks.map((task) => (
                         <div
                             key={task.id}
-                            className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between"
+                            className="p-5 rounded-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] hover:border-[#c4ded0] transition-all flex flex-col justify-between shadow-sm"
                         >
                             <div>
-                                <div className="flex items-start justify-between gap-2 mb-2">
+                                <div className="flex items-start justify-between gap-2 mb-2.5">
                                     <span
                                         className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${
                                             task.priority === "URGENT"
-                                                ? "bg-rose-500/10 text-rose-400 border-rose-500/30"
+                                                ? "bg-[#fdf2f2] text-[#9c3838] border-[#f5c7c7]"
                                                 : task.priority === "HIGH"
-                                                ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
-                                                : "bg-blue-500/10 text-blue-400 border-blue-500/30"
+                                                ? "bg-[#fdf3e7] text-[#8b6534] border-[#f0d5b5]"
+                                                : "bg-[#eef3fb] text-[#3b6ea5] border-[#c6daf4]"
                                         }`}
                                     >
                                         PRIORITAS {task.priority}
                                     </span>
                                     <span
-                                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                                        className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
                                             task.status === "COMPLETED"
-                                                ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/30"
+                                                ? "bg-[#e8f2ec] text-[#2e5845] border-[#c4ded0]"
                                                 : task.status === "SUBMITTED"
-                                                ? "bg-purple-500/10 text-purple-300 border-purple-500/30"
+                                                ? "bg-[#f4effa] text-[#6b4c9a] border-[#e2d5f1]"
                                                 : task.status === "IN_PROGRESS"
-                                                ? "bg-amber-500/10 text-amber-300 border-amber-500/30"
-                                                : "bg-slate-800 text-slate-400 border-slate-700"
+                                                ? "bg-[#fdf3e7] text-[#8b6534] border-[#f0d5b5]"
+                                                : "bg-[#f5f8f6] text-[#5f7167] border-[#d4e6db]"
                                         }`}
                                     >
                                         {task.status}
                                     </span>
                                 </div>
 
-                                <h3 className="text-base font-bold text-white leading-snug">{task.title}</h3>
-                                <p className="text-xs text-slate-400 mt-1.5 line-clamp-2">{task.description}</p>
+                                <h3 className="text-base font-bold text-[#202924] dark:text-white leading-snug">{task.title}</h3>
+                                <p className="text-xs text-[#5f7167] dark:text-slate-400 mt-1.5 line-clamp-2">{task.description}</p>
 
-                                <div className="mt-4 pt-3 border-t border-slate-800/80 space-y-1 text-xs text-slate-400">
+                                <div className="mt-4 pt-3 border-t border-[#edf3ef] dark:border-[#24342c] space-y-1 text-xs text-[#5f7167] dark:text-slate-400">
                                     <div>
-                                        👤 <span className="text-slate-500">Ditugaskan ke:</span>{" "}
-                                        <span className="font-semibold text-white">{task.assignedTo?.name || "Anggota"}</span>
+                                        👤 <span className="text-[#718579]">Ditugaskan ke:</span>{" "}
+                                        <span className="font-semibold text-[#202924] dark:text-white">{task.assignedTo?.name || "Anggota"}</span>
                                     </div>
                                     {task.dueDate && (
                                         <div>
-                                            📅 <span className="text-slate-500">Tenggat:</span>{" "}
-                                            <span className="text-amber-300 font-medium">
+                                            📅 <span className="text-[#718579]">Tenggat:</span>{" "}
+                                            <span className="text-[#8b6534] dark:text-[#e4a86b] font-medium">
                                                 {new Date(task.dueDate).toLocaleDateString("id-ID")}
                                             </span>
                                         </div>
@@ -272,23 +281,23 @@ export default function TasksPage() {
                                 </div>
 
                                 {task.submissionLink && (
-                                    <div className="mt-3 p-2.5 rounded-xl bg-purple-950/30 border border-purple-800/30 text-[11px]">
-                                        <div className="font-bold text-purple-300 text-[10px] uppercase">Bukti Tugas:</div>
+                                    <div className="mt-3 p-2.5 rounded-xl bg-[#f4effa] dark:bg-[#20182c] border border-[#e2d5f1] dark:border-[#382650] text-[11px]">
+                                        <div className="font-bold text-[#6b4c9a] dark:text-[#c4a8ee] text-[10px] uppercase">Bukti Tugas:</div>
                                         <a
                                             href={task.submissionLink}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-emerald-400 underline truncate block mt-0.5"
+                                            className="text-[#468366] dark:text-[#7cc49e] underline truncate block mt-0.5"
                                         >
                                             {task.submissionLink}
                                         </a>
-                                        {task.submissionNote && <div className="text-slate-300 mt-1 italic">{task.submissionNote}</div>}
+                                        {task.submissionNote && <div className="text-[#5f7167] dark:text-slate-300 mt-1 italic">{task.submissionNote}</div>}
                                     </div>
                                 )}
                             </div>
 
-                            <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                                <span className="text-[10px] text-slate-500">Oleh: {task.creator?.name || "Admin"}</span>
+                            <div className="mt-4 pt-3 border-t border-[#edf3ef] dark:border-[#24342c] flex items-center justify-between">
+                                <span className="text-[10px] text-[#718579]">Oleh: {task.creator?.name || "Admin"}</span>
                                 <button
                                     onClick={() => {
                                         setActiveTask(task);
@@ -297,7 +306,7 @@ export default function TasksPage() {
                                         setSubmissionLink(task.submissionLink || "");
                                         setReviewNote(task.reviewNote || "");
                                     }}
-                                    className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition-colors"
+                                    className="px-3 py-1.5 rounded-lg bg-[#f5f8f6] dark:bg-[#141d18] hover:bg-[#edf3ef] text-xs font-semibold text-[#202924] dark:text-slate-200 border border-[#d4e6db] dark:border-[#2a3c33] transition-colors shadow-sm"
                                 >
                                     Kelola Tugas
                                 </button>
@@ -309,15 +318,15 @@ export default function TasksPage() {
 
             {/* Modal Create Task */}
             {isCreateOpen && (
-                <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-                    <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
-                        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                            <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                                <span>📌</span> Berikan Tugas Baru ke Anggota
+                <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+                    <div className="w-full max-w-lg bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-6 shadow-2xl">
+                        <div className="flex items-center justify-between pb-4 border-b border-[#e3ece6] dark:border-[#24342c]">
+                            <h2 className="text-lg font-bold text-[#202924] dark:text-white flex items-center gap-2">
+                                <span>📌</span> Berikan Tugas Baru
                             </h2>
                             <button
                                 onClick={() => setIsCreateOpen(false)}
-                                className="text-slate-400 hover:text-white text-sm"
+                                className="text-[#718579] hover:text-[#202924] dark:hover:text-white text-sm"
                             >
                                 ✕
                             </button>
@@ -325,24 +334,24 @@ export default function TasksPage() {
 
                         <form onSubmit={handleCreate} className="space-y-4 mt-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Judul Tugas *</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Judul Tugas *</label>
                                 <input
                                     type="text"
                                     required
                                     placeholder="Contoh: Buat Rancangan Desain Banner Porseni 2026"
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                 />
                             </div>
 
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">Pilih Anggota *</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Pilih Anggota *</label>
                                     <select
                                         value={assignedToId}
                                         onChange={(e) => setAssignedToId(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3 py-2.5 text-xs text-[#202924] dark:text-white focus:outline-none focus:border-[#468366]"
                                     >
                                         {users.map((u) => (
                                             <option key={u.id} value={u.id}>
@@ -352,11 +361,11 @@ export default function TasksPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">Tingkat Prioritas *</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Tingkat Prioritas *</label>
                                     <select
                                         value={priority}
                                         onChange={(e) => setPriority(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3 py-2.5 text-xs text-[#202924] dark:text-white focus:outline-none focus:border-[#468366]"
                                     >
                                         <option value="LOW">Rendah (Low)</option>
                                         <option value="MEDIUM">Sedang (Medium)</option>
@@ -368,11 +377,11 @@ export default function TasksPage() {
 
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">Divisi Terkait *</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Divisi Terkait *</label>
                                     <select
                                         value={division}
                                         onChange={(e) => setDivision(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3 py-2.5 text-xs text-[#202924] dark:text-white focus:outline-none focus:border-[#468366]"
                                     >
                                         <option value="BPH_OSIS">BPH OSIS</option>
                                         <option value="BPH_MPK">BPH MPK</option>
@@ -393,40 +402,40 @@ export default function TasksPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">Tenggat Waktu (Due Date)</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Tenggat Waktu</label>
                                     <input
                                         type="date"
                                         value={dueDate}
                                         onChange={(e) => setDueDate(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs text-[#202924] dark:text-white focus:outline-none focus:border-[#468366]"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Instruksi & Rincian Tugas *</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Instruksi & Rincian Tugas *</label>
                                 <textarea
                                     required
                                     rows={3}
                                     placeholder="Jelaskan deliverable dan ekspektasi hasil tugas..."
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl p-3 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                 />
                             </div>
 
-                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#e3ece6] dark:border-[#24342c]">
                                 <button
                                     type="button"
                                     onClick={() => setIsCreateOpen(false)}
-                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-[#718579] hover:text-[#202924]"
                                 >
                                     Batal
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20"
+                                    className="px-5 py-2.5 rounded-xl bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold transition-all shadow-sm"
                                 >
                                     {isSubmitting ? "Mendelegasikan..." : "Kirim Tugas ke Anggota"}
                                 </button>
@@ -438,16 +447,16 @@ export default function TasksPage() {
 
             {/* Modal Update / Review Task */}
             {activeTask && (
-                <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-                    <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
-                        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+                    <div className="w-full max-w-lg bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-6 shadow-2xl">
+                        <div className="flex items-center justify-between pb-4 border-b border-[#e3ece6] dark:border-[#24342c]">
                             <div>
-                                <h2 className="text-lg font-bold text-white">Kelola & Review Tugas</h2>
-                                <div className="text-xs text-emerald-400 font-semibold mt-0.5">{activeTask.title}</div>
+                                <h2 className="text-lg font-bold text-[#202924] dark:text-white">Kelola & Review Tugas</h2>
+                                <div className="text-xs text-[#468366] dark:text-[#7cc49e] font-semibold mt-0.5">{activeTask.title}</div>
                             </div>
                             <button
                                 onClick={() => setActiveTask(null)}
-                                className="text-slate-400 hover:text-white text-sm"
+                                className="text-[#718579] hover:text-[#202924] dark:hover:text-white text-sm"
                             >
                                 ✕
                             </button>
@@ -455,11 +464,11 @@ export default function TasksPage() {
 
                         <form onSubmit={handleUpdate} className="space-y-4 mt-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Status Pengerjaan</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Status Pengerjaan</label>
                                 <select
                                     value={taskStatus}
                                     onChange={(e) => setTaskStatus(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3 py-2.5 text-xs text-[#202924] dark:text-white focus:outline-none focus:border-[#468366]"
                                 >
                                     <option value="TODO">TODO (Belum Dikerjakan)</option>
                                     <option value="IN_PROGRESS">IN_PROGRESS (Sedang Dikerjakan)</option>
@@ -469,50 +478,50 @@ export default function TasksPage() {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Link Bukti Tugas / Hasil Kerja (Submission Link)</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Link Bukti Tugas / Hasil Kerja</label>
                                 <input
                                     type="url"
                                     placeholder="https://drive.google.com/... atau Figma link"
                                     value={submissionLink}
                                     onChange={(e) => setSubmissionLink(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Catatan Penyerahan (Submission Note)</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Catatan Penyerahan</label>
                                 <textarea
                                     rows={2}
                                     placeholder="Keterangan anggota saat menyerahkan tugas..."
                                     value={submissionNote}
                                     onChange={(e) => setSubmissionNote(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl p-3 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Catatan Evaluasi / Feedback Penilai</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Catatan Evaluasi / Feedback Penilai</label>
                                 <textarea
                                     rows={2}
                                     placeholder="Catatan dari koordinator atau ketua untuk revisi/apresiasi..."
                                     value={reviewNote}
                                     onChange={(e) => setReviewNote(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl p-3 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                 />
                             </div>
 
-                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#e3ece6] dark:border-[#24342c]">
                                 <button
                                     type="button"
                                     onClick={() => setActiveTask(null)}
-                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-[#718579] hover:text-[#202924]"
                                 >
                                     Batal
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isUpdating}
-                                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20"
+                                    className="px-5 py-2.5 rounded-xl bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold transition-all shadow-sm"
                                 >
                                     {isUpdating ? "Memperbarui..." : "Simpan Status Tugas"}
                                 </button>

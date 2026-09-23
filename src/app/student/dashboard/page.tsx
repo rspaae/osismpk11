@@ -7,7 +7,6 @@ import SignOutButton from "@/components/SignOutButton";
 import { motion, AnimatePresence } from "framer-motion";
 import AspirationForm from "@/components/AspirationForm";
 import Image from "next/image";
-import Link from "next/link";
 
 interface MyAspiration {
     id: string;
@@ -51,8 +50,8 @@ export default function StudentDashboard() {
 
     if (status === "loading") {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="w-10 h-10 border-4 border-brand-primary/20 border-t-brand-primary rounded-full animate-spin" />
+            <div className="min-h-screen flex items-center justify-center bg-[#f7faf7] dark:bg-[#141c18]">
+                <div className="w-8 h-8 border-3 border-[#468366]/30 border-t-[#468366] rounded-full animate-spin" />
             </div>
         );
     }
@@ -62,261 +61,236 @@ export default function StudentDashboard() {
     }
 
     return (
-        <main className="min-h-screen pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 bg-brand-soft/50 dark:bg-background">
-            <div className="container mx-auto max-w-7xl">
+        <main className="min-h-screen pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 bg-[#f7faf7] dark:bg-[#141c18] text-[#334139] dark:text-[#dce6e0]">
+            <div className="container mx-auto max-w-6xl">
                 {/* Header Section */}
-                <header className="mb-8 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 text-center md:text-left">
+                <header className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 text-center md:text-left">
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                     >
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-foreground">Dashboard Siswa</h1>
-                        <p className="text-foreground/50 font-medium text-base md:text-lg italic">
-                            Selamat datang di pusat kendali inspirasi Anda, {user?.name?.split(' ')[0]}.
+                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-[#2c3831] dark:text-[#dce6e0]">
+                            Dashboard Siswa
+                        </h1>
+                        <p className="text-xs sm:text-sm text-[#5f7167] dark:text-[#a5b8ad] mt-1">
+                            Selamat datang, {user?.name?.split(' ')[0]}. Ruang aspirasi dan layanan OSIS-MPK SMKN 11 Bandung.
                         </p>
                     </motion.div>
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
+                        initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
                     >
                         <SignOutButton />
                     </motion.div>
                 </header>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                    {/* Left Column: Digital Student card */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    {/* Left Column: Digital Student Card (Soft Sage Mint Tone) */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
                         className="lg:col-span-5"
                     >
-                        <div className="relative group perspective-1000">
-                            <div className="relative glass premium-border p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] overflow-hidden border-white/40 dark:border-white/10 shadow-3xl shadow-brand-primary/10 transition-all duration-500 group-hover:rotate-y-6">
-                                {/* Card Background Decor */}
-                                <div className="absolute top-[-20%] right-[-10%] w-[150%] h-[150%] bg-gradient-to-br from-brand-primary via-blue-900 to-brand-primary opacity-90 -z-10" />
-                                <div className="absolute inset-0 bg-white/5 backdrop-blur-3xl -z-10" />
+                        <div className="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-[#468366] via-[#3a6e56] to-[#2e5845] text-white shadow-xs flex flex-col justify-between min-h-[260px] relative overflow-hidden">
+                            {/* Card Background Pattern Decor */}
+                            <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full blur-2xl pointer-events-none" />
 
-                                <div className="flex justify-between items-start mb-10 md:mb-16">
-                                    <div>
-                                        <p className="text-white/60 text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] mb-2 text-left">Kartu Identitas Digital</p>
-                                        <h2 className="text-white text-xl md:text-3xl font-black tracking-tight text-left">SMKN 11 Bandung</h2>
-                                    </div>
-                                    <div className="logo-orb w-16 h-16 md:w-20 md:h-20 p-2 shadow-2xl bg-white border-white/20">
-                                        <Image
-                                            src="/images/logos/smkn11.jpg"
-                                            alt="SMKN 11"
-                                            width={60}
-                                            height={60}
-                                            className="object-contain"
-                                        />
-                                    </div>
+                            <div className="flex justify-between items-start mb-6">
+                                <div>
+                                    <p className="text-[#d4e6db] text-[9px] font-semibold uppercase tracking-wider mb-1">Kartu Pelajar Digital</p>
+                                    <h2 className="text-lg md:text-xl font-bold tracking-tight">SMKN 11 Bandung</h2>
                                 </div>
-
-                                <div className="flex gap-4 md:gap-8 items-center mb-10 md:mb-16">
-                                    <div className="logo-orb w-20 h-20 md:w-28 md:h-28 p-3 shadow-2xl border-white/20">
-                                        <Image
-                                            src={user?.role === 'BPH_MPK' || user?.role === 'KOMISI_OFFICER' ? "/images/logos/mpk.jpg" : "/images/logos/osis.jpg"}
-                                            alt="Org Logo"
-                                            width={100}
-                                            height={100}
-                                            className="object-contain relative z-10 filter drop-shadow-2xl"
-                                        />
-                                    </div>
-                                    <div className="text-left">
-                                        <p className="text-white text-xl md:text-3xl font-black tracking-tighter mb-2 uppercase break-words leading-[0.9]">{user?.name}</p>
-                                        <div className="px-4 py-1.5 bg-brand-accent text-brand-primary text-[9px] md:text-[11px] font-black rounded-full inline-block uppercase tracking-widest shadow-xl shadow-brand-accent/20">
-                                            {
-                                                user?.role === 'ADMINISTRATOR' ? 'Sistem Admin' :
-                                                user?.role === 'KEPALA_SEKOLAH' ? 'Kepala Sekolah' :
-                                                user?.role === 'KESISWAAN' ? 'Wakasek Kesiswaan' :
-                                                user?.role === 'PEMBINA' ? 'Pembina OSIS-MPK' :
-                                                user?.role === 'BPH_OSIS' ? 'BPH OSIS Navastra' :
-                                                user?.role === 'BPH_MPK' ? 'BPH MPK Navandya' :
-                                                user?.role === 'SEKBID_OFFICER' ? (user?.position || 'Pengurus Sekbid OSIS') :
-                                                user?.role === 'KOMISI_OFFICER' ? (user?.position || 'Pengurus Komisi MPK') :
-                                                'Siswa Aktif'
-                                            }
-                                        </div>
-                                    </div>
+                                <div className="w-12 h-12 p-1 rounded-xl bg-white/95 border border-white/20 shadow-xs flex items-center justify-center overflow-hidden">
+                                    <Image
+                                        src="/images/logos/smkn11.jpg"
+                                        alt="SMKN 11 Bandung"
+                                        width={40}
+                                        height={40}
+                                        className="object-contain"
+                                    />
                                 </div>
+                            </div>
 
-                                <div className="flex justify-between items-end">
-                                    <div>
-                                        <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Email Institusi</p>
-                                        <p className="text-white font-bold text-sm tracking-wide">{user?.email || '-'}</p>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] mb-1">ID Siswa</p>
-                                        <p className="text-white font-black text-xl italic">{user?.id?.substring(0, 8).toUpperCase()}</p>
-                                    </div>
+                            <div className="flex gap-4 items-center mb-6">
+                                <div className="w-14 h-14 p-1 rounded-full bg-white/95 border border-white/20 shadow-xs flex items-center justify-center shrink-0 overflow-hidden">
+                                    <Image
+                                        src={user?.role === 'BPH_MPK' || user?.role === 'KOMISI_OFFICER' ? "/images/logos/mpk.jpg" : "/images/logos/osis.jpg"}
+                                        alt="Org Logo"
+                                        width={48}
+                                        height={48}
+                                        className="object-cover rounded-full"
+                                    />
                                 </div>
+                                <div>
+                                    <p className="text-base md:text-lg font-bold tracking-tight uppercase leading-snug">{user?.name}</p>
+                                    <span className="px-2.5 py-0.5 bg-[#e8f2ec] text-[#2e5845] text-[10px] font-semibold rounded-md inline-block uppercase tracking-wide mt-1">
+                                        {
+                                            user?.role === 'ADMINISTRATOR' ? 'Sistem Admin' :
+                                            user?.role === 'KEPALA_SEKOLAH' ? 'Kepala Sekolah' :
+                                            user?.role === 'KESISWAAN' ? 'Wakasek Kesiswaan' :
+                                            user?.role === 'PEMBINA' ? 'Pembina OSIS-MPK' :
+                                            user?.role === 'BPH_OSIS' ? 'BPH OSIS Navastra' :
+                                            user?.role === 'BPH_MPK' ? 'BPH MPK Navandya' :
+                                            user?.role === 'SEKBID_OFFICER' ? (user?.position || 'Pengurus Sekbid OSIS') :
+                                            user?.role === 'KOMISI_OFFICER' ? (user?.position || 'Pengurus Komisi MPK') :
+                                            'Siswa Aktif'
+                                        }
+                                    </span>
+                                </div>
+                            </div>
 
-                                {/* Holographic Effect */}
-                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none" />
+                            <div className="flex justify-between items-end pt-4 border-t border-white/15 text-xs text-[#d4e6db]">
+                                <div>
+                                    <p className="text-[9px] uppercase tracking-wider text-white/70">Email Sekolah</p>
+                                    <p className="font-medium text-white text-xs truncate max-w-[180px]">{user?.email || '-'}</p>
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-[9px] uppercase tracking-wider text-white/70">ID</p>
+                                    <p className="font-bold text-white text-xs">{user?.id?.substring(0, 8).toUpperCase()}</p>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
 
-                    {/* Right Column: Content Grid */}
-                    <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Right Column: Stat Cards & Info */}
+                    <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {[
-                            { title: "Status Akun", value: "Aktif", icon: "✨", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-                            { title: "Aspirasi Dikirim", value: `${myAspirations.length} Suara`, icon: "💡", color: "text-purple-500", bg: "bg-purple-500/10" },
-                            { title: "Agenda Terdekat", value: "Rapat Rutin", icon: "📅", color: "text-blue-500", bg: "bg-blue-500/10" },
-                            { title: "Status Verifikasi", value: "Terverifikasi", icon: "🛡️", color: "text-amber-500", bg: "bg-amber-500/10" }
+                            { title: "Status Akun", value: "Aktif", icon: "✨", color: "text-[#468366]", bg: "bg-[#e8f2ec] dark:bg-[#1d2c25]" },
+                            { title: "Aspirasi Dikirim", value: `${myAspirations.length} Usulan`, icon: "💡", color: "text-[#396953]", bg: "bg-[#edf5f0] dark:bg-[#1d2c25]" },
+                            { title: "Agenda Terdekat", value: "Porseni XI", icon: "📅", color: "text-[#335982]", bg: "bg-[#e6effa] dark:bg-[#1b2a38]" },
+                            { title: "Status Verifikasi", value: "Terverifikasi", icon: "🛡️", color: "text-[#785a21]", bg: "bg-[#faf3e1] dark:bg-[#332814]" }
                         ].map((stat, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 15 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 + (i * 0.1) }}
-                                className="group glass p-8 rounded-[2.5rem] hover:bg-white/80 dark:hover:bg-white/5 transition-all"
+                                transition={{ delay: 0.15 + (i * 0.05) }}
+                                className="p-5 bg-white dark:bg-[#19241f] rounded-2xl border border-[#e3ece6] dark:border-[#24342c] shadow-xs"
                             >
-                                <div className={`${stat.bg} ${stat.color} w-14 h-14 rounded-full flex items-center justify-center text-2xl mb-6 shadow-glow transition-transform group-hover:scale-110`}>
+                                <div className={`${stat.bg} ${stat.color} w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3`}>
                                     {stat.icon}
                                 </div>
-                                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-foreground/50 mb-2">{stat.title}</p>
-                                <p className="text-3xl font-black tracking-tighter text-foreground leading-none">{stat.value}</p>
+                                <p className="text-[10px] font-semibold uppercase tracking-wider text-[#8a9a91] dark:text-[#73887d] mb-0.5">{stat.title}</p>
+                                <p className="text-lg font-bold text-[#2c3831] dark:text-[#dce6e0] leading-none">{stat.value}</p>
                             </motion.div>
                         ))}
 
-
-                        {/* Announcements Card */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6 }}
-                            className="md:col-span-2 glass p-8 md:p-10 rounded-[2.5rem] border-white/50"
-                        >
-                            <h3 className="text-xl font-black tracking-tight mb-6 flex items-center gap-3 text-foreground">
-                                <span className="w-2 h-6 bg-brand-primary rounded-full" />
-                                Pengumuman Resmi
+                        {/* Announcement Card */}
+                        <div className="sm:col-span-2 p-5 bg-white dark:bg-[#19241f] rounded-2xl border border-[#e3ece6] dark:border-[#24342c] shadow-xs">
+                            <h3 className="text-sm font-bold text-[#2c3831] dark:text-[#dce6e0] mb-3 flex items-center gap-2">
+                                <span className="w-1.5 h-4 bg-[#468366] rounded-full" />
+                                Pengumuman Siswa
                             </h3>
-                            <div className="space-y-4">
+                            <div className="space-y-2.5">
                                 {[
-                                    { date: "Maret 2026", text: "Portal Aspirasi Terbuka untuk seluruh siswa SMKN 11 Bandung." },
-                                    { date: "Februari 2026", text: "Kegiatan LDK dan Musyawarah Perwakilan Kelas Tahun Ajaran Aktif." },
+                                    { date: "Maret 2026", text: "Kanal Aspirasi Terbuka aktif untuk seluruh siswa SMKN 11 Bandung." },
+                                    { date: "Februari 2026", text: "Pendaftaran lomba dan kepengurusan ekstrakurikuler semester genap." },
                                 ].map((news, i) => (
-                                    <div key={i} className="flex gap-4 items-start group">
-                                        <div className="px-3 py-1.5 bg-foreground/5 rounded-xl text-[10px] font-black text-foreground/50 group-hover:bg-brand-primary group-hover:text-white transition-all whitespace-nowrap">
+                                    <div key={i} className="flex gap-3 items-start text-xs">
+                                        <span className="px-2 py-0.5 bg-[#e8f2ec] dark:bg-[#1d2c25] text-[#396953] dark:text-[#a3d4bd] rounded-md text-[10px] font-semibold shrink-0">
                                             {news.date}
-                                        </div>
-                                        <p className="text-xs md:text-sm font-semibold text-foreground/70 leading-relaxed group-hover:text-foreground transition-all">
+                                        </span>
+                                        <span className="text-[#5f7167] dark:text-[#a5b8ad]">
                                             {news.text}
-                                        </p>
+                                        </span>
                                     </div>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
 
-                    {/* Aspiration Section - Only for Students */}
+                    {/* Aspiration Form - Students */}
                     {user?.role === 'STUDENT' && (
                         <>
-                            {/* Submit Form */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.7 }}
-                                className="lg:col-span-12 mt-4"
-                            >
+                            <div className="lg:col-span-12 mt-2">
                                 <AspirationForm onAspirationSubmitted={fetchMyAspirations} />
-                            </motion.div>
+                            </div>
 
-                            {/* My Aspirations History */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.8 }}
-                                className="lg:col-span-12 mt-6"
-                            >
-                                <div className="glass p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border-white/40 dark:border-white/10 shadow-3xl shadow-brand-primary/5">
-                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                            {/* My Aspirations List */}
+                            <div className="lg:col-span-12 mt-4">
+                                <div className="p-6 sm:p-8 md:p-10 bg-white dark:bg-[#19241f] rounded-3xl border border-[#e3ece6] dark:border-[#24342c] shadow-xs">
+                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
                                         <div>
-                                            <h3 className="text-xl md:text-2xl font-black tracking-tight flex items-center gap-3 text-foreground">
-                                                <span className="w-2.5 h-6 bg-brand-primary rounded-full" />
+                                            <h3 className="text-lg md:text-xl font-bold text-[#2c3831] dark:text-[#dce6e0] flex items-center gap-2">
+                                                <span className="w-1.5 h-5 bg-[#468366] rounded-full" />
                                                 Riwayat Aspirasi Saya
                                             </h3>
-                                            <p className="text-foreground/50 text-xs md:text-sm mt-1">
-                                                Pantau proses dan tanggapan langsung dari pengurus OSIS & MPK.
+                                            <p className="text-xs text-[#5f7167] dark:text-[#a5b8ad] mt-0.5">
+                                                Status dan tanggapan dari tim pengurus OSIS & MPK SMKN 11 Bandung.
                                             </p>
                                         </div>
                                         <button
                                             onClick={fetchMyAspirations}
-                                            className="px-5 py-2.5 rounded-xl glass border border-border text-xs font-bold hover:bg-foreground/5 transition-all flex items-center gap-2 cursor-pointer"
+                                            className="px-4 py-2 rounded-xl bg-[#f7faf7] dark:bg-[#141c18] border border-[#d2ded6] dark:border-[#24342c] text-xs font-semibold text-[#5f7167] dark:text-[#a5b8ad] hover:text-[#468366] transition-colors flex items-center gap-1.5 cursor-pointer"
                                         >
                                             <span>🔄</span> Muat Ulang
                                         </button>
                                     </div>
 
                                     {loadingAspirations ? (
-                                        <div className="text-center py-16 text-foreground/40 font-bold text-sm">
+                                        <div className="text-center py-12 text-[#8a9a91] text-xs">
                                             Memuat riwayat aspirasi...
                                         </div>
                                     ) : myAspirations.length === 0 ? (
-                                        <div className="text-center py-16 glass rounded-3xl border border-dashed border-border text-foreground/40 font-bold text-sm">
-                                            Belum ada aspirasi yang dikirim. Kirimkan ide atau saran Anda melalui form di atas!
+                                        <div className="text-center py-12 p-6 rounded-2xl bg-[#f7faf7] dark:bg-[#141c18] border border-dashed border-[#d2ded6] dark:border-[#24342c] text-[#8a9a91] text-xs">
+                                            Belum ada aspirasi yang dikirim. Sampaikan usul Anda melalui formulir di atas!
                                         </div>
                                     ) : (
-                                        <div className="space-y-6">
+                                        <div className="space-y-4">
                                             <AnimatePresence>
-                                                {myAspirations.map((asp, idx) => (
+                                                {myAspirations.map((asp) => (
                                                     <motion.div
                                                         key={asp.id}
-                                                        initial={{ opacity: 0, y: 15 }}
+                                                        initial={{ opacity: 0, y: 10 }}
                                                         animate={{ opacity: 1, y: 0 }}
-                                                        transition={{ delay: idx * 0.05 }}
-                                                        className="p-6 md:p-8 rounded-3xl bg-foreground/[0.02] border border-border/80 hover:border-brand-primary/40 transition-all shadow-sm"
+                                                        className="p-5 rounded-2xl bg-[#f7faf7] dark:bg-[#141c18] border border-[#e3ece6] dark:border-[#24342c]"
                                                     >
-                                                        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                                                            <div className="flex flex-wrap items-center gap-3">
-                                                                <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider border ${
+                                                        <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                                                            <div className="flex flex-wrap items-center gap-2">
+                                                                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${
                                                                     asp.status === 'PENDING'
-                                                                        ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
+                                                                        ? 'bg-[#faf3e1] dark:bg-[#332814] text-[#785a21] dark:text-[#e6c885] border-[#ede0bc] dark:border-[#3d3119]'
                                                                         : asp.status === 'REVIEWED'
-                                                                        ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
-                                                                        : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                                                                        ? 'bg-[#e6effa] dark:bg-[#1b2a38] text-[#335982] dark:text-[#9ec1e6] border-[#c2d7ed] dark:border-[#2b3c4f]'
+                                                                        : 'bg-[#e8f2ec] dark:bg-[#183325] text-[#2b6144] dark:text-[#96d6b4] border-[#d4e6db] dark:border-[#24342c]'
                                                                 }`}>
                                                                     {asp.status === 'PENDING' && '⏳ Menunggu'}
-                                                                    {asp.status === 'REVIEWED' && '🔍 Sedang Ditinjau'}
-                                                                    {asp.status === 'COMPLETED' && '✅ Selesai'}
+                                                                    {asp.status === 'REVIEWED' && '🔍 Ditinjau'}
+                                                                    {asp.status === 'COMPLETED' && '✓ Selesai'}
                                                                 </span>
-                                                                <span className="px-4 py-1.5 rounded-full text-[10px] font-bold text-foreground/50 border border-border/60 bg-foreground/[0.02]">
+                                                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium text-[#5f7167] dark:text-[#a5b8ad] border border-[#e3ece6] dark:border-[#24342c] bg-white dark:bg-[#19241f]">
                                                                     {asp.category}
                                                                 </span>
                                                                 {asp.isAnonymous && (
-                                                                    <span className="px-3 py-1 rounded-full text-[9px] font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                                                                    <span className="px-2 py-0.5 rounded-full text-[9px] font-medium bg-[#f1ecfa] dark:bg-[#271a38] text-[#5e3b8a] dark:text-[#c8aae6] border border-[#dfd4f2] dark:border-[#38264f]">
                                                                         🕵️ Anonim
                                                                     </span>
                                                                 )}
                                                             </div>
-                                                            <span className="text-[11px] font-medium text-foreground/40">
+                                                            <span className="text-[11px] text-[#8a9a91]">
                                                                 {new Date(asp.createdAt).toLocaleDateString('id-ID', {
                                                                     day: 'numeric',
-                                                                    month: 'long',
+                                                                    month: 'short',
                                                                     year: 'numeric'
                                                                 })}
                                                             </span>
                                                         </div>
 
-                                                        <h4 className="text-lg md:text-xl font-black text-foreground mb-3">
+                                                        <h4 className="text-sm font-bold text-[#2c3831] dark:text-[#dce6e0] mb-1.5">
                                                             {asp.title}
                                                         </h4>
-                                                        <p className="text-foreground/70 text-sm leading-relaxed mb-6 font-medium">
+                                                        <p className="text-xs text-[#5f7167] dark:text-[#a5b8ad] leading-relaxed mb-4">
                                                             {asp.content}
                                                         </p>
 
-                                                        {/* Official Admin / OSIS Response */}
+                                                        {/* Response */}
                                                         {asp.response ? (
-                                                            <div className="p-5 rounded-2xl bg-brand-primary/5 dark:bg-brand-primary/10 border border-brand-primary/20">
-                                                                <div className="flex items-center gap-2 mb-2">
-                                                                    <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
-                                                                    <span className="text-xs font-black uppercase tracking-wider text-brand-primary">
-                                                                        Tanggapan Resmi OSIS & MPK
-                                                                    </span>
+                                                            <div className="p-3.5 rounded-xl bg-[#e8f2ec] dark:bg-[#183325] border border-[#d4e6db] dark:border-[#24342c]">
+                                                                <div className="flex items-center gap-1.5 mb-1 text-[11px] font-semibold text-[#2b6144] dark:text-[#96d6b4]">
+                                                                    <span>💬 Tanggapan Pengurus OSIS-MPK</span>
                                                                     {asp.respondedAt && (
-                                                                        <span className="text-[10px] text-foreground/40 ml-auto">
+                                                                        <span className="text-[10px] text-[#5f7167] dark:text-[#a5b8ad] ml-auto font-normal">
                                                                             {new Date(asp.respondedAt).toLocaleDateString('id-ID', {
                                                                                 day: 'numeric',
                                                                                 month: 'short',
@@ -325,13 +299,13 @@ export default function StudentDashboard() {
                                                                         </span>
                                                                     )}
                                                                 </div>
-                                                                <p className="text-foreground/80 text-sm leading-relaxed italic font-medium">
+                                                                <p className="text-xs text-[#334139] dark:text-[#dce6e0] italic">
                                                                     "{asp.response}"
                                                                 </p>
                                                             </div>
                                                         ) : (
-                                                            <div className="text-xs text-foreground/40 italic flex items-center gap-2">
-                                                                <span>💬</span> Belum ada tanggapan resmi dari tim pengurus.
+                                                            <div className="text-[11px] text-[#8a9a91] italic">
+                                                                Belum ada tanggapan dari tim pengurus.
                                                             </div>
                                                         )}
                                                     </motion.div>
@@ -340,7 +314,7 @@ export default function StudentDashboard() {
                                         </div>
                                     )}
                                 </div>
-                            </motion.div>
+                            </div>
                         </>
                     )}
                 </div>
@@ -348,4 +322,3 @@ export default function StudentDashboard() {
         </main>
     );
 }
-

@@ -451,14 +451,16 @@ export default function UserManagementPage() {
             {/* Header & Main Actions */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-                        <span className="p-2 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 text-2xl">
-                            👥
+                    <h1 className="text-2xl md:text-3xl font-bold text-[#202924] dark:text-white tracking-tight flex items-center gap-3">
+                        <span className="w-10 h-10 rounded-xl bg-[#e8f2ec] dark:bg-[#1c2823] text-[#468366] flex items-center justify-center border border-[#d4e6db] dark:border-[#2a3c33] text-lg">
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
                         </span>
-                        <span>Manajemen Pengguna & Data Siswa</span>
+                        <span>Data Siswa & Pengguna</span>
                     </h1>
-                    <p className="text-sm text-slate-400 mt-1">
-                        Sistem pengelolaan skala besar untuk 1.700+ siswa SMKN 11, pengurus OSIS-MPK, pembina, serta pairing kartu RFID.
+                    <p className="text-sm text-[#5f7167] dark:text-slate-400 mt-1">
+                        Sistem pengelolaan data siswa SMKN 11, pengurus OSIS-MPK, pembina, serta penautan kartu fisik RFID.
                     </p>
                 </div>
 
@@ -467,22 +469,26 @@ export default function UserManagementPage() {
                     <a
                         href={`/api/admin/users/export?kelas=${kelasFilter}&role=${roleFilter}&q=${encodeURIComponent(debouncedSearch)}`}
                         download={`data_pengguna_smkn11_${new Date().toISOString().slice(0, 10)}.csv`}
-                        className="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition-all flex items-center gap-2 shadow-sm"
+                        className="px-3.5 py-2 rounded-xl bg-white dark:bg-[#19241f] hover:bg-[#f0f5f2] dark:hover:bg-[#202d27] text-[#2e5845] dark:text-[#a3d9bc] border border-[#d4e6db] dark:border-[#2a3c33] text-xs font-semibold transition-all flex items-center gap-2 shadow-sm"
                         title="Export data pengguna sesuai filter pencarian yang sedang aktif"
                     >
-                        <span>📤</span>
-                        <span>Export Data (CSV)</span>
+                        <svg className="w-4 h-4 text-[#468366]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        <span>Export CSV</span>
                     </a>
 
                     {/* Download Template CSV */}
                     <a
                         href="/api/admin/users/template"
                         download="template_import_siswa_smkn11.csv"
-                        className="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all flex items-center gap-2 shadow-sm"
+                        className="px-3.5 py-2 rounded-xl bg-white dark:bg-[#19241f] hover:bg-[#f0f5f2] dark:hover:bg-[#202d27] text-[#5f7167] dark:text-slate-300 border border-[#d4e6db] dark:border-[#2a3c33] text-xs font-semibold transition-all flex items-center gap-2 shadow-sm"
                         title="Download Template Format CSV untuk import 1.700+ data siswa"
                     >
-                        <span>📄</span>
-                        <span>Download Template</span>
+                        <svg className="w-4 h-4 text-[#718579]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <span>Unduh Template</span>
                     </a>
 
                     {/* Import Massal CSV */}
@@ -494,89 +500,102 @@ export default function UserManagementPage() {
                             setImportProgress(null);
                             setIsImportOpen(true);
                         }}
-                        className="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold transition-all shadow-lg shadow-blue-600/20 flex items-center gap-2"
+                        className="px-3.5 py-2 rounded-xl bg-[#e8f2ec] hover:bg-[#d8e9df] dark:bg-[#1e3026] dark:hover:bg-[#253c30] text-[#2e5845] dark:text-[#a3d9bc] border border-[#c4ded0] dark:border-[#2d4738] text-xs font-semibold transition-all shadow-sm flex items-center gap-2"
                     >
-                        <span>📥</span>
-                        <span>Import Siswa (CSV)</span>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        <span>Import CSV Siswa</span>
                     </button>
 
                     {/* Tambah Pengguna Manual */}
                     <button
                         onClick={() => setIsCreateOpen(true)}
-                        className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20 flex items-center gap-2"
+                        className="px-4 py-2 rounded-xl bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold transition-all shadow-sm flex items-center gap-2"
                     >
-                        <span>+</span>
-                        <span>Tambah Manual</span>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span>Tambah Pengguna</span>
                     </button>
                 </div>
             </div>
 
-            {/* KPI Metric Cards */}
+            {/* Metric Summary Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
-                <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl font-bold">
-                        👥
+                <div className="p-4 rounded-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] shadow-sm flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#e8f2ec] dark:bg-[#15231c] text-[#468366] flex items-center justify-center font-bold">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
                     </div>
                     <div>
-                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Akun</div>
-                        <div className="text-xl md:text-2xl font-black text-white">{meta.total}</div>
+                        <div className="text-[11px] font-semibold text-[#718579] dark:text-slate-400 uppercase tracking-wider">Total Akun</div>
+                        <div className="text-xl md:text-2xl font-bold text-[#202924] dark:text-white">{meta.total}</div>
                     </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold">
-                        🎓
+                <div className="p-4 rounded-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] shadow-sm flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#e8f2ec] dark:bg-[#15231c] text-[#468366] flex items-center justify-center font-bold">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                        </svg>
                     </div>
                     <div>
-                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Siswa Terdaftar</div>
-                        <div className="text-xl md:text-2xl font-black text-emerald-400">{meta.totalStudents}</div>
+                        <div className="text-[11px] font-semibold text-[#718579] dark:text-slate-400 uppercase tracking-wider">Siswa Terdaftar</div>
+                        <div className="text-xl md:text-2xl font-bold text-[#468366] dark:text-[#7cc49e]">{meta.totalStudents}</div>
                     </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold">
-                        ⭐
+                <div className="p-4 rounded-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] shadow-sm flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#fdf3e7] dark:bg-[#2b2214] text-[#b87333] flex items-center justify-center font-bold">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
                     </div>
                     <div>
-                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Pengurus / Guru</div>
-                        <div className="text-xl md:text-2xl font-black text-amber-400">{meta.totalOfficers}</div>
+                        <div className="text-[11px] font-semibold text-[#718579] dark:text-slate-400 uppercase tracking-wider">Pengurus / Guru</div>
+                        <div className="text-xl md:text-2xl font-bold text-[#b87333] dark:text-[#e4a86b]">{meta.totalOfficers}</div>
                     </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-xl font-bold">
-                        🏫
+                <div className="p-4 rounded-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] shadow-sm flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#eef3fb] dark:bg-[#192534] text-[#3b6ea5] flex items-center justify-center font-bold">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
                     </div>
                     <div>
-                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Kelas Aktif</div>
-                        <div className="text-xl md:text-2xl font-black text-purple-400">{meta.uniqueClasses?.length || 0}</div>
+                        <div className="text-[11px] font-semibold text-[#718579] dark:text-slate-400 uppercase tracking-wider">Kelas Aktif</div>
+                        <div className="text-xl md:text-2xl font-bold text-[#3b6ea5] dark:text-[#7bb0e7]">{meta.uniqueClasses?.length || 0}</div>
                     </div>
                 </div>
             </div>
 
             {/* Filter & Search Bar */}
-            <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="p-4 rounded-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {/* Search Box */}
                 <div>
-                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">
-                        🔍 Cari Akun / NIS / UID RFID
+                    <label className="block text-[11px] font-bold uppercase text-[#718579] dark:text-slate-400 mb-1.5">
+                        Cari Nama / NIS / UID RFID
                     </label>
                     <input
                         type="text"
                         placeholder="Ketik Nama, NIS, NISN, RFID..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2 text-xs text-[#202924] dark:text-slate-200 placeholder-[#8ba093] focus:outline-none focus:border-[#468366] transition-colors"
                     />
                 </div>
 
                 {/* Filter Role */}
                 <div>
-                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Filter Peran (Role)</label>
+                    <label className="block text-[11px] font-bold uppercase text-[#718579] dark:text-slate-400 mb-1.5">Filter Peran (Role)</label>
                     <select
                         value={roleFilter}
                         onChange={(e) => setRoleFilter(e.target.value)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3 py-2 text-xs text-[#202924] dark:text-slate-200 focus:outline-none focus:border-[#468366]"
                     >
                         {ROLES.map((r) => (
                             <option key={r.code} value={r.code}>
@@ -588,11 +607,11 @@ export default function UserManagementPage() {
 
                 {/* Filter Kelas */}
                 <div>
-                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Filter Kelas</label>
+                    <label className="block text-[11px] font-bold uppercase text-[#718579] dark:text-slate-400 mb-1.5">Filter Kelas</label>
                     <select
                         value={kelasFilter}
                         onChange={(e) => setKelasFilter(e.target.value)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3 py-2 text-xs text-[#202924] dark:text-slate-200 focus:outline-none focus:border-[#468366]"
                     >
                         <option value="ALL">Semua Kelas ({meta.uniqueClasses?.length || 0})</option>
                         {meta.uniqueClasses?.map((k) => (
@@ -605,11 +624,11 @@ export default function UserManagementPage() {
 
                 {/* Tampilan Per Halaman */}
                 <div>
-                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Tampilkan per Halaman</label>
+                    <label className="block text-[11px] font-bold uppercase text-[#718579] dark:text-slate-400 mb-1.5">Tampilkan per Halaman</label>
                     <select
                         value={limit}
                         onChange={(e) => setLimit(e.target.value)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3 py-2 text-xs text-[#202924] dark:text-slate-200 focus:outline-none focus:border-[#468366]"
                     >
                         <option value="25">25 Baris</option>
                         <option value="50">50 Baris</option>
@@ -622,16 +641,16 @@ export default function UserManagementPage() {
 
             {/* Selection Summary Notice */}
             {selectedIds.size > 0 && (
-                <div className="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-800/60 flex items-center justify-between text-xs text-emerald-300 animate-in fade-in duration-200">
+                <div className="p-3.5 rounded-2xl bg-[#e8f2ec] dark:bg-[#1e3026] border border-[#c4ded0] dark:border-[#2d4738] flex items-center justify-between text-xs text-[#2e5845] dark:text-[#a3d9bc] animate-in fade-in duration-200 shadow-sm">
                     <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span className="w-2 h-2 rounded-full bg-[#468366] animate-pulse"></span>
                         <span>
-                            Terpilih <strong>{selectedIds.size}</strong> akun pengguna dari berbagai halaman.
+                            Terpilih <strong>{selectedIds.size}</strong> akun pengguna dari daftar.
                         </span>
                     </div>
                     <button
                         onClick={() => setSelectedIds(new Set())}
-                        className="px-2.5 py-1 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-[11px] font-bold text-emerald-200 transition-colors"
+                        className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#141d18] hover:bg-[#d8e9df] text-[11px] font-bold text-[#2e5845] dark:text-[#a3d9bc] border border-[#c4ded0] dark:border-[#2d4738] transition-colors"
                     >
                         Batalkan Pilihan
                     </button>
@@ -639,17 +658,17 @@ export default function UserManagementPage() {
             )}
 
             {/* Users Data Table */}
-            <div className="rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden shadow-xl">
+            <div className="rounded-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs text-slate-300">
-                        <thead className="bg-slate-800/90 text-slate-400 font-bold uppercase text-[10px] tracking-wider border-b border-slate-800 select-none">
+                    <table className="w-full text-left text-xs text-[#202924] dark:text-slate-300">
+                        <thead className="bg-[#f5f8f6] dark:bg-[#141d18] text-[#5f7167] dark:text-slate-400 font-bold uppercase text-[10px] tracking-wider border-b border-[#e3ece6] dark:border-[#24342c] select-none">
                             <tr>
                                 <th className="px-4 py-3.5 w-10 text-center">
                                     <input
                                         type="checkbox"
                                         checked={isAllCurrentPageSelected}
                                         onChange={(e) => handleSelectAllCurrentPage(e.target.checked)}
-                                        className="rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                                        className="rounded border-[#d4e6db] text-[#468366] focus:ring-0 cursor-pointer"
                                         title="Pilih semua baris di halaman ini"
                                     />
                                 </th>
@@ -660,20 +679,22 @@ export default function UserManagementPage() {
                                 <th className="px-4 py-3.5 text-right">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-800/60">
+                        <tbody className="divide-y divide-[#edf3ef] dark:divide-[#24342c]">
                             {loading ? (
                                 <tr>
-                                    <td colSpan={6} className="text-center py-16 text-slate-500">
-                                        <div className="inline-block w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mb-2"></div>
+                                    <td colSpan={6} className="text-center py-16 text-[#718579]">
+                                        <div className="inline-block w-6 h-6 border-2 border-[#468366] border-t-transparent rounded-full animate-spin mb-2"></div>
                                         <div>Memuat data pengguna dari database...</div>
                                     </td>
                                 </tr>
                             ) : users.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="text-center py-16 text-slate-500">
-                                        <div className="text-3xl mb-2">🔍</div>
-                                        <div className="font-semibold text-slate-400">Tidak ada data pengguna yang ditemukan.</div>
-                                        <p className="text-[11px] text-slate-500 mt-1">
+                                    <td colSpan={6} className="text-center py-16 text-[#718579]">
+                                        <div className="w-12 h-12 rounded-full bg-[#e8f2ec] text-[#468366] flex items-center justify-center mx-auto mb-2 text-xl font-bold">
+                                            🔍
+                                        </div>
+                                        <div className="font-semibold text-[#202924] dark:text-white">Tidak ada data pengguna yang ditemukan.</div>
+                                        <p className="text-[11px] text-[#718579] mt-1">
                                             Coba sesuaikan kata kunci pencarian atau reset filter kelas / role.
                                         </p>
                                     </td>
@@ -685,7 +706,7 @@ export default function UserManagementPage() {
                                         <tr
                                             key={u.id}
                                             className={`transition-colors ${
-                                                isSelected ? "bg-emerald-950/20 hover:bg-emerald-950/30" : "hover:bg-slate-800/40"
+                                                isSelected ? "bg-[#eef6f1] dark:bg-[#1c2e25]" : "hover:bg-[#f8faf9] dark:hover:bg-[#16211b]"
                                             }`}
                                         >
                                             <td className="px-4 py-3.5 text-center">
@@ -693,37 +714,37 @@ export default function UserManagementPage() {
                                                     type="checkbox"
                                                     checked={isSelected}
                                                     onChange={() => handleToggleSelect(u.id)}
-                                                    className="rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                                                    className="rounded border-[#d4e6db] text-[#468366] focus:ring-0 cursor-pointer"
                                                 />
                                             </td>
                                             <td className="px-4 py-3.5">
-                                                <div className="font-bold text-white text-sm">{u.name || "Tanpa Nama"}</div>
-                                                <div className="text-[11px] text-slate-400 font-mono mt-0.5">{u.email || "-"}</div>
+                                                <div className="font-bold text-[#202924] dark:text-white text-sm">{u.name || "Tanpa Nama"}</div>
+                                                <div className="text-[11px] text-[#718579] dark:text-slate-400 font-mono mt-0.5">{u.email || "-"}</div>
                                             </td>
                                             <td className="px-4 py-3.5">
-                                                <div className="font-mono text-emerald-400 font-semibold">{u.nis || "-"}</div>
-                                                <div className="text-slate-300 font-medium text-[11px] mt-0.5">
-                                                    {u.kelas || <span className="text-slate-500 italic">Tanpa Kelas</span>}
+                                                <div className="font-mono text-[#468366] dark:text-[#7cc49e] font-semibold">{u.nis || "-"}</div>
+                                                <div className="text-[#5f7167] dark:text-slate-300 font-medium text-[11px] mt-0.5">
+                                                    {u.kelas || <span className="text-[#8ba093] italic">Tanpa Kelas</span>}
                                                     {u.major ? ` (${u.major})` : ""}
                                                 </div>
                                             </td>
                                             <td className="px-4 py-3.5">
-                                                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 border border-slate-700 text-slate-200">
+                                                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#e8f2ec] dark:bg-[#1c2823] border border-[#d4e6db] dark:border-[#2a3c33] text-[#2e5845] dark:text-[#a3d9bc]">
                                                     {u.role.replace(/_/g, " ")}
                                                 </span>
                                                 {u.position && (
-                                                    <div className="text-[11px] text-amber-300/90 font-medium mt-1">
+                                                    <div className="text-[11px] text-[#8b6534] dark:text-[#e4a86b] font-medium mt-1">
                                                         ⭐ {u.position}
                                                     </div>
                                                 )}
                                             </td>
                                             <td className="px-4 py-3.5">
                                                 {u.rfidCard ? (
-                                                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 font-mono text-[11px] font-bold">
+                                                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#e8f2ec] text-[#2e5845] border border-[#d4e6db] font-mono text-[11px] font-bold">
                                                         💳 {u.rfidCard}
                                                     </span>
                                                 ) : (
-                                                    <span className="text-[11px] text-slate-500 italic">Belum ditautkan</span>
+                                                    <span className="text-[11px] text-[#8ba093] italic">Belum ditautkan</span>
                                                 )}
                                             </td>
                                             <td className="px-4 py-3.5 text-right">
@@ -733,7 +754,7 @@ export default function UserManagementPage() {
                                                         setPairingUid(u.rfidCard || "");
                                                         setPairingMsg({ type: "", text: "" });
                                                     }}
-                                                    className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 text-xs font-semibold transition-all shadow-sm"
+                                                    className="px-3 py-1.5 rounded-xl bg-white dark:bg-[#19241f] hover:bg-[#f0f5f2] dark:hover:bg-[#202d27] text-[#2e5845] dark:text-[#a3d9bc] border border-[#d4e6db] dark:border-[#2a3c33] text-xs font-semibold transition-all shadow-sm"
                                                 >
                                                     💳 {u.rfidCard ? "Ganti Kartu" : "Pairing RFID"}
                                                 </button>
@@ -747,9 +768,9 @@ export default function UserManagementPage() {
                 </div>
 
                 {/* Pagination Controls Footer */}
-                <div className="p-4 bg-slate-800/60 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+                <div className="p-4 bg-[#f5f8f6] dark:bg-[#141d18] border-t border-[#e3ece6] dark:border-[#24342c] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#5f7167] dark:text-slate-400">
                     <div>
-                        Menampilkan baris <strong>{users.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}</strong> s/d{" "}
+                        Menampilkan <strong>{users.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}</strong> s/d{" "}
                         <strong>{Math.min(meta.page * meta.limit, meta.total)}</strong> dari total <strong>{meta.total}</strong> akun
                     </div>
 
@@ -757,7 +778,7 @@ export default function UserManagementPage() {
                         <button
                             onClick={() => setPage(1)}
                             disabled={meta.page <= 1 || loading}
-                            className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold transition-all"
+                            className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-[#19241f] border border-[#d4e6db] dark:border-[#2a3c33] hover:bg-[#edf3ef] disabled:opacity-40 disabled:cursor-not-allowed text-[#202924] dark:text-white font-bold transition-all shadow-sm"
                             title="Halaman Pertama"
                         >
                             «
@@ -765,26 +786,26 @@ export default function UserManagementPage() {
                         <button
                             onClick={() => setPage((p) => Math.max(p - 1, 1))}
                             disabled={meta.page <= 1 || loading}
-                            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold transition-all"
+                            className="px-3 py-1.5 rounded-lg bg-white dark:bg-[#19241f] border border-[#d4e6db] dark:border-[#2a3c33] hover:bg-[#edf3ef] disabled:opacity-40 disabled:cursor-not-allowed text-[#202924] dark:text-white font-semibold transition-all shadow-sm"
                         >
                             ‹ Sebelumnya
                         </button>
 
-                        <span className="px-3 py-1.5 font-bold text-white bg-slate-900 rounded-lg border border-slate-700">
+                        <span className="px-3 py-1.5 font-bold text-[#2e5845] dark:text-[#a3d9bc] bg-[#e8f2ec] dark:bg-[#1c2823] rounded-lg border border-[#d4e6db] dark:border-[#2a3c33]">
                             Hal {meta.page} / {meta.totalPages || 1}
                         </span>
 
                         <button
                             onClick={() => setPage((p) => Math.min(p + 1, meta.totalPages))}
                             disabled={meta.page >= meta.totalPages || loading}
-                            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold transition-all"
+                            className="px-3 py-1.5 rounded-lg bg-white dark:bg-[#19241f] border border-[#d4e6db] dark:border-[#2a3c33] hover:bg-[#edf3ef] disabled:opacity-40 disabled:cursor-not-allowed text-[#202924] dark:text-white font-semibold transition-all shadow-sm"
                         >
                             Berikutnya ›
                         </button>
                         <button
                             onClick={() => setPage(meta.totalPages)}
                             disabled={meta.page >= meta.totalPages || loading}
-                            className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold transition-all"
+                            className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-[#19241f] border border-[#d4e6db] dark:border-[#2a3c33] hover:bg-[#edf3ef] disabled:opacity-40 disabled:cursor-not-allowed text-[#202924] dark:text-white font-bold transition-all shadow-sm"
                             title="Halaman Terakhir"
                         >
                             »
@@ -795,14 +816,14 @@ export default function UserManagementPage() {
 
             {/* Floating Bulk Actions Bar (Muncul saat ada item terpilih) */}
             {selectedIds.size > 0 && (
-                <div className="fixed bottom-6 inset-x-4 max-w-4xl mx-auto z-40 bg-slate-900/95 backdrop-blur-md border-2 border-emerald-500/40 rounded-3xl p-4 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-3 animate-in slide-in-from-bottom duration-200">
-                    <div className="flex items-center gap-2.5 text-xs text-white">
-                        <span className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-white shadow-md">
+                <div className="fixed bottom-6 inset-x-4 max-w-4xl mx-auto z-40 bg-white/95 dark:bg-[#19241f]/95 backdrop-blur-md border border-[#c4ded0] dark:border-[#2d4738] rounded-2xl p-4 shadow-xl flex flex-col md:flex-row items-center justify-between gap-3 animate-in slide-in-from-bottom duration-200">
+                    <div className="flex items-center gap-2.5 text-xs text-[#202924] dark:text-white">
+                        <span className="w-8 h-8 rounded-full bg-[#468366] flex items-center justify-center font-bold text-white shadow-sm">
                             {selectedIds.size}
                         </span>
                         <div>
                             <div className="font-bold">Akun Terpilih</div>
-                            <div className="text-[11px] text-slate-400">Pilih tindakan massal yang ingin diterapkan:</div>
+                            <div className="text-[11px] text-[#718579] dark:text-slate-400">Pilih tindakan massal yang ingin diterapkan:</div>
                         </div>
                     </div>
 
@@ -814,7 +835,7 @@ export default function UserManagementPage() {
                                 setBulkParamValue("password123");
                                 setIsBulkActionModalOpen(true);
                             }}
-                            className="px-3 py-2 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/30 text-xs font-bold transition-all flex items-center gap-1.5"
+                            className="px-3 py-2 rounded-xl bg-[#fdf3e7] hover:bg-[#fae8d4] text-[#8b6534] border border-[#f0d5b5] text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm"
                         >
                             <span>🔑</span>
                             <span>Reset Password</span>
@@ -827,7 +848,7 @@ export default function UserManagementPage() {
                                 setBulkParamValue("");
                                 setIsBulkActionModalOpen(true);
                             }}
-                            className="px-3 py-2 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs font-bold transition-all flex items-center gap-1.5"
+                            className="px-3 py-2 rounded-xl bg-[#eef3fb] hover:bg-[#dde8f8] text-[#3b6ea5] border border-[#c6daf4] text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm"
                         >
                             <span>🏫</span>
                             <span>Pindah Kelas</span>
@@ -839,7 +860,7 @@ export default function UserManagementPage() {
                                 setBulkActionType("DEACTIVATE");
                                 setIsBulkActionModalOpen(true);
                             }}
-                            className="px-3 py-2 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/30 text-xs font-bold transition-all flex items-center gap-1.5"
+                            className="px-3 py-2 rounded-xl bg-[#fdf2f2] hover:bg-[#fae4e4] text-[#9c3838] border border-[#f5c7c7] text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm"
                         >
                             <span>🔒</span>
                             <span>Nonaktifkan</span>
@@ -848,7 +869,7 @@ export default function UserManagementPage() {
                         {/* Batal */}
                         <button
                             onClick={() => setSelectedIds(new Set())}
-                            className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all"
+                            className="px-3 py-2 rounded-xl bg-white dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] text-[#5f7167] dark:text-slate-300 text-xs font-semibold transition-all shadow-sm"
                         >
                             Batal
                         </button>
@@ -858,15 +879,15 @@ export default function UserManagementPage() {
 
             {/* Modal Bulk Actions Confirmation */}
             {isBulkActionModalOpen && (
-                <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4">
-                        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                            <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="w-full max-w-md bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-6 shadow-2xl space-y-4">
+                        <div className="flex items-center justify-between pb-3 border-b border-[#e3ece6] dark:border-[#24342c]">
+                            <h2 className="text-base font-bold text-[#202924] dark:text-white flex items-center gap-2">
                                 <span>⚡</span> Konfirmasi Aksi Massal ({selectedIds.size} Pengguna)
                             </h2>
                             <button
                                 onClick={() => setIsBulkActionModalOpen(false)}
-                                className="text-slate-400 hover:text-white text-sm"
+                                className="text-[#718579] hover:text-[#202924] dark:hover:text-white text-sm"
                             >
                                 ✕
                             </button>
@@ -876,28 +897,28 @@ export default function UserManagementPage() {
                             <div
                                 className={`p-3 rounded-xl text-xs font-semibold ${
                                     bulkResultMsg.type === "success"
-                                        ? "bg-emerald-950/60 border border-emerald-800 text-emerald-300"
-                                        : "bg-rose-950/60 border border-rose-800 text-rose-300"
+                                        ? "bg-[#e8f2ec] border border-[#c4ded0] text-[#2e5845]"
+                                        : "bg-[#fdf2f2] border border-[#f5c7c7] text-[#9c3838]"
                                 }`}
                             >
                                 {bulkResultMsg.text}
                             </div>
                         )}
 
-                        <div className="space-y-3 text-xs text-slate-300">
+                        <div className="space-y-3 text-xs text-[#5f7167] dark:text-slate-300">
                             {bulkActionType === "RESET_PASSWORD" && (
                                 <>
                                     <p>
                                         Semua <strong>{selectedIds.size} akun</strong> yang dipilih akan direset kata sandinya.
                                     </p>
                                     <div>
-                                        <label className="block text-[11px] font-bold text-slate-400 mb-1">Password Baru</label>
+                                        <label className="block text-[11px] font-bold text-[#202924] dark:text-slate-200 mb-1">Password Baru</label>
                                         <input
                                             type="text"
                                             value={bulkParamValue}
                                             onChange={(e) => setBulkParamValue(e.target.value)}
                                             placeholder="password123"
-                                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs font-mono text-emerald-400 focus:outline-none focus:border-emerald-500"
+                                            className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#468366] focus:outline-none focus:border-[#468366]"
                                         />
                                     </div>
                                 </>
@@ -909,30 +930,30 @@ export default function UserManagementPage() {
                                         Pindahkan <strong>{selectedIds.size} siswa</strong> ke kelas baru secara serentak (contoh saat kenaikan kelas).
                                     </p>
                                     <div>
-                                        <label className="block text-[11px] font-bold text-slate-400 mb-1">Target Nama Kelas Baru *</label>
+                                        <label className="block text-[11px] font-bold text-[#202924] dark:text-slate-200 mb-1">Target Nama Kelas Baru *</label>
                                         <input
                                             type="text"
                                             value={bulkParamValue}
                                             onChange={(e) => setBulkParamValue(e.target.value)}
                                             placeholder="Contoh: XI PPLG 1 atau XII TKJ 2"
-                                            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                            className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs text-[#202924] dark:text-white focus:outline-none focus:border-[#468366]"
                                         />
                                     </div>
                                 </>
                             )}
 
                             {bulkActionType === "DEACTIVATE" && (
-                                <p className="p-3 rounded-xl bg-rose-950/30 border border-rose-800/40 text-rose-300">
+                                <p className="p-3 rounded-xl bg-[#fdf2f2] border border-[#f5c7c7] text-[#9c3838]">
                                     ⚠️ Akun-akun yang dinonaktifkan tidak akan dapat login ke sistem OSIM11 sampai diaktifkan kembali.
                                 </p>
                             )}
                         </div>
 
-                        <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                        <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#e3ece6] dark:border-[#24342c]">
                             <button
                                 type="button"
                                 onClick={() => setIsBulkActionModalOpen(false)}
-                                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#718579] hover:text-[#202924]"
                             >
                                 Batal
                             </button>
@@ -940,7 +961,7 @@ export default function UserManagementPage() {
                                 type="button"
                                 onClick={handleExecuteBulkAction}
                                 disabled={isBulkExecuting}
-                                className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20"
+                                className="px-5 py-2.5 rounded-xl bg-[#468366] hover:bg-[#396953] disabled:opacity-50 text-white text-xs font-semibold transition-all shadow-sm"
                             >
                                 {isBulkExecuting ? "Memproses..." : "Terapkan Sekarang"}
                             </button>
@@ -951,18 +972,18 @@ export default function UserManagementPage() {
 
             {/* Modal Import Siswa Massal (CSV) */}
             {isImportOpen && (
-                <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-                    <div className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4">
-                        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+                    <div className="w-full max-w-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-6 shadow-2xl space-y-4">
+                        <div className="flex items-center justify-between pb-3 border-b border-[#e3ece6] dark:border-[#24342c]">
                             <div>
-                                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                                <h2 className="text-lg font-bold text-[#202924] dark:text-white flex items-center gap-2">
                                     <span>📥</span> Import Data Siswa Massal (CSV)
                                 </h2>
-                                <p className="text-xs text-slate-400 mt-0.5">
-                                    Unggah berkas CSV untuk mendaftarkan atau memperbarui hingga 1.700+ akun siswa sekaligus.
+                                <p className="text-xs text-[#5f7167] dark:text-slate-400 mt-0.5">
+                                    Unggah berkas CSV untuk mendaftarkan atau memperbarui data siswa secara massal.
                                 </p>
                             </div>
-                            <button onClick={() => setIsImportOpen(false)} className="text-slate-400 hover:text-white text-sm">
+                            <button onClick={() => setIsImportOpen(false)} className="text-[#718579] hover:text-[#202924] dark:hover:text-white text-sm">
                                 ✕
                             </button>
                         </div>
@@ -970,7 +991,7 @@ export default function UserManagementPage() {
                         {/* File Upload Zone */}
                         <div
                             onClick={() => fileInputRef.current?.click()}
-                            className="p-8 border-2 border-dashed border-slate-700 hover:border-emerald-500/60 rounded-2xl bg-slate-800/40 hover:bg-slate-800/60 transition-all cursor-pointer text-center space-y-3"
+                            className="p-8 border-2 border-dashed border-[#d4e6db] dark:border-[#2a3c33] hover:border-[#468366] rounded-2xl bg-[#f5f8f6] dark:bg-[#141d18] hover:bg-[#eef6f1] transition-all cursor-pointer text-center space-y-3"
                         >
                             <input
                                 ref={fileInputRef}
@@ -979,15 +1000,15 @@ export default function UserManagementPage() {
                                 onChange={handleFileChange}
                                 className="hidden"
                             />
-                            <div className="text-4xl">📄</div>
+                            <div className="text-3xl">📄</div>
                             <div>
-                                <div className="text-sm font-bold text-white">
+                                <div className="text-sm font-bold text-[#202924] dark:text-white">
                                     {importFile ? importFile.name : "Klik atau Seret Berkas CSV ke Sini"}
                                 </div>
-                                <div className="text-xs text-slate-400 mt-1">
+                                <div className="text-xs text-[#718579] dark:text-slate-400 mt-1">
                                     {importFile
                                         ? `${parsedRows.length} baris data siswa siap diproses`
-                                        : "Mendukung delimiter koma (,) atau titik-koma (;). Header otomatis dideteksi."}
+                                        : "Mendukung format koma (,) atau titik koma (;). Baris header otomatis dikenali."}
                                 </div>
                             </div>
                         </div>
@@ -995,13 +1016,13 @@ export default function UserManagementPage() {
                         {/* Preview 5 Baris Pertama */}
                         {parsedRows.length > 0 && !importSummary && (
                             <div className="space-y-2">
-                                <div className="text-xs font-bold text-slate-300 flex items-center justify-between">
+                                <div className="text-xs font-bold text-[#202924] dark:text-slate-200 flex items-center justify-between">
                                     <span>Pratinjau Data ({parsedRows.length} Siswa Ditemukan):</span>
-                                    <span className="text-[11px] text-emerald-400 font-mono">5 baris pertama</span>
+                                    <span className="text-[11px] text-[#468366] font-mono">5 baris pertama</span>
                                 </div>
-                                <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/60">
-                                    <table className="w-full text-left text-[11px] text-slate-300">
-                                        <thead className="bg-slate-800/80 text-slate-400 font-bold border-b border-slate-800">
+                                <div className="overflow-x-auto rounded-xl border border-[#e3ece6] dark:border-[#24342c] bg-[#f5f8f6] dark:bg-[#141d18]">
+                                    <table className="w-full text-left text-[11px] text-[#5f7167] dark:text-slate-300">
+                                        <thead className="bg-[#edf3ef] dark:bg-[#1c2823] text-[#718579] dark:text-slate-400 font-bold border-b border-[#e3ece6] dark:border-[#24342c]">
                                             <tr>
                                                 <th className="px-3 py-2">Nama</th>
                                                 <th className="px-3 py-2">NIS</th>
@@ -1010,14 +1031,14 @@ export default function UserManagementPage() {
                                                 <th className="px-3 py-2">RFID</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-slate-800/60">
+                                        <tbody className="divide-y divide-[#e3ece6] dark:divide-[#24342c]">
                                             {parsedRows.slice(0, 5).map((row, idx) => (
                                                 <tr key={idx}>
-                                                    <td className="px-3 py-1.5 font-medium text-white">{row.name}</td>
-                                                    <td className="px-3 py-1.5 font-mono text-emerald-400">{row.nis || "-"}</td>
+                                                    <td className="px-3 py-1.5 font-medium text-[#202924] dark:text-white">{row.name}</td>
+                                                    <td className="px-3 py-1.5 font-mono text-[#468366]">{row.nis || "-"}</td>
                                                     <td className="px-3 py-1.5">{row.kelas || "-"}</td>
                                                     <td className="px-3 py-1.5">{row.major || "-"}</td>
-                                                    <td className="px-3 py-1.5 font-mono text-slate-400">{row.rfidCard || "-"}</td>
+                                                    <td className="px-3 py-1.5 font-mono text-[#718579]">{row.rfidCard || "-"}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -1030,14 +1051,14 @@ export default function UserManagementPage() {
                         {importProgress && (
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between text-xs font-bold">
-                                    <span className="text-slate-300">Memproses Data Siswa ke Database...</span>
-                                    <span className="text-emerald-400 font-mono">
+                                    <span className="text-[#202924] dark:text-slate-300">Memproses Data Siswa ke Database...</span>
+                                    <span className="text-[#468366] font-mono">
                                         {importProgress.current} / {importProgress.total} ({importProgress.percent}%)
                                     </span>
                                 </div>
-                                <div className="w-full h-3 rounded-full bg-slate-800 overflow-hidden">
+                                <div className="w-full h-2.5 rounded-full bg-[#e3ece6] dark:bg-[#141d18] overflow-hidden">
                                     <div
-                                        className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-300"
+                                        className="h-full bg-[#468366] transition-all duration-300"
                                         style={{ width: `${importProgress.percent}%` }}
                                     ></div>
                                 </div>
@@ -1046,27 +1067,27 @@ export default function UserManagementPage() {
 
                         {/* Import Result Summary */}
                         {importSummary && (
-                            <div className="p-4 rounded-2xl bg-slate-800/60 border border-slate-700 space-y-3">
-                                <div className="text-xs font-bold text-white flex items-center gap-2">
+                            <div className="p-4 rounded-2xl bg-[#f5f8f6] dark:bg-[#141d18] border border-[#e3ece6] dark:border-[#24342c] space-y-3">
+                                <div className="text-xs font-bold text-[#202924] dark:text-white flex items-center gap-2">
                                     <span>🎉</span> Proses Import Selesai!
                                 </div>
                                 <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                                    <div className="p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-300">
+                                    <div className="p-2.5 rounded-xl bg-[#e8f2ec] border border-[#c4ded0] text-[#2e5845]">
                                         <div className="font-bold text-base">{importSummary.createdCount}</div>
-                                        <div className="text-[10px] text-emerald-400">Akun Baru Dibuat</div>
+                                        <div className="text-[10px]">Akun Baru Dibuat</div>
                                     </div>
-                                    <div className="p-2.5 rounded-xl bg-blue-950/40 border border-blue-800/60 text-blue-300">
+                                    <div className="p-2.5 rounded-xl bg-[#eef3fb] border border-[#c6daf4] text-[#3b6ea5]">
                                         <div className="font-bold text-base">{importSummary.updatedCount}</div>
-                                        <div className="text-[10px] text-blue-400">Akun Diperbarui</div>
+                                        <div className="text-[10px]">Akun Diperbarui</div>
                                     </div>
-                                    <div className="p-2.5 rounded-xl bg-rose-950/40 border border-rose-800/60 text-rose-300">
+                                    <div className="p-2.5 rounded-xl bg-[#fdf2f2] border border-[#f5c7c7] text-[#9c3838]">
                                         <div className="font-bold text-base">{importSummary.errors.length}</div>
-                                        <div className="text-[10px] text-rose-400">Gagal / Error</div>
+                                        <div className="text-[10px]">Gagal / Error</div>
                                     </div>
                                 </div>
 
                                 {importSummary.errors.length > 0 && (
-                                    <div className="max-h-32 overflow-y-auto space-y-1 text-[11px] text-rose-300 font-mono p-2 rounded-xl bg-slate-950 border border-rose-900/50">
+                                    <div className="max-h-32 overflow-y-auto space-y-1 text-[11px] text-[#9c3838] font-mono p-2 rounded-xl bg-[#fdf2f2] border border-[#f5c7c7]">
                                         {importSummary.errors.map((err, idx) => (
                                             <div key={idx}>
                                                 Baris {err.row} ({err.identifier}): {err.error}
@@ -1078,11 +1099,11 @@ export default function UserManagementPage() {
                         )}
 
                         {/* Actions Footer */}
-                        <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                        <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#e3ece6] dark:border-[#24342c]">
                             <button
                                 type="button"
                                 onClick={() => setIsImportOpen(false)}
-                                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#718579] hover:text-[#202924]"
                             >
                                 {importSummary ? "Tutup" : "Batal"}
                             </button>
@@ -1091,7 +1112,7 @@ export default function UserManagementPage() {
                                     type="button"
                                     onClick={handleStartBulkImport}
                                     disabled={parsedRows.length === 0 || isImporting}
-                                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-50 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20 flex items-center gap-2"
+                                    className="px-5 py-2.5 rounded-xl bg-[#468366] hover:bg-[#396953] disabled:opacity-50 text-white text-xs font-semibold transition-all shadow-sm flex items-center gap-2"
                                 >
                                     {isImporting ? (
                                         <>
@@ -1100,7 +1121,6 @@ export default function UserManagementPage() {
                                         </>
                                     ) : (
                                         <>
-                                            <span>⚡</span>
                                             <span>Mulai Import {parsedRows.length} Siswa</span>
                                         </>
                                     )}
@@ -1113,18 +1133,18 @@ export default function UserManagementPage() {
 
             {/* Modal Pairing Kartu RFID */}
             {pairingUser && (
-                <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="w-full max-w-md bg-slate-900 border border-emerald-500/40 rounded-3xl p-6 shadow-2xl space-y-4">
-                        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="w-full max-w-md bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-6 shadow-2xl space-y-4">
+                        <div className="flex items-center justify-between pb-3 border-b border-[#e3ece6] dark:border-[#24342c]">
                             <div>
-                                <h2 className="text-base font-bold text-white flex items-center gap-2">
+                                <h2 className="text-base font-bold text-[#202924] dark:text-white flex items-center gap-2">
                                     <span>💳</span> Tautkan Kartu Fisik RFID
                                 </h2>
-                                <div className="text-xs text-emerald-400 font-semibold mt-0.5">
+                                <div className="text-xs text-[#468366] dark:text-[#7cc49e] font-semibold mt-0.5">
                                     {pairingUser.name} ({pairingUser.kelas || pairingUser.role})
                                 </div>
                             </div>
-                            <button onClick={() => setPairingUser(null)} className="text-slate-400 hover:text-white text-sm">
+                            <button onClick={() => setPairingUser(null)} className="text-[#718579] hover:text-[#202924] dark:hover:text-white text-sm">
                                 ✕
                             </button>
                         </div>
@@ -1133,8 +1153,8 @@ export default function UserManagementPage() {
                             <div
                                 className={`p-3 rounded-xl text-xs font-semibold ${
                                     pairingMsg.type === "success"
-                                        ? "bg-emerald-950/50 border border-emerald-800 text-emerald-300"
-                                        : "bg-rose-950/50 border border-rose-800 text-rose-300"
+                                        ? "bg-[#e8f2ec] border border-[#c4ded0] text-[#2e5845]"
+                                        : "bg-[#fdf2f2] border border-[#f5c7c7] text-[#9c3838]"
                                 }`}
                             >
                                 {pairingMsg.text}
@@ -1142,32 +1162,32 @@ export default function UserManagementPage() {
                         )}
 
                         <form onSubmit={handlePairRfid} className="space-y-4">
-                            <div className="p-4 rounded-2xl bg-slate-800/60 border border-slate-700 text-center space-y-2">
-                                <div className="text-3xl animate-bounce">💳</div>
-                                <div className="text-xs font-bold text-white">Tempelkan Kartu RFID ke Sensor Reader</div>
-                                <p className="text-[11px] text-slate-400">
-                                    Sensor reader USB akan otomatis mengetik nomor UID kartu di bawah ini.
+                            <div className="p-4 rounded-2xl bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] text-center space-y-2">
+                                <div className="text-3xl">💳</div>
+                                <div className="text-xs font-bold text-[#202924] dark:text-white">Tempelkan Kartu RFID ke Sensor Reader</div>
+                                <p className="text-[11px] text-[#718579] dark:text-slate-400">
+                                    Sensor reader USB akan otomatis mengisi nomor UID kartu di bawah ini.
                                 </p>
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Nomor UID Kartu RFID *</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Nomor UID Kartu RFID *</label>
                                 <input
                                     type="text"
                                     autoFocus
                                     placeholder="Contoh: 0014298172 atau A3F912C8"
                                     value={pairingUid}
                                     onChange={(e) => setPairingUid(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm font-mono text-emerald-400 text-center placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-white dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-sm font-mono text-[#468366] text-center placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                 />
                             </div>
 
-                            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+                            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#e3ece6] dark:border-[#24342c]">
                                 {pairingUser.rfidCard && (
                                     <button
                                         type="button"
                                         onClick={() => setPairingUid("")}
-                                        className="px-3 py-2 rounded-xl text-xs font-semibold text-rose-400 hover:bg-rose-950/30"
+                                        className="px-3 py-2 rounded-xl text-xs font-semibold text-[#9c3838] hover:bg-[#fdf2f2]"
                                     >
                                         Hapus Kartu
                                     </button>
@@ -1175,14 +1195,14 @@ export default function UserManagementPage() {
                                 <button
                                     type="button"
                                     onClick={() => setPairingUser(null)}
-                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-[#718579] hover:text-[#202924]"
                                 >
                                     Batal
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isPairingSubmitting}
-                                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20"
+                                    className="px-5 py-2.5 rounded-xl bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold transition-all shadow-sm"
                                 >
                                     {isPairingSubmitting ? "Menyimpan..." : "Simpan Kartu RFID"}
                                 </button>
@@ -1194,67 +1214,67 @@ export default function UserManagementPage() {
 
             {/* Modal Tambah Pengguna Manual */}
             {isCreateOpen && (
-                <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-                    <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
-                        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+                    <div className="w-full max-w-lg bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-6 shadow-2xl">
+                        <div className="flex items-center justify-between pb-4 border-b border-[#e3ece6] dark:border-[#24342c]">
+                            <h2 className="text-lg font-bold text-[#202924] dark:text-white flex items-center gap-2">
                                 <span>👥</span> Tambah Pengguna Baru
                             </h2>
-                            <button onClick={() => setIsCreateOpen(false)} className="text-slate-400 hover:text-white text-sm">
+                            <button onClick={() => setIsCreateOpen(false)} className="text-[#718579] hover:text-[#202924] dark:hover:text-white text-sm">
                                 ✕
                             </button>
                         </div>
 
                         {errorMsg && (
-                            <div className="p-3 my-3 rounded-xl bg-rose-950/50 border border-rose-800 text-rose-300 text-xs">
+                            <div className="p-3 my-3 rounded-xl bg-[#fdf2f2] border border-[#f5c7c7] text-[#9c3838] text-xs">
                                 ⚠️ {errorMsg}
                             </div>
                         )}
 
                         <form onSubmit={handleCreate} className="space-y-4 mt-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Nama Lengkap *</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Nama Lengkap *</label>
                                 <input
                                     type="text"
                                     required
                                     placeholder="Contoh: Muhammad Rizky Pratama"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                 />
                             </div>
 
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">Email Resmi *</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Email *</label>
                                     <input
                                         type="email"
                                         required
                                         placeholder="nama@smkn11bdg.sch.id"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">Password Awal *</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Password Awal *</label>
                                     <input
                                         type="text"
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs font-mono text-emerald-400 focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#468366] focus:outline-none focus:border-[#468366]"
                                     />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">Peran / Role *</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Peran / Role *</label>
                                     <select
                                         value={role}
                                         onChange={(e) => setRole(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3 py-2.5 text-xs text-[#202924] dark:text-white focus:outline-none focus:border-[#468366]"
                                     >
                                         <option value="STUDENT">Siswa (STUDENT)</option>
                                         <option value="SEKBID_OFFICER">Pengurus Sekbid OSIS</option>
@@ -1268,11 +1288,11 @@ export default function UserManagementPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">Divisi Terkait</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Divisi Terkait</label>
                                     <select
                                         value={division}
                                         onChange={(e) => setDivision(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3 py-2.5 text-xs text-[#202924] dark:text-white focus:outline-none focus:border-[#468366]"
                                     >
                                         <option value="GENERAL">GENERAL (Umum)</option>
                                         <option value="BPH_OSIS">BPH OSIS</option>
@@ -1297,46 +1317,46 @@ export default function UserManagementPage() {
 
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">NIS (Nomor Induk Siswa)</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">NIS (Nomor Induk Siswa)</label>
                                     <input
                                         type="text"
                                         placeholder="Contoh: 24250002"
                                         value={nis}
                                         onChange={(e) => setNis(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-300 mb-1">Kelas</label>
+                                    <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Kelas</label>
                                     <input
                                         type="text"
                                         placeholder="Contoh: XII RPL 1"
                                         value={kelas}
                                         onChange={(e) => setKelas(e.target.value)}
-                                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                        className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">UID Kartu RFID (Opsional)</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">UID Kartu RFID (Opsional)</label>
                                 <input
                                     type="text"
                                     placeholder="Tempelkan kartu RFID atau ketik UID..."
                                     value={rfidCard}
                                     onChange={(e) => setRfidCard(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs font-mono text-emerald-400 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#468366] placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Jabatan Spesifik</label>
+                                <label className="block text-xs font-bold text-[#202924] dark:text-slate-200 mb-1">Jabatan Spesifik</label>
                                 <input
                                     type="text"
                                     placeholder="Contoh: Ketua OSIS / Sekretaris 1 / Bendahara 1 / Pembina"
                                     value={position}
                                     onChange={(e) => setPosition(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 mb-2"
+                                    className="w-full bg-[#f5f8f6] dark:bg-[#141d18] border border-[#d4e6db] dark:border-[#2a3c33] rounded-xl px-3.5 py-2.5 text-xs text-[#202924] dark:text-white placeholder-[#8ba093] focus:outline-none focus:border-[#468366] mb-2"
                                 />
                                 <div className="flex flex-wrap gap-1.5">
                                     {[
@@ -1359,7 +1379,7 @@ export default function UserManagementPage() {
                                                 setRole(preset.r);
                                                 setDivision(preset.d);
                                             }}
-                                            className="px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-slate-800 hover:bg-emerald-600/30 border border-slate-700 hover:border-emerald-500/40 text-slate-300 hover:text-emerald-300 transition-all"
+                                            className="px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-[#e8f2ec] hover:bg-[#d8e9df] border border-[#d4e6db] text-[#2e5845] transition-all"
                                         >
                                             + {preset.label}
                                         </button>
@@ -1367,18 +1387,18 @@ export default function UserManagementPage() {
                                 </div>
                             </div>
 
-                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#e3ece6] dark:border-[#24342c]">
                                 <button
                                     type="button"
                                     onClick={() => setIsCreateOpen(false)}
-                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-[#718579] hover:text-[#202924]"
                                 >
                                     Batal
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20"
+                                    className="px-5 py-2.5 rounded-xl bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold transition-all shadow-sm"
                                 >
                                     {isSubmitting ? "Mendaftarkan..." : "Daftarkan Pengguna"}
                                 </button>

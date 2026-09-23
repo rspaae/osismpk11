@@ -48,14 +48,14 @@ const pembinaOsisMpk: LeaderProfile = {
 // DATA — OSIS NAVASTRA 2026/2027
 // ═══════════════════════════════════════════════════════════════════════════════
 const osisKetua: LeaderProfile = {
-  name: "Nama Ketua OSIS",
+  name: "Tania Salsabila Putri",
   role: "Ketua Umum OSIS",
   badge: "Ketua OSIS",
   // photo: "/images/members/ketua-osis.jpg",
 };
 
 const osisWakil: LeaderProfile = {
-  name: "Nama Wakil Ketua OSIS",
+  name: "Dzaki Fairuz",
   role: "Wakil Ketua OSIS",
   badge: "Wakil Ketua",
   // photo: "/images/members/wakil-osis.jpg",
@@ -108,14 +108,14 @@ const sekbidData: TeamGroup[] = [
 // DATA — MPK NAVANDYA 2026/2027
 // ═══════════════════════════════════════════════════════════════════════════════
 const mpkKetua: LeaderProfile = {
-  name: "Nama Ketua MPK",
+  name: "Niar Almira Achmi",
   role: "Ketua Umum MPK",
   badge: "Ketua MPK",
   // photo: "/images/members/ketua-mpk.jpg",
 };
 
 const mpkWakil: LeaderProfile = {
-  name: "Nama Wakil Ketua MPK",
+  name: "Muhammad Ilham Romadon",
   role: "Wakil Ketua MPK",
   badge: "Wakil Ketua",
   // photo: "/images/members/wakil-mpk.jpg",
@@ -350,8 +350,8 @@ export default function Structure() {
   const themeColor = activeOrg === 'osis' ? 'emerald' : 'amber';
 
   return (
-    <main className="min-h-screen pt-28 md:pt-36 pb-24 md:pb-36 px-4 md:px-6 bg-background">
-      <div className="container mx-auto max-w-6xl">
+    <main className="min-h-screen pt-28 md:pt-36 pb-24 md:pb-36 px-4 md:px-6 lg:px-8 bg-background">
+      <div className="container mx-auto max-w-7xl lg:max-w-[1360px]">
 
         {/* ── HEADER & TITLE ─────────────────────────────────────────────── */}
         <header className="mb-14 text-center max-w-3xl mx-auto px-4">

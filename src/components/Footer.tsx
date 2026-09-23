@@ -1,48 +1,61 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
     return (
-        <footer className="bg-slate-100/70 dark:bg-slate-900/90 border-t border-slate-200 dark:border-slate-800 pt-16 pb-12 px-4 md:px-6">
-            <div className="container mx-auto max-w-5xl">
+        <footer className="bg-[#f2f6f3] dark:bg-[#121915] border-t border-[#e3ece6] dark:border-[#24342c] pt-14 pb-12 px-4 md:px-6 lg:px-8">
+            <div className="container mx-auto max-w-7xl lg:max-w-[1360px]">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
                     <div className="md:col-span-5">
-                        <Link href="/" className="flex items-center gap-2.5 mb-4 group">
-                            <div className="w-9 h-9 bg-emerald-700 text-white rounded-xl flex items-center justify-center font-black text-sm shadow-sm">
-                                11
+                        <Link href="/" className="flex items-center gap-3 mb-4 group">
+                            <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] p-1 flex items-center justify-center shadow-xs group-hover:border-[#468366]/40 transition-colors overflow-hidden shrink-0">
+                                <Image
+                                    src="/images/logos/smkn11.jpg"
+                                    alt="SMKN 11 Bandung"
+                                    width={36}
+                                    height={36}
+                                    className="object-contain"
+                                />
                             </div>
-                            <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white">
-                                OSIS - MPK
-                            </span>
+                            <div className="flex flex-col">
+                                <span className="text-lg font-bold tracking-tight text-[#2c3831] dark:text-[#dce6e0] leading-none">
+                                    OSIS - MPK
+                                </span>
+                                <span className="text-[10px] font-semibold uppercase tracking-wider text-[#468366] dark:text-[#a3d4bd] mt-0.5">
+                                    SMKN 11 Bandung
+                                </span>
+                            </div>
                         </Link>
-                        <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
-                            Wadah inspirasi, kolaborasi, dan aksi nyata seluruh siswa SMKN 11 Bandung menuju generasi berkarakter dan berprestasi.
+                        <p className="text-[#5f7167] dark:text-[#a5b8ad] text-xs leading-relaxed max-w-sm">
+                            Wadah inspirasi, kolaborasi, dan aksi nyata seluruh siswa SMKN 11 Bandung menuju generasi berkarakter, unggul, dan berprestasi.
                         </p>
                     </div>
 
                     <div className="md:col-span-2">
-                        <h4 className="font-bold uppercase tracking-wider text-xs text-slate-900 dark:text-white mb-4">
+                        <h4 className="font-semibold uppercase tracking-wider text-xs text-[#2c3831] dark:text-[#dce6e0] mb-3">
                             Organisasi
                         </h4>
-                        <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
-                            <li><Link href="/vision-mission" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Visi & Misi</Link></li>
-                            <li><Link href="/structure" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Struktur</Link></li>
-                            <li><Link href="/departments" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">10 Sekbid</Link></li>
-                            <li><Link href="/activities" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Dokumentasi</Link></li>
+                        <ul className="space-y-2 text-xs text-[#5f7167] dark:text-[#a5b8ad]">
+                            <li><Link href="/vision-mission" className="hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors">Visi & Misi</Link></li>
+                            <li><Link href="/structure" className="hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors">Struktur Organisasi</Link></li>
+                            <li><Link href="/departments" className="hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors">10 Sekbid OSIS</Link></li>
+                            <li><Link href="/activities" className="hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors">Dokumentasi</Link></li>
                         </ul>
                     </div>
 
                     <div className="md:col-span-2">
-                        <h4 className="font-bold uppercase tracking-wider text-xs text-slate-900 dark:text-white mb-4">
+                        <h4 className="font-semibold uppercase tracking-wider text-xs text-[#2c3831] dark:text-[#dce6e0] mb-3">
                             Layanan
                         </h4>
-                        <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
-                            <li><Link href="/student/dashboard" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Form Aspirasi</Link></li>
-                            <li><Link href="/login" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">Portal Siswa</Link></li>
+                        <ul className="space-y-2 text-xs text-[#5f7167] dark:text-[#a5b8ad]">
+                            <li><Link href="/student/dashboard" className="hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors">Form Aspirasi Siswa</Link></li>
+                            <li><Link href="/login" className="hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors">Portal Siswa</Link></li>
+                            <li><a href="https://smkn11bdg.sch.id" target="_blank" rel="noopener noreferrer" className="hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors">Web Utama SMKN 11 ↗</a></li>
                         </ul>
                     </div>
 
                     <div className="md:col-span-3">
-                        <h4 className="font-bold uppercase tracking-wider text-xs text-slate-900 dark:text-white mb-4">
+                        <h4 className="font-semibold uppercase tracking-wider text-xs text-[#2c3831] dark:text-[#dce6e0] mb-3">
                             Media Sosial
                         </h4>
                         <div className="flex flex-col gap-2">
@@ -50,7 +63,7 @@ export default function Footer() {
                                 href="https://instagram.com/osissmkn11bdg"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                                className="text-xs text-[#5f7167] dark:text-[#a5b8ad] hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors flex items-center gap-1.5"
                             >
                                 <span>📷</span> @osissmkn11bdg
                             </a>
@@ -58,7 +71,7 @@ export default function Footer() {
                                 href="https://instagram.com/mpksmkn11bdg"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+                                className="text-xs text-[#5f7167] dark:text-[#a5b8ad] hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors flex items-center gap-1.5"
                             >
                                 <span>📷</span> @mpksmkn11bdg
                             </a>
@@ -66,10 +79,10 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-3 text-[11px] text-slate-500">
+                <div className="pt-6 border-t border-[#e3ece6] dark:border-[#24342c] flex flex-col sm:flex-row justify-between items-center gap-3 text-[11px] text-[#8a9a91] dark:text-[#73887d]">
                     <p>&copy; {new Date().getFullYear()} OSIS-MPK SMKN 11 Bandung. All rights reserved.</p>
                     <p>
-                        by <a href="https://instagram.com/inirspaa" target="_blank" rel="noopener noreferrer" className="font-bold text-emerald-700 dark:text-emerald-400 hover:underline">rapa ganteng</a>
+                        Official Portal — <a href="https://smkn11bdg.sch.id" target="_blank" rel="noopener noreferrer" className="font-medium text-[#468366] dark:text-[#a3d4bd] hover:underline">SMKN 11 Bandung</a>
                     </p>
                 </div>
             </div>

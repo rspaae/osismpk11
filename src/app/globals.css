@@ -1,128 +1,128 @@
 @import "tailwindcss";
 
 @theme {
-  --color-mint-50: #f2faf5;
-  --color-mint-100: #e1f5eb;
-  --color-mint-200: #c4ebd6;
-  --color-mint-300: #99dab9;
-  --color-mint-400: #66c197;
-  --color-mint-500: #3ea578;
-  --color-mint-600: #2d855e;
-  --color-mint-700: #256a4d;
-  --color-mint-800: #21553f;
-  --color-mint-900: #1c4635;
+  --color-mint-50: #f4f8f5;
+  --color-mint-100: #e8f2ec;
+  --color-mint-200: #d4e6db;
+  --color-mint-300: #b5d5c2;
+  --color-mint-400: #88bca0;
+  --color-mint-500: #5d9e7e;
+  --color-mint-600: #468366;
+  --color-mint-700: #396953;
+  --color-mint-800: #2e5241;
+  --color-mint-900: #254235;
 
-  --color-cream-50: #fdfcf7;
-  --color-cream-100: #f9f6ec;
-  --color-cream-200: #f4eee0;
-  --color-cream-300: #ece1cc;
-  --color-cream-400: #dfceb1;
+  --color-cream-50: #fafaf6;
+  --color-cream-100: #f5f4ec;
+  --color-cream-200: #ebe9dd;
+  --color-cream-300: #dedbc9;
+  --color-cream-400: #ccc7b0;
 
-  --color-brand-primary: #256a4d;
-  --color-brand-secondary: #1e293b;
-  --color-brand-accent: #3ea578;
-  --color-brand-soft: #f2faf5;
+  --color-brand-primary: #468366;
+  --color-brand-secondary: #334139;
+  --color-brand-accent: #5d9e7e;
+  --color-brand-soft: #f4f8f5;
 
   --font-sans: var(--font-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --font-display: var(--font-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
 }
 
 :root {
-  --background: #fdfcf7;
-  --foreground: #1e293b;
+  /* Soft, Low-Contrast Mint Cream Theme */
+  --background: #f7faf7;
+  --foreground: #334139;
   --card: #ffffff;
-  --card-foreground: #1e293b;
-  --border: #e8e6dc;
-  --border-strong: #d5d1c2;
-  --ring: #256a4d;
+  --card-foreground: #334139;
+  --border: #e3ece6;
+  --border-strong: #d2ded6;
+  --ring: #468366;
 
-  /* Admin Panel — Light Mode */
-  --adm-bg: #f3f4f6;
+  /* Admin Panel — Soft Light Mode */
+  --adm-bg: #f4f7f5;
   --adm-sidebar: #ffffff;
-  --adm-sidebar-border: #e5e7eb;
+  --adm-sidebar-border: #e3ece6;
   --adm-card: #ffffff;
-  --adm-card-border: #e5e7eb;
-  --adm-text: #111827;
-  --adm-text-muted: #6b7280;
-  --adm-text-faint: #9ca3af;
-  --adm-accent: #1d4ed8;
-  --adm-accent-hover: #1e40af;
-  --adm-accent-soft: #eff6ff;
-  --adm-accent-text: #1d4ed8;
-  --adm-nav-hover: #f0f4ff;
-  --adm-active-bg: #1d4ed8;
+  --adm-card-border: #e3ece6;
+  --adm-text: #2c3831;
+  --adm-text-muted: #5f7167;
+  --adm-text-faint: #8a9a91;
+  --adm-accent: #468366;
+  --adm-accent-hover: #396953;
+  --adm-accent-soft: #edf5f0;
+  --adm-accent-text: #396953;
+  --adm-nav-hover: #edf5f0;
+  --adm-active-bg: #468366;
   --adm-active-text: #ffffff;
   --adm-header-bg: #ffffff;
-  --adm-divider: #e5e7eb;
-  --adm-table-head: #f9fafb;
-  --adm-table-row-hover: #f0f4ff;
-  --adm-table-stripe: #fafafa;
-  --adm-badge-blue-bg: #dbeafe;
-  --adm-badge-blue-text: #1e40af;
-  --adm-badge-amber-bg: #fef3c7;
-  --adm-badge-amber-text: #92400e;
-  --adm-badge-green-bg: #d1fae5;
-  --adm-badge-green-text: #065f46;
-  --adm-badge-red-bg: #fee2e2;
-  --adm-badge-red-text: #991b1b;
-  --adm-badge-purple-bg: #ede9fe;
-  --adm-badge-purple-text: #5b21b6;
-  --adm-selected-row: #eff6ff;
+  --adm-divider: #e3ece6;
+  --adm-table-head: #f8faf8;
+  --adm-table-row-hover: #edf5f0;
+  --adm-table-stripe: #fafcfb;
+  --adm-badge-blue-bg: #e6effa;
+  --adm-badge-blue-text: #335982;
+  --adm-badge-amber-bg: #faf3e1;
+  --adm-badge-amber-text: #785a21;
+  --adm-badge-green-bg: #e6f4ec;
+  --adm-badge-green-text: #2b6144;
+  --adm-badge-red-bg: #fae8e8;
+  --adm-badge-red-text: #8c3636;
+  --adm-badge-purple-bg: #f1ecfa;
+  --adm-badge-purple-text: #5e3b8a;
+  --adm-selected-row: #edf5f0;
   --adm-input-bg: #ffffff;
-  --adm-input-border: #d1d5db;
-  --adm-input-focus: #1d4ed8;
-  --adm-scrollbar: #d1d5db;
+  --adm-input-border: #d2ded6;
+  --adm-input-focus: #468366;
+  --adm-scrollbar: #d2ded6;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f1914;
-    --foreground: #f8fafc;
-    --card: #15241d;
-    --card-foreground: #f8fafc;
-    --border: #233a2e;
-    --border-strong: #304e3f;
-    --ring: #66c197;
+    --background: #141c18;
+    --foreground: #dce6e0;
+    --card: #19241f;
+    --card-foreground: #dce6e0;
+    --border: #24342c;
+    --border-strong: #2f4339;
+    --ring: #5d9e7e;
 
-    /* Admin Panel — Dark Mode */
-    --adm-bg: #0f172a;
-    --adm-sidebar: #1e293b;
-    --adm-sidebar-border: #334155;
-    --adm-card: #1e293b;
-    --adm-card-border: #334155;
-    --adm-text: #f1f5f9;
-    --adm-text-muted: #94a3b8;
-    --adm-text-faint: #64748b;
-    --adm-accent: #3b82f6;
-    --adm-accent-hover: #2563eb;
-    --adm-accent-soft: #1e3a5f;
-    --adm-accent-text: #60a5fa;
-    --adm-nav-hover: #1e3a5f;
-    --adm-active-bg: #1d4ed8;
+    /* Admin Panel — Soft Dark Mode */
+    --adm-bg: #141c18;
+    --adm-sidebar: #19241f;
+    --adm-sidebar-border: #24342c;
+    --adm-card: #19241f;
+    --adm-card-border: #24342c;
+    --adm-text: #dce6e0;
+    --adm-text-muted: #8fa599;
+    --adm-text-faint: #60756a;
+    --adm-accent: #5d9e7e;
+    --adm-accent-hover: #468366;
+    --adm-accent-soft: #1d2c25;
+    --adm-accent-text: #a3d4bd;
+    --adm-nav-hover: #1d2c25;
+    --adm-active-bg: #468366;
     --adm-active-text: #ffffff;
-    --adm-header-bg: #1e293b;
-    --adm-divider: #334155;
-    --adm-table-head: #0f172a;
-    --adm-table-row-hover: #1e3a5f;
-    --adm-table-stripe: #1e2d40;
-    --adm-badge-blue-bg: #1e3a5f;
-    --adm-badge-blue-text: #93c5fd;
-    --adm-badge-amber-bg: #451a03;
-    --adm-badge-amber-text: #fcd34d;
-    --adm-badge-green-bg: #064e3b;
-    --adm-badge-green-text: #6ee7b7;
-    --adm-badge-red-bg: #450a0a;
-    --adm-badge-red-text: #fca5a5;
-    --adm-badge-purple-bg: #2e1065;
-    --adm-badge-purple-text: #c4b5fd;
-    --adm-selected-row: #1e3a5f;
-    --adm-input-bg: #0f172a;
-    --adm-input-border: #334155;
-    --adm-input-focus: #3b82f6;
-    --adm-scrollbar: #334155;
+    --adm-header-bg: #19241f;
+    --adm-divider: #24342c;
+    --adm-table-head: #141c18;
+    --adm-table-row-hover: #1d2c25;
+    --adm-table-stripe: #17211c;
+    --adm-badge-blue-bg: #1b2a38;
+    --adm-badge-blue-text: #9ec1e6;
+    --adm-badge-amber-bg: #332814;
+    --adm-badge-amber-text: #e6c885;
+    --adm-badge-green-bg: #183325;
+    --adm-badge-green-text: #96d6b4;
+    --adm-badge-red-bg: #361b1b;
+    --adm-badge-red-text: #e69898;
+    --adm-badge-purple-bg: #271a38;
+    --adm-badge-purple-text: #c8aae6;
+    --adm-selected-row: #1d2c25;
+    --adm-input-bg: #141c18;
+    --adm-input-border: #24342c;
+    --adm-input-focus: #5d9e7e;
+    --adm-scrollbar: #24342c;
   }
 }
-
 
 body {
   color: var(--foreground);
@@ -141,31 +141,31 @@ h4,
   font-family: var(--font-display);
 }
 
-/* Mint Cream Glass & Cards */
+/* Soft Mint Cream Glass & Cards */
 .glass {
-  background: rgba(253, 252, 247, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(232, 230, 220, 0.8);
-  box-shadow: 0 4px 16px -2px rgba(37, 106, 77, 0.04);
+  background: rgba(247, 250, 247, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(227, 236, 230, 0.85);
+  box-shadow: 0 4px 16px -2px rgba(70, 131, 102, 0.04);
 }
 
 .dark .glass {
-  background: rgba(21, 36, 29, 0.88);
-  border: 1px solid rgba(48, 78, 63, 0.5);
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.35);
+  background: rgba(25, 36, 31, 0.9);
+  border: 1px solid rgba(36, 52, 44, 0.6);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.3);
 }
 
 .card-mint-cream {
   background: #ffffff;
-  border: 1px solid #e8e6dc;
-  box-shadow: 0 2px 8px rgba(37, 106, 77, 0.03);
+  border: 1px solid #e3ece6;
+  box-shadow: 0 2px 8px rgba(70, 131, 102, 0.02);
 }
 
 .dark .card-mint-cream {
-  background: #15241d;
-  border: 1px solid #233a2e;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background: #19241f;
+  border: 1px solid #24342c;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Custom Scrollbar */
@@ -178,39 +178,39 @@ h4,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d5d1c2;
+  background: #d2ded6;
   border-radius: 8px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #233a2e;
+  background: #24342c;
 }
 
 /* Background Mint & Cream Soft Gradient */
 .bg-mint-cream {
   background-color: var(--background);
   background-image: 
-    radial-gradient(at 0% 0%, rgba(225, 245, 235, 0.6) 0px, transparent 45%),
-    radial-gradient(at 100% 0%, rgba(249, 246, 236, 0.8) 0px, transparent 45%),
-    radial-gradient(at 50% 100%, rgba(242, 250, 245, 0.5) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(232, 242, 236, 0.6) 0px, transparent 45%),
+    radial-gradient(at 100% 0%, rgba(245, 244, 236, 0.6) 0px, transparent 45%),
+    radial-gradient(at 50% 100%, rgba(244, 248, 245, 0.5) 0px, transparent 50%);
 }
 
 .dark .bg-mint-cream {
   background-image: 
-    radial-gradient(at 0% 0%, rgba(37, 106, 77, 0.25) 0px, transparent 45%),
-    radial-gradient(at 100% 0%, rgba(30, 41, 59, 0.2) 0px, transparent 45%),
-    radial-gradient(at 50% 100%, rgba(21, 56, 41, 0.2) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(70, 131, 102, 0.15) 0px, transparent 45%),
+    radial-gradient(at 100% 0%, rgba(30, 40, 35, 0.2) 0px, transparent 45%),
+    radial-gradient(at 50% 100%, rgba(25, 36, 31, 0.2) 0px, transparent 50%);
 }
 
 .card-hover-fx {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s ease;
 }
 
 .card-hover-fx:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px -4px rgba(37, 106, 77, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -4px rgba(70, 131, 102, 0.06);
 }
 
 .dark .card-hover-fx:hover {
-  box-shadow: 0 10px 20px -4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.3);
 }

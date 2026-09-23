@@ -233,6 +233,9 @@ model User {
   // Relasi Audit Log
   auditLogs AuditLog[] @relation("ActorAuditLogs")
 
+  // Relasi Pencatat Pelanggaran
+  violationRecords StudentViolation[] @relation("ViolationRecorder")
+
   @@index([role])
   @@index([division])
   @@index([periodId])
@@ -551,4 +554,42 @@ model AuditLog {
   @@index([actorId])
   @@index([createdAt])
   @@map("audit_logs")
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 10. PENCATAT PELANGGARAN SISWA (STUDENT VIOLATION TRACKER)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+enum ViolationSeverity {
+  RINGAN  @map("ringan")  // Pelanggaran ringan (misal: tidak mengucapkan salam)
+  SEDANG  @map("sedang")  // Pelanggaran sedang (misal: tidak berseragam lengkap)
+  BERAT   @map("berat")   // Pelanggaran berat (misal: berkelahi, tidak hadir sapa pagi berulang)
+
+  @@map("violation_severities")
+}
+
+model StudentViolation {
+  id              String             @id @default(cuid())
+  studentName     String             // Nama siswa (tidak harus punya akun)
+  studentClass    String             // Kelas, contoh: "XII RPL 1"
+  violationType   String             // Jenis pelanggaran, contoh: "Tidak hadir Sapa Pagi"
+  context         String?            // Konteks kegiatan, contoh: "Sapa Pagi", "Upacara", "Piket Danus"
+  notes           String?            @db.Text // Catatan tambahan petugas
+  severity        ViolationSeverity  @default(RINGAN)
+  date            DateTime           @default(now()) // Tanggal pelanggaran
+  pointDeduction  Int                @default(0) // Pengurangan poin (jika berlaku)
+
+  // Petugas pencatat
+  recordedById String?
+  recordedBy   User?   @relation("ViolationRecorder", fields: [recordedById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([studentClass])
+  @@index([violationType])
+  @@index([severity])
+  @@index([date])
+  @@index([recordedById])
+  @@map("student_violations")
 }

@@ -73,6 +73,11 @@ export type MemberTask = $Result.DefaultSelection<Prisma.$MemberTaskPayload>
  * 
  */
 export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
+/**
+ * Model StudentViolation
+ * 
+ */
+export type StudentViolation = $Result.DefaultSelection<Prisma.$StudentViolationPayload>
 
 /**
  * Enums
@@ -221,6 +226,15 @@ export const AuditAction: {
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
 
+
+export const ViolationSeverity: {
+  RINGAN: 'RINGAN',
+  SEDANG: 'SEDANG',
+  BERAT: 'BERAT'
+};
+
+export type ViolationSeverity = (typeof ViolationSeverity)[keyof typeof ViolationSeverity]
+
 }
 
 export type Role = $Enums.Role
@@ -270,6 +284,10 @@ export const TaskStatus: typeof $Enums.TaskStatus
 export type AuditAction = $Enums.AuditAction
 
 export const AuditAction: typeof $Enums.AuditAction
+
+export type ViolationSeverity = $Enums.ViolationSeverity
+
+export const ViolationSeverity: typeof $Enums.ViolationSeverity
 
 /**
  * ##  Prisma Client ʲˢ
@@ -515,6 +533,16 @@ export class PrismaClient<
     * ```
     */
   get auditLog(): Prisma.AuditLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.studentViolation`: Exposes CRUD operations for the **StudentViolation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StudentViolations
+    * const studentViolations = await prisma.studentViolation.findMany()
+    * ```
+    */
+  get studentViolation(): Prisma.StudentViolationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -966,7 +994,8 @@ export namespace Prisma {
     AttendanceSession: 'AttendanceSession',
     AttendanceRecord: 'AttendanceRecord',
     MemberTask: 'MemberTask',
-    AuditLog: 'AuditLog'
+    AuditLog: 'AuditLog',
+    StudentViolation: 'StudentViolation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -982,7 +1011,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "academicPeriod" | "user" | "aspiration" | "aspirationTimeline" | "aspirationUpvote" | "workProgram" | "activity" | "structureMember" | "attendanceSession" | "attendanceRecord" | "memberTask" | "auditLog"
+      modelProps: "academicPeriod" | "user" | "aspiration" | "aspirationTimeline" | "aspirationUpvote" | "workProgram" | "activity" | "structureMember" | "attendanceSession" | "attendanceRecord" | "memberTask" | "auditLog" | "studentViolation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1874,6 +1903,80 @@ export namespace Prisma {
           }
         }
       }
+      StudentViolation: {
+        payload: Prisma.$StudentViolationPayload<ExtArgs>
+        fields: Prisma.StudentViolationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StudentViolationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StudentViolationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload>
+          }
+          findFirst: {
+            args: Prisma.StudentViolationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StudentViolationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload>
+          }
+          findMany: {
+            args: Prisma.StudentViolationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload>[]
+          }
+          create: {
+            args: Prisma.StudentViolationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload>
+          }
+          createMany: {
+            args: Prisma.StudentViolationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StudentViolationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload>[]
+          }
+          delete: {
+            args: Prisma.StudentViolationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload>
+          }
+          update: {
+            args: Prisma.StudentViolationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload>
+          }
+          deleteMany: {
+            args: Prisma.StudentViolationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StudentViolationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StudentViolationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload>[]
+          }
+          upsert: {
+            args: Prisma.StudentViolationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentViolationPayload>
+          }
+          aggregate: {
+            args: Prisma.StudentViolationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStudentViolation>
+          }
+          groupBy: {
+            args: Prisma.StudentViolationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StudentViolationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StudentViolationCountArgs<ExtArgs>
+            result: $Utils.Optional<StudentViolationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1970,6 +2073,7 @@ export namespace Prisma {
     attendanceRecord?: AttendanceRecordOmit
     memberTask?: MemberTaskOmit
     auditLog?: AuditLogOmit
+    studentViolation?: StudentViolationOmit
   }
 
   /* Types for Logging */
@@ -2142,6 +2246,7 @@ export namespace Prisma {
     assignedTasks: number
     createdTasks: number
     auditLogs: number
+    violationRecords: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2156,6 +2261,7 @@ export namespace Prisma {
     assignedTasks?: boolean | UserCountOutputTypeCountAssignedTasksArgs
     createdTasks?: boolean | UserCountOutputTypeCountCreatedTasksArgs
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+    violationRecords?: boolean | UserCountOutputTypeCountViolationRecordsArgs
   }
 
   // Custom InputTypes
@@ -2244,6 +2350,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AuditLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountViolationRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StudentViolationWhereInput
   }
 
 
@@ -3965,6 +4078,7 @@ export namespace Prisma {
     assignedTasks?: boolean | User$assignedTasksArgs<ExtArgs>
     createdTasks?: boolean | User$createdTasksArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
+    violationRecords?: boolean | User$violationRecordsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4056,6 +4170,7 @@ export namespace Prisma {
     assignedTasks?: boolean | User$assignedTasksArgs<ExtArgs>
     createdTasks?: boolean | User$createdTasksArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
+    violationRecords?: boolean | User$violationRecordsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4080,6 +4195,7 @@ export namespace Prisma {
       assignedTasks: Prisma.$MemberTaskPayload<ExtArgs>[]
       createdTasks: Prisma.$MemberTaskPayload<ExtArgs>[]
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+      violationRecords: Prisma.$StudentViolationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4509,6 +4625,7 @@ export namespace Prisma {
     assignedTasks<T extends User$assignedTasksArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTaskPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     createdTasks<T extends User$createdTasksArgs<ExtArgs> = {}>(args?: Subset<T, User$createdTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTaskPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    violationRecords<T extends User$violationRecordsArgs<ExtArgs> = {}>(args?: Subset<T, User$violationRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5223,6 +5340,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.violationRecords
+   */
+  export type User$violationRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    where?: StudentViolationWhereInput
+    orderBy?: StudentViolationOrderByWithRelationInput | StudentViolationOrderByWithRelationInput[]
+    cursor?: StudentViolationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StudentViolationScalarFieldEnum | StudentViolationScalarFieldEnum[]
   }
 
   /**
@@ -17295,6 +17436,1196 @@ export namespace Prisma {
 
 
   /**
+   * Model StudentViolation
+   */
+
+  export type AggregateStudentViolation = {
+    _count: StudentViolationCountAggregateOutputType | null
+    _avg: StudentViolationAvgAggregateOutputType | null
+    _sum: StudentViolationSumAggregateOutputType | null
+    _min: StudentViolationMinAggregateOutputType | null
+    _max: StudentViolationMaxAggregateOutputType | null
+  }
+
+  export type StudentViolationAvgAggregateOutputType = {
+    pointDeduction: number | null
+  }
+
+  export type StudentViolationSumAggregateOutputType = {
+    pointDeduction: number | null
+  }
+
+  export type StudentViolationMinAggregateOutputType = {
+    id: string | null
+    studentName: string | null
+    studentClass: string | null
+    violationType: string | null
+    context: string | null
+    notes: string | null
+    severity: $Enums.ViolationSeverity | null
+    date: Date | null
+    pointDeduction: number | null
+    recordedById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StudentViolationMaxAggregateOutputType = {
+    id: string | null
+    studentName: string | null
+    studentClass: string | null
+    violationType: string | null
+    context: string | null
+    notes: string | null
+    severity: $Enums.ViolationSeverity | null
+    date: Date | null
+    pointDeduction: number | null
+    recordedById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StudentViolationCountAggregateOutputType = {
+    id: number
+    studentName: number
+    studentClass: number
+    violationType: number
+    context: number
+    notes: number
+    severity: number
+    date: number
+    pointDeduction: number
+    recordedById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type StudentViolationAvgAggregateInputType = {
+    pointDeduction?: true
+  }
+
+  export type StudentViolationSumAggregateInputType = {
+    pointDeduction?: true
+  }
+
+  export type StudentViolationMinAggregateInputType = {
+    id?: true
+    studentName?: true
+    studentClass?: true
+    violationType?: true
+    context?: true
+    notes?: true
+    severity?: true
+    date?: true
+    pointDeduction?: true
+    recordedById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StudentViolationMaxAggregateInputType = {
+    id?: true
+    studentName?: true
+    studentClass?: true
+    violationType?: true
+    context?: true
+    notes?: true
+    severity?: true
+    date?: true
+    pointDeduction?: true
+    recordedById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StudentViolationCountAggregateInputType = {
+    id?: true
+    studentName?: true
+    studentClass?: true
+    violationType?: true
+    context?: true
+    notes?: true
+    severity?: true
+    date?: true
+    pointDeduction?: true
+    recordedById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type StudentViolationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StudentViolation to aggregate.
+     */
+    where?: StudentViolationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudentViolations to fetch.
+     */
+    orderBy?: StudentViolationOrderByWithRelationInput | StudentViolationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StudentViolationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudentViolations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudentViolations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StudentViolations
+    **/
+    _count?: true | StudentViolationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StudentViolationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StudentViolationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StudentViolationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StudentViolationMaxAggregateInputType
+  }
+
+  export type GetStudentViolationAggregateType<T extends StudentViolationAggregateArgs> = {
+        [P in keyof T & keyof AggregateStudentViolation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStudentViolation[P]>
+      : GetScalarType<T[P], AggregateStudentViolation[P]>
+  }
+
+
+
+
+  export type StudentViolationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StudentViolationWhereInput
+    orderBy?: StudentViolationOrderByWithAggregationInput | StudentViolationOrderByWithAggregationInput[]
+    by: StudentViolationScalarFieldEnum[] | StudentViolationScalarFieldEnum
+    having?: StudentViolationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StudentViolationCountAggregateInputType | true
+    _avg?: StudentViolationAvgAggregateInputType
+    _sum?: StudentViolationSumAggregateInputType
+    _min?: StudentViolationMinAggregateInputType
+    _max?: StudentViolationMaxAggregateInputType
+  }
+
+  export type StudentViolationGroupByOutputType = {
+    id: string
+    studentName: string
+    studentClass: string
+    violationType: string
+    context: string | null
+    notes: string | null
+    severity: $Enums.ViolationSeverity
+    date: Date
+    pointDeduction: number
+    recordedById: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: StudentViolationCountAggregateOutputType | null
+    _avg: StudentViolationAvgAggregateOutputType | null
+    _sum: StudentViolationSumAggregateOutputType | null
+    _min: StudentViolationMinAggregateOutputType | null
+    _max: StudentViolationMaxAggregateOutputType | null
+  }
+
+  type GetStudentViolationGroupByPayload<T extends StudentViolationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StudentViolationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StudentViolationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StudentViolationGroupByOutputType[P]>
+            : GetScalarType<T[P], StudentViolationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StudentViolationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentName?: boolean
+    studentClass?: boolean
+    violationType?: boolean
+    context?: boolean
+    notes?: boolean
+    severity?: boolean
+    date?: boolean
+    pointDeduction?: boolean
+    recordedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    recordedBy?: boolean | StudentViolation$recordedByArgs<ExtArgs>
+  }, ExtArgs["result"]["studentViolation"]>
+
+  export type StudentViolationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentName?: boolean
+    studentClass?: boolean
+    violationType?: boolean
+    context?: boolean
+    notes?: boolean
+    severity?: boolean
+    date?: boolean
+    pointDeduction?: boolean
+    recordedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    recordedBy?: boolean | StudentViolation$recordedByArgs<ExtArgs>
+  }, ExtArgs["result"]["studentViolation"]>
+
+  export type StudentViolationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentName?: boolean
+    studentClass?: boolean
+    violationType?: boolean
+    context?: boolean
+    notes?: boolean
+    severity?: boolean
+    date?: boolean
+    pointDeduction?: boolean
+    recordedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    recordedBy?: boolean | StudentViolation$recordedByArgs<ExtArgs>
+  }, ExtArgs["result"]["studentViolation"]>
+
+  export type StudentViolationSelectScalar = {
+    id?: boolean
+    studentName?: boolean
+    studentClass?: boolean
+    violationType?: boolean
+    context?: boolean
+    notes?: boolean
+    severity?: boolean
+    date?: boolean
+    pointDeduction?: boolean
+    recordedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type StudentViolationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "studentName" | "studentClass" | "violationType" | "context" | "notes" | "severity" | "date" | "pointDeduction" | "recordedById" | "createdAt" | "updatedAt", ExtArgs["result"]["studentViolation"]>
+  export type StudentViolationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recordedBy?: boolean | StudentViolation$recordedByArgs<ExtArgs>
+  }
+  export type StudentViolationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recordedBy?: boolean | StudentViolation$recordedByArgs<ExtArgs>
+  }
+  export type StudentViolationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recordedBy?: boolean | StudentViolation$recordedByArgs<ExtArgs>
+  }
+
+  export type $StudentViolationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StudentViolation"
+    objects: {
+      recordedBy: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      studentName: string
+      studentClass: string
+      violationType: string
+      context: string | null
+      notes: string | null
+      severity: $Enums.ViolationSeverity
+      date: Date
+      pointDeduction: number
+      recordedById: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["studentViolation"]>
+    composites: {}
+  }
+
+  type StudentViolationGetPayload<S extends boolean | null | undefined | StudentViolationDefaultArgs> = $Result.GetResult<Prisma.$StudentViolationPayload, S>
+
+  type StudentViolationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StudentViolationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StudentViolationCountAggregateInputType | true
+    }
+
+  export interface StudentViolationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StudentViolation'], meta: { name: 'StudentViolation' } }
+    /**
+     * Find zero or one StudentViolation that matches the filter.
+     * @param {StudentViolationFindUniqueArgs} args - Arguments to find a StudentViolation
+     * @example
+     * // Get one StudentViolation
+     * const studentViolation = await prisma.studentViolation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StudentViolationFindUniqueArgs>(args: SelectSubset<T, StudentViolationFindUniqueArgs<ExtArgs>>): Prisma__StudentViolationClient<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one StudentViolation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StudentViolationFindUniqueOrThrowArgs} args - Arguments to find a StudentViolation
+     * @example
+     * // Get one StudentViolation
+     * const studentViolation = await prisma.studentViolation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StudentViolationFindUniqueOrThrowArgs>(args: SelectSubset<T, StudentViolationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StudentViolationClient<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first StudentViolation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentViolationFindFirstArgs} args - Arguments to find a StudentViolation
+     * @example
+     * // Get one StudentViolation
+     * const studentViolation = await prisma.studentViolation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StudentViolationFindFirstArgs>(args?: SelectSubset<T, StudentViolationFindFirstArgs<ExtArgs>>): Prisma__StudentViolationClient<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first StudentViolation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentViolationFindFirstOrThrowArgs} args - Arguments to find a StudentViolation
+     * @example
+     * // Get one StudentViolation
+     * const studentViolation = await prisma.studentViolation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StudentViolationFindFirstOrThrowArgs>(args?: SelectSubset<T, StudentViolationFindFirstOrThrowArgs<ExtArgs>>): Prisma__StudentViolationClient<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more StudentViolations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentViolationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StudentViolations
+     * const studentViolations = await prisma.studentViolation.findMany()
+     * 
+     * // Get first 10 StudentViolations
+     * const studentViolations = await prisma.studentViolation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const studentViolationWithIdOnly = await prisma.studentViolation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StudentViolationFindManyArgs>(args?: SelectSubset<T, StudentViolationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a StudentViolation.
+     * @param {StudentViolationCreateArgs} args - Arguments to create a StudentViolation.
+     * @example
+     * // Create one StudentViolation
+     * const StudentViolation = await prisma.studentViolation.create({
+     *   data: {
+     *     // ... data to create a StudentViolation
+     *   }
+     * })
+     * 
+     */
+    create<T extends StudentViolationCreateArgs>(args: SelectSubset<T, StudentViolationCreateArgs<ExtArgs>>): Prisma__StudentViolationClient<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many StudentViolations.
+     * @param {StudentViolationCreateManyArgs} args - Arguments to create many StudentViolations.
+     * @example
+     * // Create many StudentViolations
+     * const studentViolation = await prisma.studentViolation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StudentViolationCreateManyArgs>(args?: SelectSubset<T, StudentViolationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StudentViolations and returns the data saved in the database.
+     * @param {StudentViolationCreateManyAndReturnArgs} args - Arguments to create many StudentViolations.
+     * @example
+     * // Create many StudentViolations
+     * const studentViolation = await prisma.studentViolation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StudentViolations and only return the `id`
+     * const studentViolationWithIdOnly = await prisma.studentViolation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StudentViolationCreateManyAndReturnArgs>(args?: SelectSubset<T, StudentViolationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a StudentViolation.
+     * @param {StudentViolationDeleteArgs} args - Arguments to delete one StudentViolation.
+     * @example
+     * // Delete one StudentViolation
+     * const StudentViolation = await prisma.studentViolation.delete({
+     *   where: {
+     *     // ... filter to delete one StudentViolation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StudentViolationDeleteArgs>(args: SelectSubset<T, StudentViolationDeleteArgs<ExtArgs>>): Prisma__StudentViolationClient<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one StudentViolation.
+     * @param {StudentViolationUpdateArgs} args - Arguments to update one StudentViolation.
+     * @example
+     * // Update one StudentViolation
+     * const studentViolation = await prisma.studentViolation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StudentViolationUpdateArgs>(args: SelectSubset<T, StudentViolationUpdateArgs<ExtArgs>>): Prisma__StudentViolationClient<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more StudentViolations.
+     * @param {StudentViolationDeleteManyArgs} args - Arguments to filter StudentViolations to delete.
+     * @example
+     * // Delete a few StudentViolations
+     * const { count } = await prisma.studentViolation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StudentViolationDeleteManyArgs>(args?: SelectSubset<T, StudentViolationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StudentViolations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentViolationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StudentViolations
+     * const studentViolation = await prisma.studentViolation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StudentViolationUpdateManyArgs>(args: SelectSubset<T, StudentViolationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StudentViolations and returns the data updated in the database.
+     * @param {StudentViolationUpdateManyAndReturnArgs} args - Arguments to update many StudentViolations.
+     * @example
+     * // Update many StudentViolations
+     * const studentViolation = await prisma.studentViolation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more StudentViolations and only return the `id`
+     * const studentViolationWithIdOnly = await prisma.studentViolation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StudentViolationUpdateManyAndReturnArgs>(args: SelectSubset<T, StudentViolationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one StudentViolation.
+     * @param {StudentViolationUpsertArgs} args - Arguments to update or create a StudentViolation.
+     * @example
+     * // Update or create a StudentViolation
+     * const studentViolation = await prisma.studentViolation.upsert({
+     *   create: {
+     *     // ... data to create a StudentViolation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StudentViolation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StudentViolationUpsertArgs>(args: SelectSubset<T, StudentViolationUpsertArgs<ExtArgs>>): Prisma__StudentViolationClient<$Result.GetResult<Prisma.$StudentViolationPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of StudentViolations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentViolationCountArgs} args - Arguments to filter StudentViolations to count.
+     * @example
+     * // Count the number of StudentViolations
+     * const count = await prisma.studentViolation.count({
+     *   where: {
+     *     // ... the filter for the StudentViolations we want to count
+     *   }
+     * })
+    **/
+    count<T extends StudentViolationCountArgs>(
+      args?: Subset<T, StudentViolationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StudentViolationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StudentViolation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentViolationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StudentViolationAggregateArgs>(args: Subset<T, StudentViolationAggregateArgs>): Prisma.PrismaPromise<GetStudentViolationAggregateType<T>>
+
+    /**
+     * Group by StudentViolation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentViolationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StudentViolationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StudentViolationGroupByArgs['orderBy'] }
+        : { orderBy?: StudentViolationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StudentViolationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStudentViolationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StudentViolation model
+   */
+  readonly fields: StudentViolationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StudentViolation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StudentViolationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    recordedBy<T extends StudentViolation$recordedByArgs<ExtArgs> = {}>(args?: Subset<T, StudentViolation$recordedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StudentViolation model
+   */ 
+  interface StudentViolationFieldRefs {
+    readonly id: FieldRef<"StudentViolation", 'String'>
+    readonly studentName: FieldRef<"StudentViolation", 'String'>
+    readonly studentClass: FieldRef<"StudentViolation", 'String'>
+    readonly violationType: FieldRef<"StudentViolation", 'String'>
+    readonly context: FieldRef<"StudentViolation", 'String'>
+    readonly notes: FieldRef<"StudentViolation", 'String'>
+    readonly severity: FieldRef<"StudentViolation", 'ViolationSeverity'>
+    readonly date: FieldRef<"StudentViolation", 'DateTime'>
+    readonly pointDeduction: FieldRef<"StudentViolation", 'Int'>
+    readonly recordedById: FieldRef<"StudentViolation", 'String'>
+    readonly createdAt: FieldRef<"StudentViolation", 'DateTime'>
+    readonly updatedAt: FieldRef<"StudentViolation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StudentViolation findUnique
+   */
+  export type StudentViolationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentViolation to fetch.
+     */
+    where: StudentViolationWhereUniqueInput
+  }
+
+  /**
+   * StudentViolation findUniqueOrThrow
+   */
+  export type StudentViolationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentViolation to fetch.
+     */
+    where: StudentViolationWhereUniqueInput
+  }
+
+  /**
+   * StudentViolation findFirst
+   */
+  export type StudentViolationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentViolation to fetch.
+     */
+    where?: StudentViolationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudentViolations to fetch.
+     */
+    orderBy?: StudentViolationOrderByWithRelationInput | StudentViolationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StudentViolations.
+     */
+    cursor?: StudentViolationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudentViolations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudentViolations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StudentViolations.
+     */
+    distinct?: StudentViolationScalarFieldEnum | StudentViolationScalarFieldEnum[]
+  }
+
+  /**
+   * StudentViolation findFirstOrThrow
+   */
+  export type StudentViolationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentViolation to fetch.
+     */
+    where?: StudentViolationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudentViolations to fetch.
+     */
+    orderBy?: StudentViolationOrderByWithRelationInput | StudentViolationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StudentViolations.
+     */
+    cursor?: StudentViolationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudentViolations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudentViolations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StudentViolations.
+     */
+    distinct?: StudentViolationScalarFieldEnum | StudentViolationScalarFieldEnum[]
+  }
+
+  /**
+   * StudentViolation findMany
+   */
+  export type StudentViolationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentViolations to fetch.
+     */
+    where?: StudentViolationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudentViolations to fetch.
+     */
+    orderBy?: StudentViolationOrderByWithRelationInput | StudentViolationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StudentViolations.
+     */
+    cursor?: StudentViolationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudentViolations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudentViolations.
+     */
+    skip?: number
+    distinct?: StudentViolationScalarFieldEnum | StudentViolationScalarFieldEnum[]
+  }
+
+  /**
+   * StudentViolation create
+   */
+  export type StudentViolationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StudentViolation.
+     */
+    data: XOR<StudentViolationCreateInput, StudentViolationUncheckedCreateInput>
+  }
+
+  /**
+   * StudentViolation createMany
+   */
+  export type StudentViolationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StudentViolations.
+     */
+    data: StudentViolationCreateManyInput | StudentViolationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StudentViolation createManyAndReturn
+   */
+  export type StudentViolationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * The data used to create many StudentViolations.
+     */
+    data: StudentViolationCreateManyInput | StudentViolationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StudentViolation update
+   */
+  export type StudentViolationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StudentViolation.
+     */
+    data: XOR<StudentViolationUpdateInput, StudentViolationUncheckedUpdateInput>
+    /**
+     * Choose, which StudentViolation to update.
+     */
+    where: StudentViolationWhereUniqueInput
+  }
+
+  /**
+   * StudentViolation updateMany
+   */
+  export type StudentViolationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StudentViolations.
+     */
+    data: XOR<StudentViolationUpdateManyMutationInput, StudentViolationUncheckedUpdateManyInput>
+    /**
+     * Filter which StudentViolations to update
+     */
+    where?: StudentViolationWhereInput
+  }
+
+  /**
+   * StudentViolation updateManyAndReturn
+   */
+  export type StudentViolationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * The data used to update StudentViolations.
+     */
+    data: XOR<StudentViolationUpdateManyMutationInput, StudentViolationUncheckedUpdateManyInput>
+    /**
+     * Filter which StudentViolations to update
+     */
+    where?: StudentViolationWhereInput
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StudentViolation upsert
+   */
+  export type StudentViolationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StudentViolation to update in case it exists.
+     */
+    where: StudentViolationWhereUniqueInput
+    /**
+     * In case the StudentViolation found by the `where` argument doesn't exist, create a new StudentViolation with this data.
+     */
+    create: XOR<StudentViolationCreateInput, StudentViolationUncheckedCreateInput>
+    /**
+     * In case the StudentViolation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StudentViolationUpdateInput, StudentViolationUncheckedUpdateInput>
+  }
+
+  /**
+   * StudentViolation delete
+   */
+  export type StudentViolationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+    /**
+     * Filter which StudentViolation to delete.
+     */
+    where: StudentViolationWhereUniqueInput
+  }
+
+  /**
+   * StudentViolation deleteMany
+   */
+  export type StudentViolationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StudentViolations to delete
+     */
+    where?: StudentViolationWhereInput
+  }
+
+  /**
+   * StudentViolation.recordedBy
+   */
+  export type StudentViolation$recordedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * StudentViolation without action
+   */
+  export type StudentViolationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentViolation
+     */
+    select?: StudentViolationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StudentViolation
+     */
+    omit?: StudentViolationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentViolationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17542,6 +18873,24 @@ export namespace Prisma {
   };
 
   export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+  export const StudentViolationScalarFieldEnum: {
+    id: 'id',
+    studentName: 'studentName',
+    studentClass: 'studentClass',
+    violationType: 'violationType',
+    context: 'context',
+    notes: 'notes',
+    severity: 'severity',
+    date: 'date',
+    pointDeduction: 'pointDeduction',
+    recordedById: 'recordedById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type StudentViolationScalarFieldEnum = (typeof StudentViolationScalarFieldEnum)[keyof typeof StudentViolationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17812,6 +19161,20 @@ export namespace Prisma {
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
+
+
+  /**
+   * Reference to a field of type 'ViolationSeverity'
+   */
+  export type EnumViolationSeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ViolationSeverity'>
+    
+
+
+  /**
+   * Reference to a field of type 'ViolationSeverity[]'
+   */
+  export type ListEnumViolationSeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ViolationSeverity[]'>
+    
   /**
    * Deep Input Types
    */
@@ -17959,6 +19322,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskListRelationFilter
     createdTasks?: MemberTaskListRelationFilter
     auditLogs?: AuditLogListRelationFilter
+    violationRecords?: StudentViolationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17995,6 +19359,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskOrderByRelationAggregateInput
     createdTasks?: MemberTaskOrderByRelationAggregateInput
     auditLogs?: AuditLogOrderByRelationAggregateInput
+    violationRecords?: StudentViolationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -18034,6 +19399,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskListRelationFilter
     createdTasks?: MemberTaskListRelationFilter
     auditLogs?: AuditLogListRelationFilter
+    violationRecords?: StudentViolationListRelationFilter
   }, "id" | "nis" | "nisn" | "rfidCard" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -19100,6 +20466,98 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
   }
 
+  export type StudentViolationWhereInput = {
+    AND?: StudentViolationWhereInput | StudentViolationWhereInput[]
+    OR?: StudentViolationWhereInput[]
+    NOT?: StudentViolationWhereInput | StudentViolationWhereInput[]
+    id?: StringFilter<"StudentViolation"> | string
+    studentName?: StringFilter<"StudentViolation"> | string
+    studentClass?: StringFilter<"StudentViolation"> | string
+    violationType?: StringFilter<"StudentViolation"> | string
+    context?: StringNullableFilter<"StudentViolation"> | string | null
+    notes?: StringNullableFilter<"StudentViolation"> | string | null
+    severity?: EnumViolationSeverityFilter<"StudentViolation"> | $Enums.ViolationSeverity
+    date?: DateTimeFilter<"StudentViolation"> | Date | string
+    pointDeduction?: IntFilter<"StudentViolation"> | number
+    recordedById?: StringNullableFilter<"StudentViolation"> | string | null
+    createdAt?: DateTimeFilter<"StudentViolation"> | Date | string
+    updatedAt?: DateTimeFilter<"StudentViolation"> | Date | string
+    recordedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type StudentViolationOrderByWithRelationInput = {
+    id?: SortOrder
+    studentName?: SortOrder
+    studentClass?: SortOrder
+    violationType?: SortOrder
+    context?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    severity?: SortOrder
+    date?: SortOrder
+    pointDeduction?: SortOrder
+    recordedById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    recordedBy?: UserOrderByWithRelationInput
+  }
+
+  export type StudentViolationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StudentViolationWhereInput | StudentViolationWhereInput[]
+    OR?: StudentViolationWhereInput[]
+    NOT?: StudentViolationWhereInput | StudentViolationWhereInput[]
+    studentName?: StringFilter<"StudentViolation"> | string
+    studentClass?: StringFilter<"StudentViolation"> | string
+    violationType?: StringFilter<"StudentViolation"> | string
+    context?: StringNullableFilter<"StudentViolation"> | string | null
+    notes?: StringNullableFilter<"StudentViolation"> | string | null
+    severity?: EnumViolationSeverityFilter<"StudentViolation"> | $Enums.ViolationSeverity
+    date?: DateTimeFilter<"StudentViolation"> | Date | string
+    pointDeduction?: IntFilter<"StudentViolation"> | number
+    recordedById?: StringNullableFilter<"StudentViolation"> | string | null
+    createdAt?: DateTimeFilter<"StudentViolation"> | Date | string
+    updatedAt?: DateTimeFilter<"StudentViolation"> | Date | string
+    recordedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type StudentViolationOrderByWithAggregationInput = {
+    id?: SortOrder
+    studentName?: SortOrder
+    studentClass?: SortOrder
+    violationType?: SortOrder
+    context?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    severity?: SortOrder
+    date?: SortOrder
+    pointDeduction?: SortOrder
+    recordedById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: StudentViolationCountOrderByAggregateInput
+    _avg?: StudentViolationAvgOrderByAggregateInput
+    _max?: StudentViolationMaxOrderByAggregateInput
+    _min?: StudentViolationMinOrderByAggregateInput
+    _sum?: StudentViolationSumOrderByAggregateInput
+  }
+
+  export type StudentViolationScalarWhereWithAggregatesInput = {
+    AND?: StudentViolationScalarWhereWithAggregatesInput | StudentViolationScalarWhereWithAggregatesInput[]
+    OR?: StudentViolationScalarWhereWithAggregatesInput[]
+    NOT?: StudentViolationScalarWhereWithAggregatesInput | StudentViolationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StudentViolation"> | string
+    studentName?: StringWithAggregatesFilter<"StudentViolation"> | string
+    studentClass?: StringWithAggregatesFilter<"StudentViolation"> | string
+    violationType?: StringWithAggregatesFilter<"StudentViolation"> | string
+    context?: StringNullableWithAggregatesFilter<"StudentViolation"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"StudentViolation"> | string | null
+    severity?: EnumViolationSeverityWithAggregatesFilter<"StudentViolation"> | $Enums.ViolationSeverity
+    date?: DateTimeWithAggregatesFilter<"StudentViolation"> | Date | string
+    pointDeduction?: IntWithAggregatesFilter<"StudentViolation"> | number
+    recordedById?: StringNullableWithAggregatesFilter<"StudentViolation"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"StudentViolation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"StudentViolation"> | Date | string
+  }
+
   export type AcademicPeriodCreateInput = {
     id?: string
     name: string
@@ -19258,6 +20716,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -19293,6 +20752,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUpdateInput = {
@@ -19328,6 +20788,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -19363,6 +20824,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -20563,6 +22025,110 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StudentViolationCreateInput = {
+    id?: string
+    studentName: string
+    studentClass: string
+    violationType: string
+    context?: string | null
+    notes?: string | null
+    severity?: $Enums.ViolationSeverity
+    date?: Date | string
+    pointDeduction?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    recordedBy?: UserCreateNestedOneWithoutViolationRecordsInput
+  }
+
+  export type StudentViolationUncheckedCreateInput = {
+    id?: string
+    studentName: string
+    studentClass: string
+    violationType: string
+    context?: string | null
+    notes?: string | null
+    severity?: $Enums.ViolationSeverity
+    date?: Date | string
+    pointDeduction?: number
+    recordedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentViolationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentName?: StringFieldUpdateOperationsInput | string
+    studentClass?: StringFieldUpdateOperationsInput | string
+    violationType?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumViolationSeverityFieldUpdateOperationsInput | $Enums.ViolationSeverity
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    pointDeduction?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recordedBy?: UserUpdateOneWithoutViolationRecordsNestedInput
+  }
+
+  export type StudentViolationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentName?: StringFieldUpdateOperationsInput | string
+    studentClass?: StringFieldUpdateOperationsInput | string
+    violationType?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumViolationSeverityFieldUpdateOperationsInput | $Enums.ViolationSeverity
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    pointDeduction?: IntFieldUpdateOperationsInput | number
+    recordedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentViolationCreateManyInput = {
+    id?: string
+    studentName: string
+    studentClass: string
+    violationType: string
+    context?: string | null
+    notes?: string | null
+    severity?: $Enums.ViolationSeverity
+    date?: Date | string
+    pointDeduction?: number
+    recordedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentViolationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentName?: StringFieldUpdateOperationsInput | string
+    studentClass?: StringFieldUpdateOperationsInput | string
+    violationType?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumViolationSeverityFieldUpdateOperationsInput | $Enums.ViolationSeverity
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    pointDeduction?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentViolationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentName?: StringFieldUpdateOperationsInput | string
+    studentClass?: StringFieldUpdateOperationsInput | string
+    violationType?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumViolationSeverityFieldUpdateOperationsInput | $Enums.ViolationSeverity
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    pointDeduction?: IntFieldUpdateOperationsInput | number
+    recordedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -20890,6 +22456,12 @@ export namespace Prisma {
     none?: AuditLogWhereInput
   }
 
+  export type StudentViolationListRelationFilter = {
+    every?: StudentViolationWhereInput
+    some?: StudentViolationWhereInput
+    none?: StudentViolationWhereInput
+  }
+
   export type AspirationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -20907,6 +22479,10 @@ export namespace Prisma {
   }
 
   export type AuditLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StudentViolationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21809,6 +23385,76 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type EnumViolationSeverityFilter<$PrismaModel = never> = {
+    equals?: $Enums.ViolationSeverity | EnumViolationSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.ViolationSeverity[] | ListEnumViolationSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ViolationSeverity[] | ListEnumViolationSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumViolationSeverityFilter<$PrismaModel> | $Enums.ViolationSeverity
+  }
+
+  export type StudentViolationCountOrderByAggregateInput = {
+    id?: SortOrder
+    studentName?: SortOrder
+    studentClass?: SortOrder
+    violationType?: SortOrder
+    context?: SortOrder
+    notes?: SortOrder
+    severity?: SortOrder
+    date?: SortOrder
+    pointDeduction?: SortOrder
+    recordedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StudentViolationAvgOrderByAggregateInput = {
+    pointDeduction?: SortOrder
+  }
+
+  export type StudentViolationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    studentName?: SortOrder
+    studentClass?: SortOrder
+    violationType?: SortOrder
+    context?: SortOrder
+    notes?: SortOrder
+    severity?: SortOrder
+    date?: SortOrder
+    pointDeduction?: SortOrder
+    recordedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StudentViolationMinOrderByAggregateInput = {
+    id?: SortOrder
+    studentName?: SortOrder
+    studentClass?: SortOrder
+    violationType?: SortOrder
+    context?: SortOrder
+    notes?: SortOrder
+    severity?: SortOrder
+    date?: SortOrder
+    pointDeduction?: SortOrder
+    recordedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StudentViolationSumOrderByAggregateInput = {
+    pointDeduction?: SortOrder
+  }
+
+  export type EnumViolationSeverityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ViolationSeverity | EnumViolationSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.ViolationSeverity[] | ListEnumViolationSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ViolationSeverity[] | ListEnumViolationSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumViolationSeverityWithAggregatesFilter<$PrismaModel> | $Enums.ViolationSeverity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumViolationSeverityFilter<$PrismaModel>
+    _max?: NestedEnumViolationSeverityFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedManyWithoutPeriodInput = {
     create?: XOR<UserCreateWithoutPeriodInput, UserUncheckedCreateWithoutPeriodInput> | UserCreateWithoutPeriodInput[] | UserUncheckedCreateWithoutPeriodInput[]
     connectOrCreate?: UserCreateOrConnectWithoutPeriodInput | UserCreateOrConnectWithoutPeriodInput[]
@@ -22130,6 +23776,13 @@ export namespace Prisma {
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
   }
 
+  export type StudentViolationCreateNestedManyWithoutRecordedByInput = {
+    create?: XOR<StudentViolationCreateWithoutRecordedByInput, StudentViolationUncheckedCreateWithoutRecordedByInput> | StudentViolationCreateWithoutRecordedByInput[] | StudentViolationUncheckedCreateWithoutRecordedByInput[]
+    connectOrCreate?: StudentViolationCreateOrConnectWithoutRecordedByInput | StudentViolationCreateOrConnectWithoutRecordedByInput[]
+    createMany?: StudentViolationCreateManyRecordedByInputEnvelope
+    connect?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
+  }
+
   export type AspirationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AspirationCreateWithoutUserInput, AspirationUncheckedCreateWithoutUserInput> | AspirationCreateWithoutUserInput[] | AspirationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AspirationCreateOrConnectWithoutUserInput | AspirationCreateOrConnectWithoutUserInput[]
@@ -22205,6 +23858,13 @@ export namespace Prisma {
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
     createMany?: AuditLogCreateManyActorInputEnvelope
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
+  export type StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput = {
+    create?: XOR<StudentViolationCreateWithoutRecordedByInput, StudentViolationUncheckedCreateWithoutRecordedByInput> | StudentViolationCreateWithoutRecordedByInput[] | StudentViolationUncheckedCreateWithoutRecordedByInput[]
+    connectOrCreate?: StudentViolationCreateOrConnectWithoutRecordedByInput | StudentViolationCreateOrConnectWithoutRecordedByInput[]
+    createMany?: StudentViolationCreateManyRecordedByInputEnvelope
+    connect?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -22383,6 +24043,20 @@ export namespace Prisma {
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
   }
 
+  export type StudentViolationUpdateManyWithoutRecordedByNestedInput = {
+    create?: XOR<StudentViolationCreateWithoutRecordedByInput, StudentViolationUncheckedCreateWithoutRecordedByInput> | StudentViolationCreateWithoutRecordedByInput[] | StudentViolationUncheckedCreateWithoutRecordedByInput[]
+    connectOrCreate?: StudentViolationCreateOrConnectWithoutRecordedByInput | StudentViolationCreateOrConnectWithoutRecordedByInput[]
+    upsert?: StudentViolationUpsertWithWhereUniqueWithoutRecordedByInput | StudentViolationUpsertWithWhereUniqueWithoutRecordedByInput[]
+    createMany?: StudentViolationCreateManyRecordedByInputEnvelope
+    set?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
+    disconnect?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
+    delete?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
+    connect?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
+    update?: StudentViolationUpdateWithWhereUniqueWithoutRecordedByInput | StudentViolationUpdateWithWhereUniqueWithoutRecordedByInput[]
+    updateMany?: StudentViolationUpdateManyWithWhereWithoutRecordedByInput | StudentViolationUpdateManyWithWhereWithoutRecordedByInput[]
+    deleteMany?: StudentViolationScalarWhereInput | StudentViolationScalarWhereInput[]
+  }
+
   export type AspirationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AspirationCreateWithoutUserInput, AspirationUncheckedCreateWithoutUserInput> | AspirationCreateWithoutUserInput[] | AspirationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AspirationCreateOrConnectWithoutUserInput | AspirationCreateOrConnectWithoutUserInput[]
@@ -22535,6 +24209,20 @@ export namespace Prisma {
     update?: AuditLogUpdateWithWhereUniqueWithoutActorInput | AuditLogUpdateWithWhereUniqueWithoutActorInput[]
     updateMany?: AuditLogUpdateManyWithWhereWithoutActorInput | AuditLogUpdateManyWithWhereWithoutActorInput[]
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput = {
+    create?: XOR<StudentViolationCreateWithoutRecordedByInput, StudentViolationUncheckedCreateWithoutRecordedByInput> | StudentViolationCreateWithoutRecordedByInput[] | StudentViolationUncheckedCreateWithoutRecordedByInput[]
+    connectOrCreate?: StudentViolationCreateOrConnectWithoutRecordedByInput | StudentViolationCreateOrConnectWithoutRecordedByInput[]
+    upsert?: StudentViolationUpsertWithWhereUniqueWithoutRecordedByInput | StudentViolationUpsertWithWhereUniqueWithoutRecordedByInput[]
+    createMany?: StudentViolationCreateManyRecordedByInputEnvelope
+    set?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
+    disconnect?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
+    delete?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
+    connect?: StudentViolationWhereUniqueInput | StudentViolationWhereUniqueInput[]
+    update?: StudentViolationUpdateWithWhereUniqueWithoutRecordedByInput | StudentViolationUpdateWithWhereUniqueWithoutRecordedByInput[]
+    updateMany?: StudentViolationUpdateManyWithWhereWithoutRecordedByInput | StudentViolationUpdateManyWithWhereWithoutRecordedByInput[]
+    deleteMany?: StudentViolationScalarWhereInput | StudentViolationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAspirationsInput = {
@@ -23098,6 +24786,26 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAuditLogsInput, UserUpdateWithoutAuditLogsInput>, UserUncheckedUpdateWithoutAuditLogsInput>
   }
 
+  export type UserCreateNestedOneWithoutViolationRecordsInput = {
+    create?: XOR<UserCreateWithoutViolationRecordsInput, UserUncheckedCreateWithoutViolationRecordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutViolationRecordsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumViolationSeverityFieldUpdateOperationsInput = {
+    set?: $Enums.ViolationSeverity
+  }
+
+  export type UserUpdateOneWithoutViolationRecordsNestedInput = {
+    create?: XOR<UserCreateWithoutViolationRecordsInput, UserUncheckedCreateWithoutViolationRecordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutViolationRecordsInput
+    upsert?: UserUpsertWithoutViolationRecordsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutViolationRecordsInput, UserUpdateWithoutViolationRecordsInput>, UserUncheckedUpdateWithoutViolationRecordsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -23525,6 +25233,23 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumViolationSeverityFilter<$PrismaModel = never> = {
+    equals?: $Enums.ViolationSeverity | EnumViolationSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.ViolationSeverity[] | ListEnumViolationSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ViolationSeverity[] | ListEnumViolationSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumViolationSeverityFilter<$PrismaModel> | $Enums.ViolationSeverity
+  }
+
+  export type NestedEnumViolationSeverityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ViolationSeverity | EnumViolationSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.ViolationSeverity[] | ListEnumViolationSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ViolationSeverity[] | ListEnumViolationSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumViolationSeverityWithAggregatesFilter<$PrismaModel> | $Enums.ViolationSeverity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumViolationSeverityFilter<$PrismaModel>
+    _max?: NestedEnumViolationSeverityFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutPeriodInput = {
     id?: string
     nis?: string | null
@@ -23557,6 +25282,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutPeriodInput = {
@@ -23591,6 +25317,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutPeriodInput = {
@@ -24516,6 +26243,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StudentViolationCreateWithoutRecordedByInput = {
+    id?: string
+    studentName: string
+    studentClass: string
+    violationType: string
+    context?: string | null
+    notes?: string | null
+    severity?: $Enums.ViolationSeverity
+    date?: Date | string
+    pointDeduction?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentViolationUncheckedCreateWithoutRecordedByInput = {
+    id?: string
+    studentName: string
+    studentClass: string
+    violationType: string
+    context?: string | null
+    notes?: string | null
+    severity?: $Enums.ViolationSeverity
+    date?: Date | string
+    pointDeduction?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentViolationCreateOrConnectWithoutRecordedByInput = {
+    where: StudentViolationWhereUniqueInput
+    create: XOR<StudentViolationCreateWithoutRecordedByInput, StudentViolationUncheckedCreateWithoutRecordedByInput>
+  }
+
+  export type StudentViolationCreateManyRecordedByInputEnvelope = {
+    data: StudentViolationCreateManyRecordedByInput | StudentViolationCreateManyRecordedByInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AcademicPeriodUpsertWithoutUsersInput = {
     update: XOR<AcademicPeriodUpdateWithoutUsersInput, AcademicPeriodUncheckedUpdateWithoutUsersInput>
     create: XOR<AcademicPeriodCreateWithoutUsersInput, AcademicPeriodUncheckedCreateWithoutUsersInput>
@@ -24829,6 +26594,40 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
   }
 
+  export type StudentViolationUpsertWithWhereUniqueWithoutRecordedByInput = {
+    where: StudentViolationWhereUniqueInput
+    update: XOR<StudentViolationUpdateWithoutRecordedByInput, StudentViolationUncheckedUpdateWithoutRecordedByInput>
+    create: XOR<StudentViolationCreateWithoutRecordedByInput, StudentViolationUncheckedCreateWithoutRecordedByInput>
+  }
+
+  export type StudentViolationUpdateWithWhereUniqueWithoutRecordedByInput = {
+    where: StudentViolationWhereUniqueInput
+    data: XOR<StudentViolationUpdateWithoutRecordedByInput, StudentViolationUncheckedUpdateWithoutRecordedByInput>
+  }
+
+  export type StudentViolationUpdateManyWithWhereWithoutRecordedByInput = {
+    where: StudentViolationScalarWhereInput
+    data: XOR<StudentViolationUpdateManyMutationInput, StudentViolationUncheckedUpdateManyWithoutRecordedByInput>
+  }
+
+  export type StudentViolationScalarWhereInput = {
+    AND?: StudentViolationScalarWhereInput | StudentViolationScalarWhereInput[]
+    OR?: StudentViolationScalarWhereInput[]
+    NOT?: StudentViolationScalarWhereInput | StudentViolationScalarWhereInput[]
+    id?: StringFilter<"StudentViolation"> | string
+    studentName?: StringFilter<"StudentViolation"> | string
+    studentClass?: StringFilter<"StudentViolation"> | string
+    violationType?: StringFilter<"StudentViolation"> | string
+    context?: StringNullableFilter<"StudentViolation"> | string | null
+    notes?: StringNullableFilter<"StudentViolation"> | string | null
+    severity?: EnumViolationSeverityFilter<"StudentViolation"> | $Enums.ViolationSeverity
+    date?: DateTimeFilter<"StudentViolation"> | Date | string
+    pointDeduction?: IntFilter<"StudentViolation"> | number
+    recordedById?: StringNullableFilter<"StudentViolation"> | string | null
+    createdAt?: DateTimeFilter<"StudentViolation"> | Date | string
+    updatedAt?: DateTimeFilter<"StudentViolation"> | Date | string
+  }
+
   export type UserCreateWithoutAspirationsInput = {
     id?: string
     nis?: string | null
@@ -24861,6 +26660,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutAspirationsInput = {
@@ -24895,6 +26695,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutAspirationsInput = {
@@ -24934,6 +26735,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutResponsesInput = {
@@ -24968,6 +26770,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutResponsesInput = {
@@ -25066,6 +26869,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAspirationsInput = {
@@ -25100,6 +26904,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUpsertWithoutResponsesInput = {
@@ -25145,6 +26950,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutResponsesInput = {
@@ -25179,6 +26985,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type AspirationTimelineUpsertWithWhereUniqueWithoutAspirationInput = {
@@ -25398,6 +27205,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutAspirationUpvotesInput = {
@@ -25432,6 +27240,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutAspirationUpvotesInput = {
@@ -25533,6 +27342,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAspirationUpvotesInput = {
@@ -25567,6 +27377,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type AcademicPeriodCreateWithoutWorkProgramsInput = {
@@ -25644,6 +27455,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutWorkProgramsInput = {
@@ -25678,6 +27490,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutWorkProgramsInput = {
@@ -25875,6 +27688,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkProgramsInput = {
@@ -25909,6 +27723,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type ActivityUpsertWithWhereUniqueWithoutWorkProgramInput = {
@@ -26065,6 +27880,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutActivitiesInput = {
@@ -26099,6 +27915,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutActivitiesInput = {
@@ -26251,6 +28068,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutActivitiesInput = {
@@ -26285,6 +28103,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type AcademicPeriodCreateWithoutStructureMembersInput = {
@@ -26454,6 +28273,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutCreatedAttendanceSessionsInput = {
@@ -26488,6 +28308,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutCreatedAttendanceSessionsInput = {
@@ -26625,6 +28446,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedAttendanceSessionsInput = {
@@ -26659,6 +28481,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type AttendanceRecordUpsertWithWhereUniqueWithoutSessionInput = {
@@ -26752,6 +28575,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutAttendanceRecordsInput = {
@@ -26786,6 +28610,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutAttendanceRecordsInput = {
@@ -26825,6 +28650,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutVerifiedAttendancesInput = {
@@ -26859,6 +28685,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutVerifiedAttendancesInput = {
@@ -26958,6 +28785,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAttendanceRecordsInput = {
@@ -26992,6 +28820,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUpsertWithoutVerifiedAttendancesInput = {
@@ -27037,6 +28866,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerifiedAttendancesInput = {
@@ -27071,6 +28901,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type WorkProgramCreateWithoutTasksInput = {
@@ -27152,6 +28983,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordCreateNestedManyWithoutVerifiedByInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTasksInput = {
@@ -27186,6 +29018,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordUncheckedCreateNestedManyWithoutVerifiedByInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTasksInput = {
@@ -27225,6 +29058,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordCreateNestedManyWithoutVerifiedByInput
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutCreatedTasksInput = {
@@ -27259,6 +29093,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordUncheckedCreateNestedManyWithoutVerifiedByInput
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutCreatedTasksInput = {
@@ -27362,6 +29197,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordUpdateManyWithoutVerifiedByNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTasksInput = {
@@ -27396,6 +29232,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordUncheckedUpdateManyWithoutVerifiedByNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUpsertWithoutCreatedTasksInput = {
@@ -27441,6 +29278,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordUpdateManyWithoutVerifiedByNestedInput
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedTasksInput = {
@@ -27475,6 +29313,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordUncheckedUpdateManyWithoutVerifiedByNestedInput
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -27509,6 +29348,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordCreateNestedManyWithoutVerifiedByInput
     assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
+    violationRecords?: StudentViolationCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -27543,6 +29383,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordUncheckedCreateNestedManyWithoutVerifiedByInput
     assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
     createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
+    violationRecords?: StudentViolationUncheckedCreateNestedManyWithoutRecordedByInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -27593,6 +29434,7 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordUpdateManyWithoutVerifiedByNestedInput
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -27627,6 +29469,163 @@ export namespace Prisma {
     verifiedAttendances?: AttendanceRecordUncheckedUpdateManyWithoutVerifiedByNestedInput
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
+  }
+
+  export type UserCreateWithoutViolationRecordsInput = {
+    id?: string
+    nis?: string | null
+    nisn?: string | null
+    rfidCard?: string | null
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    image?: string | null
+    role?: $Enums.Role
+    division?: $Enums.Division | null
+    position?: string | null
+    kelas?: string | null
+    major?: string | null
+    gender?: $Enums.Gender | null
+    phone?: string | null
+    bio?: string | null
+    isActive?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    period?: AcademicPeriodCreateNestedOneWithoutUsersInput
+    aspirations?: AspirationCreateNestedManyWithoutUserInput
+    responses?: AspirationCreateNestedManyWithoutRespondedByInput
+    aspirationUpvotes?: AspirationUpvoteCreateNestedManyWithoutUserInput
+    activities?: ActivityCreateNestedManyWithoutAuthorInput
+    workPrograms?: WorkProgramCreateNestedManyWithoutAuthorInput
+    attendanceRecords?: AttendanceRecordCreateNestedManyWithoutUserInput
+    createdAttendanceSessions?: AttendanceSessionCreateNestedManyWithoutCreatorInput
+    verifiedAttendances?: AttendanceRecordCreateNestedManyWithoutVerifiedByInput
+    assignedTasks?: MemberTaskCreateNestedManyWithoutAssignedToInput
+    createdTasks?: MemberTaskCreateNestedManyWithoutCreatorInput
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+  }
+
+  export type UserUncheckedCreateWithoutViolationRecordsInput = {
+    id?: string
+    nis?: string | null
+    nisn?: string | null
+    rfidCard?: string | null
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    image?: string | null
+    role?: $Enums.Role
+    division?: $Enums.Division | null
+    position?: string | null
+    kelas?: string | null
+    major?: string | null
+    gender?: $Enums.Gender | null
+    phone?: string | null
+    bio?: string | null
+    isActive?: boolean
+    deletedAt?: Date | string | null
+    periodId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aspirations?: AspirationUncheckedCreateNestedManyWithoutUserInput
+    responses?: AspirationUncheckedCreateNestedManyWithoutRespondedByInput
+    aspirationUpvotes?: AspirationUpvoteUncheckedCreateNestedManyWithoutUserInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutAuthorInput
+    workPrograms?: WorkProgramUncheckedCreateNestedManyWithoutAuthorInput
+    attendanceRecords?: AttendanceRecordUncheckedCreateNestedManyWithoutUserInput
+    createdAttendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutCreatorInput
+    verifiedAttendances?: AttendanceRecordUncheckedCreateNestedManyWithoutVerifiedByInput
+    assignedTasks?: MemberTaskUncheckedCreateNestedManyWithoutAssignedToInput
+    createdTasks?: MemberTaskUncheckedCreateNestedManyWithoutCreatorInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+  }
+
+  export type UserCreateOrConnectWithoutViolationRecordsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutViolationRecordsInput, UserUncheckedCreateWithoutViolationRecordsInput>
+  }
+
+  export type UserUpsertWithoutViolationRecordsInput = {
+    update: XOR<UserUpdateWithoutViolationRecordsInput, UserUncheckedUpdateWithoutViolationRecordsInput>
+    create: XOR<UserCreateWithoutViolationRecordsInput, UserUncheckedCreateWithoutViolationRecordsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutViolationRecordsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutViolationRecordsInput, UserUncheckedUpdateWithoutViolationRecordsInput>
+  }
+
+  export type UserUpdateWithoutViolationRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nis?: NullableStringFieldUpdateOperationsInput | string | null
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
+    rfidCard?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    division?: NullableEnumDivisionFieldUpdateOperationsInput | $Enums.Division | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    kelas?: NullableStringFieldUpdateOperationsInput | string | null
+    major?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    period?: AcademicPeriodUpdateOneWithoutUsersNestedInput
+    aspirations?: AspirationUpdateManyWithoutUserNestedInput
+    responses?: AspirationUpdateManyWithoutRespondedByNestedInput
+    aspirationUpvotes?: AspirationUpvoteUpdateManyWithoutUserNestedInput
+    activities?: ActivityUpdateManyWithoutAuthorNestedInput
+    workPrograms?: WorkProgramUpdateManyWithoutAuthorNestedInput
+    attendanceRecords?: AttendanceRecordUpdateManyWithoutUserNestedInput
+    createdAttendanceSessions?: AttendanceSessionUpdateManyWithoutCreatorNestedInput
+    verifiedAttendances?: AttendanceRecordUpdateManyWithoutVerifiedByNestedInput
+    assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutViolationRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nis?: NullableStringFieldUpdateOperationsInput | string | null
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
+    rfidCard?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    division?: NullableEnumDivisionFieldUpdateOperationsInput | $Enums.Division | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    kelas?: NullableStringFieldUpdateOperationsInput | string | null
+    major?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    periodId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aspirations?: AspirationUncheckedUpdateManyWithoutUserNestedInput
+    responses?: AspirationUncheckedUpdateManyWithoutRespondedByNestedInput
+    aspirationUpvotes?: AspirationUpvoteUncheckedUpdateManyWithoutUserNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutAuthorNestedInput
+    workPrograms?: WorkProgramUncheckedUpdateManyWithoutAuthorNestedInput
+    attendanceRecords?: AttendanceRecordUncheckedUpdateManyWithoutUserNestedInput
+    createdAttendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutCreatorNestedInput
+    verifiedAttendances?: AttendanceRecordUncheckedUpdateManyWithoutVerifiedByNestedInput
+    assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
   }
 
   export type UserCreateManyPeriodInput = {
@@ -27759,6 +29758,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPeriodInput = {
@@ -27793,6 +29793,7 @@ export namespace Prisma {
     assignedTasks?: MemberTaskUncheckedUpdateManyWithoutAssignedToNestedInput
     createdTasks?: MemberTaskUncheckedUpdateManyWithoutCreatorNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    violationRecords?: StudentViolationUncheckedUpdateManyWithoutRecordedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutPeriodInput = {
@@ -28223,6 +30224,20 @@ export namespace Prisma {
     ipAddress?: string | null
     userAgent?: string | null
     createdAt?: Date | string
+  }
+
+  export type StudentViolationCreateManyRecordedByInput = {
+    id?: string
+    studentName: string
+    studentClass: string
+    violationType: string
+    context?: string | null
+    notes?: string | null
+    severity?: $Enums.ViolationSeverity
+    date?: Date | string
+    pointDeduction?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AspirationUpdateWithoutUserInput = {
@@ -28765,6 +30780,48 @@ export namespace Prisma {
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentViolationUpdateWithoutRecordedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentName?: StringFieldUpdateOperationsInput | string
+    studentClass?: StringFieldUpdateOperationsInput | string
+    violationType?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumViolationSeverityFieldUpdateOperationsInput | $Enums.ViolationSeverity
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    pointDeduction?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentViolationUncheckedUpdateWithoutRecordedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentName?: StringFieldUpdateOperationsInput | string
+    studentClass?: StringFieldUpdateOperationsInput | string
+    violationType?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumViolationSeverityFieldUpdateOperationsInput | $Enums.ViolationSeverity
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    pointDeduction?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentViolationUncheckedUpdateManyWithoutRecordedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentName?: StringFieldUpdateOperationsInput | string
+    studentClass?: StringFieldUpdateOperationsInput | string
+    violationType?: StringFieldUpdateOperationsInput | string
+    context?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumViolationSeverityFieldUpdateOperationsInput | $Enums.ViolationSeverity
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    pointDeduction?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AspirationTimelineCreateManyAspirationInput = {

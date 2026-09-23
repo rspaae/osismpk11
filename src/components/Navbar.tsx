@@ -32,45 +32,49 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "py-2 md:py-3" : "py-4 md:py-6"}`}>
-            <div className={`container mx-auto px-4 md:px-6 flex items-center justify-between transition-all duration-300 ${isScrolled ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 py-2.5 rounded-2xl max-w-5xl shadow-sm mx-4 md:mx-auto" : ""}`}>
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "py-2.5 md:py-3" : "py-4 md:py-5"}`}>
+            <div className={`container mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between transition-all duration-300 ${
+                isScrolled 
+                    ? "bg-[#ffffff]/92 dark:bg-[#19241f]/92 backdrop-blur-md border border-[#e3ece6] dark:border-[#24342c] py-2.5 rounded-2xl max-w-7xl lg:max-w-[1360px] shadow-[0_4px_16px_-4px_rgba(70,131,102,0.04)] mx-4 md:mx-auto" 
+                    : "bg-transparent max-w-7xl lg:max-w-[1360px]"
+            }`}>
                 <Link href="/" className="group flex items-center gap-3">
-                    <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1 flex items-center justify-center shadow-sm">
+                    <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] p-1 flex items-center justify-center shadow-xs group-hover:border-[#468366]/40 transition-colors overflow-hidden shrink-0">
                         <Image
                             src="/images/logos/smkn11.jpg"
                             alt="SMKN 11 Bandung"
                             width={36}
                             height={36}
-                            className="object-contain rounded-lg"
+                            className="object-contain"
                         />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-lg md:text-xl font-black tracking-tight text-slate-900 dark:text-white leading-none">
+                        <span className="text-lg md:text-xl font-bold tracking-tight text-[#2c3831] dark:text-[#dce6e0] leading-none">
                             OSIS-MPK
                         </span>
-                        <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-400 mt-0.5">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#468366] dark:text-[#a3d4bd] mt-0.5">
                             SMKN 11 Bandung
                         </span>
                     </div>
                 </Link>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-8">
+                <div className="hidden md:flex items-center gap-7">
                     {!user ? (
                         <>
                             {publicLinks.map((link) => (
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+                                    className="text-xs font-medium uppercase tracking-wider text-[#5f7167] dark:text-[#a5b8ad] hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors"
                                 >
                                     {link.name}
                                 </Link>
                             ))}
-                            <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1" />
+                            <div className="h-4 w-[1px] bg-[#e3ece6] dark:bg-[#24342c] mx-1" />
                             <Link
                                 href="/login"
-                                className="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm"
+                                className="px-5 py-2.5 bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-all shadow-xs hover:shadow-sm"
                             >
                                 Login Siswa
                             </Link>
@@ -81,7 +85,7 @@ export default function Navbar() {
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+                                    className="text-xs font-medium uppercase tracking-wider text-[#5f7167] dark:text-[#a5b8ad] hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors"
                                 >
                                     {link.name}
                                 </Link>
@@ -90,14 +94,14 @@ export default function Navbar() {
                                 <>
                                     <Link
                                         href="/admin"
-                                        className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+                                        className="text-xs font-medium uppercase tracking-wider text-[#5f7167] dark:text-[#a5b8ad] hover:text-[#468366] dark:hover:text-[#dce6e0] transition-colors"
                                     >
                                         Executive Suite
                                     </Link>
-                                    <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1" />
+                                    <div className="h-4 w-[1px] bg-[#e3ece6] dark:bg-[#24342c] mx-1" />
                                     <Link
                                         href="/admin"
-                                        className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+                                        className="px-5 py-2.5 bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-all shadow-xs flex items-center gap-1.5"
                                     >
                                         <span>📊</span>
                                         <span>Dashboard Pengurus</span>
@@ -105,10 +109,10 @@ export default function Navbar() {
                                 </>
                             ) : (
                                 <>
-                                    <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1" />
+                                    <div className="h-4 w-[1px] bg-[#e3ece6] dark:bg-[#24342c] mx-1" />
                                     <Link
                                         href="/student/dashboard"
-                                        className="px-5 py-2 bg-slate-900 dark:bg-emerald-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm"
+                                        className="px-5 py-2.5 bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold uppercase tracking-wider rounded-xl transition-all shadow-xs"
                                     >
                                         Dashboard Siswa
                                     </Link>
@@ -120,12 +124,13 @@ export default function Navbar() {
 
                 {/* Mobile Toggle */}
                 <button
-                    className="md:hidden flex flex-col gap-1 p-2"
+                    aria-label="Toggle Mobile Menu"
+                    className="md:hidden flex flex-col gap-1 p-2 rounded-lg hover:bg-[#e8f2ec] dark:hover:bg-[#24342c] transition-colors"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
-                    <span className={`w-5 h-0.5 bg-slate-800 dark:bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
-                    <span className={`w-3.5 h-0.5 bg-slate-800 dark:bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`} />
-                    <span className={`w-5 h-0.5 bg-slate-800 dark:bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
+                    <span className={`w-5 h-0.5 bg-[#334139] dark:bg-[#dce6e0] transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
+                    <span className={`w-3.5 h-0.5 bg-[#334139] dark:bg-[#dce6e0] transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`} />
+                    <span className={`w-5 h-0.5 bg-[#334139] dark:bg-[#dce6e0] transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
                 </button>
             </div>
 
@@ -136,13 +141,19 @@ export default function Navbar() {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="fixed inset-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl z-[60] md:hidden p-8 flex flex-col"
+                        className="fixed inset-0 bg-[#f7faf7]/98 dark:bg-[#141c18]/98 backdrop-blur-xl z-[60] md:hidden p-6 sm:p-8 flex flex-col"
                     >
-                        <div className="flex justify-between items-center mb-8">
-                            <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white">OSIS-MPK SMKN 11</span>
+                        <div className="flex justify-between items-center mb-8 pb-4 border-b border-[#e3ece6] dark:border-[#24342c]">
+                            <div className="flex items-center gap-2.5">
+                                <div className="w-8 h-8 rounded-lg bg-[#e8f2ec] text-[#468366] flex items-center justify-center font-bold text-xs">
+                                    11
+                                </div>
+                                <span className="text-lg font-bold tracking-tight text-[#2c3831] dark:text-[#dce6e0]">OSIS-MPK SMKN 11</span>
+                            </div>
                             <button
+                                aria-label="Close Mobile Menu"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white"
+                                className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#e8f2ec] dark:bg-[#19241f] text-[#334139] dark:text-[#dce6e0] border border-[#e3ece6] dark:border-[#24342c]"
                             >
                                 ✕
                             </button>
@@ -154,19 +165,19 @@ export default function Navbar() {
                                         <Link
                                             key={link.name}
                                             href={link.href}
-                                            className="text-2xl font-black text-slate-800 dark:text-slate-100 hover:text-emerald-700 transition-colors"
+                                            className="text-xl font-semibold text-[#334139] dark:text-[#dce6e0] hover:text-[#468366] transition-colors py-1"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
                                             {link.name}
                                         </Link>
                                     ))}
-                                    <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                                    <div className="pt-4 mt-2 border-t border-[#e3ece6] dark:border-[#24342c]">
                                         <Link
                                             href="/login"
-                                            className="text-xl font-black text-emerald-700 dark:text-emerald-400"
+                                            className="inline-flex items-center justify-center w-full py-3 bg-[#468366] text-white font-semibold text-sm uppercase tracking-wider rounded-xl shadow-xs"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
-                                            → Login Siswa
+                                            Login Siswa
                                         </Link>
                                     </div>
                                 </>
@@ -176,19 +187,19 @@ export default function Navbar() {
                                         <Link
                                             key={link.name}
                                             href={link.href}
-                                            className="text-2xl font-black text-slate-800 dark:text-slate-100 hover:text-emerald-700"
+                                            className="text-xl font-semibold text-[#334139] dark:text-[#dce6e0] hover:text-[#468366] py-1"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
                                             {link.name}
                                         </Link>
                                     ))}
-                                    <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                                    <div className="pt-4 mt-2 border-t border-[#e3ece6] dark:border-[#24342c]">
                                         <Link
                                             href="/student/dashboard"
-                                            className="text-xl font-black text-emerald-700 dark:text-emerald-400"
+                                            className="inline-flex items-center justify-center w-full py-3 bg-[#468366] text-white font-semibold text-sm uppercase tracking-wider rounded-xl shadow-xs"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
-                                            → Dashboard Saya
+                                            Dashboard Saya
                                         </Link>
                                     </div>
                                 </>

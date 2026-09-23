@@ -317,6 +317,21 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.StudentViolationScalarFieldEnum = {
+  id: 'id',
+  studentName: 'studentName',
+  studentClass: 'studentClass',
+  violationType: 'violationType',
+  context: 'context',
+  notes: 'notes',
+  severity: 'severity',
+  date: 'date',
+  pointDeduction: 'pointDeduction',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -443,6 +458,12 @@ exports.AuditAction = exports.$Enums.AuditAction = {
   VERIFY: 'VERIFY'
 };
 
+exports.ViolationSeverity = exports.$Enums.ViolationSeverity = {
+  RINGAN: 'RINGAN',
+  SEDANG: 'SEDANG',
+  BERAT: 'BERAT'
+};
+
 exports.Prisma.ModelName = {
   AcademicPeriod: 'AcademicPeriod',
   User: 'User',
@@ -455,7 +476,8 @@ exports.Prisma.ModelName = {
   AttendanceSession: 'AttendanceSession',
   AttendanceRecord: 'AttendanceRecord',
   MemberTask: 'MemberTask',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  StudentViolation: 'StudentViolation'
 };
 
 /**

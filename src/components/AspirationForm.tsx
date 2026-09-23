@@ -48,116 +48,109 @@ export default function AspirationForm({ onAspirationSubmitted }: AspirationForm
     };
 
     return (
-        <div className="glass p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border-white/40 dark:border-white/10 shadow-3xl shadow-brand-primary/5">
-            <h3 className="text-xl md:text-2xl font-black tracking-tight mb-2 flex items-center gap-3 text-foreground">
-                <span className="w-2.5 h-6 bg-brand-primary rounded-full" />
+        <div className="p-6 sm:p-8 md:p-10 bg-white dark:bg-[#19241f] rounded-3xl border border-[#e3ece6] dark:border-[#24342c] shadow-xs">
+            <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-1 text-[#2c3831] dark:text-[#dce6e0] flex items-center gap-2.5">
+                <span className="w-2 h-5 bg-[#468366] rounded-full" />
                 Sampaikan Aspirasi Anda
             </h3>
-            <p className="text-foreground/50 text-xs md:text-sm mb-8 font-medium">
-                Kritik, saran, dan ide kreatif Anda sangat berharga untuk kemajuan SMKN 11 Bandung.
+            <p className="text-[#5f7167] dark:text-[#a5b8ad] text-xs sm:text-sm mb-6">
+                Kritik, saran, dan usulan fasilitas untuk SMKN 11 Bandung.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/50 ml-1">
+            <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-[#5f7167] dark:text-[#a5b8ad]">
                         Judul Aspirasi
                     </label>
                     <input
                         type="text"
-                        placeholder="Misal: Perbaikan Fasilitas Kantin / Penambahan Stopkontak di Kelas"
+                        placeholder="Misal: Perbaikan Proyektor Lab Komputer / Tempat Sampah Gedung B"
                         required
-                        className="w-full px-6 py-4 rounded-2xl bg-foreground/[0.03] border border-border focus:border-brand-primary/50 focus:bg-white dark:focus:bg-white/5 transition-all outline-none font-bold text-sm"
+                        className="w-full px-4 py-3 rounded-xl bg-[#f7faf7] dark:bg-[#141c18] border border-[#d2ded6] dark:border-[#24342c] focus:border-[#468366] dark:focus:border-[#5d9e7e] transition-colors outline-none text-sm text-[#334139] dark:text-[#dce6e0] placeholder:text-[#8a9a91]"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/50 ml-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-[#5f7167] dark:text-[#a5b8ad]">
                             Kategori
                         </label>
                         <select
-                            className="w-full px-6 py-4 rounded-2xl bg-foreground/[0.03] border border-border focus:border-brand-primary/50 focus:bg-white dark:focus:bg-white/5 transition-all outline-none font-bold text-sm cursor-pointer"
+                            className="w-full px-4 py-3 rounded-xl bg-[#f7faf7] dark:bg-[#141c18] border border-[#d2ded6] dark:border-[#24342c] focus:border-[#468366] dark:focus:border-[#5d9e7e] transition-colors outline-none text-sm text-[#334139] dark:text-[#dce6e0] cursor-pointer"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                         >
                             <option value="Saran">💡 Saran & Masukan</option>
                             <option value="Keluhan">⚠️ Keluhan & Pengaduan</option>
-                            <option value="Ide">🚀 Ide Kreatif & Inovasi</option>
+                            <option value="Ide">🚀 Ide & Inovasi Kegiatan</option>
                             <option value="Fasilitas">🏫 Fasilitas & Sarana</option>
                             <option value="Lainnya">📝 Lainnya</option>
                         </select>
                     </div>
 
-                    {/* Anonymous toggle card */}
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/50 ml-1">
+                    {/* Anonymous toggle */}
+                    <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-[#5f7167] dark:text-[#a5b8ad]">
                             Privasi Pengirim
                         </label>
                         <label
                             onClick={() => setIsAnonymous(!isAnonymous)}
-                            className={`flex items-center gap-4 px-6 py-3.5 rounded-2xl border cursor-pointer transition-all ${
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-colors ${
                                 isAnonymous 
-                                    ? "bg-purple-500/10 border-purple-500/30 text-purple-600 dark:text-purple-400" 
-                                    : "bg-foreground/[0.03] border-border text-foreground/70"
+                                    ? "bg-[#edf5f0] dark:bg-[#1d2c25] border-[#468366] text-[#396953] dark:text-[#a3d4bd]" 
+                                    : "bg-[#f7faf7] dark:bg-[#141c18] border-[#d2ded6] dark:border-[#24342c] text-[#5f7167] dark:text-[#a5b8ad]"
                             }`}
                         >
                             <input
                                 type="checkbox"
                                 checked={isAnonymous}
-                                onChange={(e) => setIsAnonymous(e.target.checked)}
-                                className="w-4 h-4 accent-purple-600 rounded cursor-pointer"
+                                onChange={() => {}} // handled by parent onClick
+                                className="w-4 h-4 rounded text-[#468366] accent-[#468366] cursor-pointer"
                             />
-                            <div className="text-left">
-                                <p className="text-xs font-black uppercase tracking-wider">Kirim Secara Anonim</p>
-                                <p className="text-[10px] text-foreground/40 font-medium">Nama Anda disamarkan dari publik</p>
-                            </div>
+                            <span className="text-xs font-medium">
+                                {isAnonymous ? "Kirim Sebagai Anonim (Nama Disembunyikan)" : "Tampilkan Identitas Siswa"}
+                            </span>
                         </label>
                     </div>
                 </div>
 
-                <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/50 ml-1">
-                        Detail Aspirasi
+                <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-[#5f7167] dark:text-[#a5b8ad]">
+                        Detail Aspirasi & Penjelasan
                     </label>
                     <textarea
                         rows={4}
-                        placeholder="Jelaskan secara detail aspirasi, latar belakang, dan solusi yang Anda usulkan..."
+                        placeholder="Jelaskan usulan, keluhan, atau ide secara jelas dan santun..."
                         required
-                        className="w-full px-6 py-4 rounded-2xl bg-foreground/[0.03] border border-border focus:border-brand-primary/50 focus:bg-white dark:focus:bg-white/5 transition-all outline-none font-medium text-sm resize-none"
+                        className="w-full px-4 py-3 rounded-xl bg-[#f7faf7] dark:bg-[#141c18] border border-[#d2ded6] dark:border-[#24342c] focus:border-[#468366] dark:focus:border-[#5d9e7e] transition-colors outline-none text-sm text-[#334139] dark:text-[#dce6e0] placeholder:text-[#8a9a91]"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                     />
                 </div>
 
-                <AnimatePresence>
-                    {message && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            className={`p-4 rounded-2xl text-xs md:text-sm font-bold flex items-center gap-3 ${
-                                message.type === "success"
-                                    ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
-                                    : "bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400"
-                            }`}
-                        >
-                            <span className="text-base">{message.type === "success" ? "✓" : "!"}</span>
-                            <span>{message.text}</span>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                {message && (
+                    <div
+                        className={`p-3.5 rounded-xl text-xs font-medium flex items-center gap-2.5 ${
+                            message.type === "success"
+                                ? "bg-[#e8f2ec] dark:bg-[#183325] text-[#2b6144] dark:text-[#96d6b4] border border-[#d4e6db] dark:border-[#24342c]"
+                                : "bg-[#fae8e8] dark:bg-[#361b1b] text-[#8c3636] dark:text-[#e69898] border border-[#f0c2c2] dark:border-[#4d2525]"
+                        }`}
+                    >
+                        <span>{message.type === "success" ? "✓" : "⚠️"}</span>
+                        <span>{message.text}</span>
+                    </div>
+                )}
 
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 md:py-5 bg-gradient-primary hover:shadow-2xl hover:shadow-purple-500/30 text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl transition-all active:scale-[0.99] disabled:opacity-50 cursor-pointer"
+                    className="w-full sm:w-auto px-7 py-3 bg-[#468366] hover:bg-[#396953] text-white font-semibold text-xs uppercase tracking-wider rounded-xl transition-all shadow-xs disabled:opacity-50 cursor-pointer"
                 >
-                    {loading ? "Mengirim Suara..." : "Kirim Suara Anda 🚀"}
+                    {loading ? "Mengirim..." : "Kirim Aspirasi"}
                 </button>
             </form>
         </div>
     );
 }
-

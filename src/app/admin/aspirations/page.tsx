@@ -108,23 +108,23 @@ export default function AdminAspirationsPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
-                        <span>🗳️</span> Kotak Aspirasi & Advokasi Siswa
+                    <h1 className="text-2xl font-bold text-[#202924] dark:text-[#f0f5f2] tracking-tight">
+                        Kotak Aspirasi & Advokasi Siswa
                     </h1>
-                    <p className="text-sm text-slate-400 mt-1">
-                        Pusat pengelolaan suara, keluhan, saran, dan aspirasi siswa SMKN 11 Bandung yang dikelola Komisi B MPK.
+                    <p className="text-xs text-[#5f7167] dark:text-[#a5b8ad] mt-1">
+                        Pusat pengelolaan suara, keluhan fasilitas, dan usulan siswa SMKN 11 Bandung yang dikelola Komisi B MPK.
                     </p>
                 </div>
             </div>
 
             {/* Filter Bar */}
-            <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="p-4 rounded-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] shadow-xs grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Status Aspirasi</label>
+                    <label className="block text-[10px] font-semibold uppercase tracking-wider text-[#718579] dark:text-[#8ba093] mb-1.5">Status Aspirasi</label>
                     <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-[#f7faf7] dark:bg-[#141c18] border border-[#d4e6db] dark:border-[#24342c] rounded-xl px-3 py-2 text-xs text-[#202924] dark:text-[#f0f5f2] focus:outline-none focus:border-[#468366]"
                     >
                         <option value="ALL">Semua Status</option>
                         <option value="PENDING">PENDING (Menunggu)</option>
@@ -136,104 +136,102 @@ export default function AdminAspirationsPage() {
                 </div>
 
                 <div>
-                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Kategori</label>
+                    <label className="block text-[10px] font-semibold uppercase tracking-wider text-[#718579] dark:text-[#8ba093] mb-1.5">Kategori</label>
                     <select
                         value={categoryFilter}
                         onChange={(e) => setCategoryFilter(e.target.value)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-[#f7faf7] dark:bg-[#141c18] border border-[#d4e6db] dark:border-[#24342c] rounded-xl px-3 py-2 text-xs text-[#202924] dark:text-[#f0f5f2] focus:outline-none focus:border-[#468366]"
                     >
                         <option value="ALL">Semua Kategori</option>
-                        <option value="Fasilitas">🏫 Fasilitas Sekolah</option>
-                        <option value="Akademik">📚 Pembelajaran & Akademik</option>
-                        <option value="Kegiatan">🎉 Kegiatan & Event</option>
-                        <option value="Tata Tertib">📜 Tata Tertib & Kedisiplinan</option>
-                        <option value="Ekstrakurikuler">⚽ Ekstrakurikuler</option>
-                        <option value="Lainnya">📝 Lainnya</option>
+                        <option value="Fasilitas">Fasilitas Sekolah</option>
+                        <option value="Akademik">Pembelajaran & Akademik</option>
+                        <option value="Kegiatan">Kegiatan & Event</option>
+                        <option value="Tata Tertib">Tata Tertib & Kedisiplinan</option>
+                        <option value="Ekstrakurikuler">Ekstrakurikuler</option>
+                        <option value="Lainnya">Lainnya</option>
                     </select>
                 </div>
 
                 <div>
-                    <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1.5">Cari Aspirasi</label>
+                    <label className="block text-[10px] font-semibold uppercase tracking-wider text-[#718579] dark:text-[#8ba093] mb-1.5">Cari Aspirasi</label>
                     <input
                         type="text"
                         placeholder="Cari judul, konten, nama siswa..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-[#f7faf7] dark:bg-[#141c18] border border-[#d4e6db] dark:border-[#24342c] rounded-xl px-3 py-2 text-xs text-[#202924] dark:text-[#f0f5f2] placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                     />
                 </div>
             </div>
 
             {/* Aspirations List */}
             {loading ? (
-                <div className="py-12 text-center text-slate-500 text-xs">Memuat data aspirasi...</div>
+                <div className="py-12 text-center text-[#718579] text-xs">Memuat data aspirasi...</div>
             ) : filteredAspirations.length === 0 ? (
-                <div className="py-16 text-center border border-dashed border-slate-800 rounded-3xl p-8">
-                    <div className="text-3xl mb-2">🗳️</div>
-                    <div className="text-sm font-bold text-slate-200">Belum ada aspirasi masuk</div>
-                    <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
-                        Aspirasi siswa yang disampaikan melalui formulir suara siswa akan masuk dan tercatat di sini.
+                <div className="py-16 text-center border-2 border-dashed border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-8 bg-white dark:bg-[#19241f]">
+                    <div className="text-sm font-bold text-[#202924] dark:text-[#f0f5f2]">Belum ada aspirasi masuk</div>
+                    <p className="text-xs text-[#5f7167] dark:text-[#a5b8ad] mt-1 max-w-md mx-auto">
+                        Aspirasi siswa yang disampaikan melalui portal suara siswa akan otomatis tercatat di sini.
                     </p>
                 </div>
             ) : (
-                <div className="space-y-4">
+                <div className="space-y-3.5">
                     {filteredAspirations.map((asp) => (
                         <div
                             key={asp.id}
-                            className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all"
+                            className="p-5 rounded-2xl bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] hover:border-[#468366]/40 transition-all shadow-xs"
                         >
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-[#e3ece6] dark:border-[#24342c]">
                                 <div className="flex flex-wrap items-center gap-2">
-                                    <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider">
+                                    <span className="px-2.5 py-0.5 rounded-md bg-[#e8f2ec] text-[#396953] text-[10px] font-semibold uppercase tracking-wider">
                                         {asp.category}
                                     </span>
-                                    <span className="text-[10px] text-slate-500">
-                                        Target: {asp.targetDivision?.replace(/_/g, " ") || "Komisi B"}
+                                    <span className="text-[11px] text-[#718579] dark:text-[#8ba093]">
+                                        Tujuan: {asp.targetDivision?.replace(/_/g, " ") || "Komisi B"}
                                     </span>
                                     {asp.isAnonymous && (
-                                        <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-[10px] font-semibold border border-slate-700">
-                                            🔒 Anonim
+                                        <span className="px-2 py-0.5 rounded-md bg-[#f2f6f3] text-[#5f7167] text-[10px] font-semibold">
+                                            Anonim
                                         </span>
                                     )}
                                 </div>
                                 <div>
                                     <span
-                                        className={`text-[10px] font-bold px-3 py-1 rounded-full border ${
+                                        className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-md ${
                                             asp.status === "PENDING"
-                                                ? "bg-amber-500/10 text-amber-300 border-amber-500/30"
+                                                ? "bg-[#faf3e1] text-[#785a21]"
                                                 : asp.status === "RESOLVED" || asp.status === "APPROVED"
-                                                ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/30"
-                                                : "bg-blue-500/10 text-blue-300 border-blue-500/30"
+                                                ? "bg-[#e8f2ec] text-[#2e5845]"
+                                                : "bg-[#eaf1f8] text-[#2c6194]"
                                         }`}
                                     >
-                                        {asp.status}
+                                        {asp.status === "PENDING" ? "Menunggu Tanggapan" : asp.status}
                                     </span>
                                 </div>
                             </div>
 
                             <div className="my-3">
-                                <h3 className="text-base font-bold text-white">{asp.title}</h3>
-                                <p className="text-xs text-slate-300 mt-2 leading-relaxed whitespace-pre-line">{asp.content}</p>
+                                <h3 className="text-sm font-bold text-[#202924] dark:text-[#f0f5f2]">{asp.title}</h3>
+                                <p className="text-xs text-[#5f7167] dark:text-[#a5b8ad] mt-1.5 leading-relaxed whitespace-pre-line">{asp.content}</p>
                             </div>
 
                             {/* Response Box if Exists */}
                             {asp.response && (
-                                <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/30 my-3">
-                                    <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 mb-1 flex items-center gap-1.5">
-                                        <span>💬</span>
-                                        <span>Tanggapan Resmi Pengurus:</span>
+                                <div className="p-3.5 rounded-xl bg-[#f7faf7] dark:bg-[#141c18] border border-[#d4e6db] dark:border-[#24342c] my-3">
+                                    <div className="text-[10px] font-semibold uppercase tracking-wider text-[#468366] mb-1">
+                                        Tanggapan Resmi Pengurus:
                                     </div>
-                                    <p className="text-xs text-emerald-100 whitespace-pre-line leading-relaxed">{asp.response}</p>
-                                    <div className="text-[10px] text-emerald-400/70 mt-2">
+                                    <p className="text-xs text-[#2c3831] dark:text-[#dce6e0] whitespace-pre-line leading-relaxed">{asp.response}</p>
+                                    <div className="text-[10px] text-[#718579] mt-1.5">
                                         Ditanggapi pada: {asp.respondedAt ? new Date(asp.respondedAt).toLocaleString("id-ID") : "-"}
                                     </div>
                                 </div>
                             )}
 
-                            <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500">
+                            <div className="mt-3 pt-3 border-t border-[#e3ece6] dark:border-[#24342c] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#718579] dark:text-[#8ba093]">
                                 <div>
                                     Pengirim:{" "}
-                                    <span className="font-semibold text-slate-300">
+                                    <span className="font-semibold text-[#2c3831] dark:text-[#dce6e0]">
                                         {asp.isAnonymous ? "Siswa SMKN 11 (Anonim)" : `${asp.user?.name || "Siswa"} (${asp.user?.kelas || "-"})`}
                                     </span>{" "}
                                     • {new Date(asp.createdAt).toLocaleDateString("id-ID")}
@@ -244,10 +242,9 @@ export default function AdminAspirationsPage() {
                                         setReplyText(asp.response || "");
                                         setReplyStatus(asp.status === "PENDING" ? "IN_REVIEW" : asp.status);
                                     }}
-                                    className="px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition-all self-start sm:self-auto flex items-center gap-1.5"
+                                    className="px-3.5 py-1.5 rounded-lg bg-[#f2f6f3] dark:bg-[#1e2a23] hover:bg-[#e8f0eb] text-[#2e5845] dark:text-[#a3d4bd] border border-[#d4e6db] dark:border-[#24342c] text-xs font-semibold transition-colors self-start sm:self-auto cursor-pointer"
                                 >
-                                    <span>💬</span>
-                                    <span>{asp.response ? "Edit Tanggapan" : "Beri Tanggapan Resmi"}</span>
+                                    {asp.response ? "Edit Tanggapan" : "Beri Tanggapan Resmi"}
                                 </button>
                             </div>
                         </div>
@@ -257,35 +254,35 @@ export default function AdminAspirationsPage() {
 
             {/* Modal Reply Aspiration */}
             {activeReplyAsp && (
-                <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-                    <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
-                        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+                    <div className="w-full max-w-lg bg-white dark:bg-[#19241f] border border-[#e3ece6] dark:border-[#24342c] rounded-2xl p-6 shadow-xl">
+                        <div className="flex items-center justify-between pb-3 border-b border-[#e3ece6] dark:border-[#24342c]">
                             <div>
-                                <h2 className="text-lg font-bold text-white">Tanggapan Advokasi Aspirasi</h2>
-                                <div className="text-xs text-emerald-400 font-semibold mt-0.5 truncate max-w-sm">
+                                <h2 className="text-base font-bold text-[#202924] dark:text-[#f0f5f2]">Tanggapan Aspirasi</h2>
+                                <div className="text-xs text-[#468366] font-medium mt-0.5 truncate max-w-sm">
                                     {activeReplyAsp.title}
                                 </div>
                             </div>
                             <button
                                 onClick={() => setActiveReplyAsp(null)}
-                                className="text-slate-400 hover:text-white text-sm"
+                                className="text-[#718579] hover:text-[#202924] dark:hover:text-[#f0f5f2] text-sm cursor-pointer"
                             >
                                 ✕
                             </button>
                         </div>
 
                         <form onSubmit={handleSaveResponse} className="space-y-4 mt-4">
-                            <div className="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 text-xs text-slate-300">
-                                <div className="font-bold text-white mb-1">Aspirasi Siswa:</div>
+                            <div className="p-3 rounded-xl bg-[#f7faf7] dark:bg-[#141c18] border border-[#e3ece6] dark:border-[#24342c] text-xs text-[#5f7167] dark:text-[#a5b8ad]">
+                                <div className="font-semibold text-[#202924] dark:text-[#f0f5f2] mb-1">Aspirasi Siswa:</div>
                                 {activeReplyAsp.content}
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Status Penanganan</label>
+                                <label className="block text-xs font-semibold text-[#2c3831] dark:text-[#dce6e0] mb-1">Status Penanganan</label>
                                 <select
                                     value={replyStatus}
                                     onChange={(e) => setReplyStatus(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f7faf7] dark:bg-[#141c18] border border-[#d4e6db] dark:border-[#24342c] rounded-xl px-3 py-2 text-xs text-[#202924] dark:text-[#f0f5f2] focus:outline-none focus:border-[#468366]"
                                 >
                                     <option value="IN_REVIEW">IN_REVIEW (Sedang Ditinjau & Dikoordinasikan)</option>
                                     <option value="APPROVED">APPROVED (Disetujui & Diteruskan ke Pihak Sekolah)</option>
@@ -295,29 +292,29 @@ export default function AdminAspirationsPage() {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-300 mb-1">Tulis Tanggapan Resmi *</label>
+                                <label className="block text-xs font-semibold text-[#2c3831] dark:text-[#dce6e0] mb-1">Tulis Tanggapan Resmi *</label>
                                 <textarea
                                     required
                                     rows={4}
                                     placeholder="Tuliskan jawaban atau langkah tindak lanjut resmi dari MPK/OSIS..."
                                     value={replyText}
                                     onChange={(e) => setReplyText(e.target.value)}
-                                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                                    className="w-full bg-[#f7faf7] dark:bg-[#141c18] border border-[#d4e6db] dark:border-[#24342c] rounded-xl p-3 text-xs text-[#202924] dark:text-[#f0f5f2] placeholder-[#8ba093] focus:outline-none focus:border-[#468366]"
                                 />
                             </div>
 
-                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#e3ece6] dark:border-[#24342c]">
                                 <button
                                     type="button"
                                     onClick={() => setActiveReplyAsp(null)}
-                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
+                                    className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5f7167] hover:text-[#202924] cursor-pointer"
                                 >
                                     Batal
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={isSavingReply}
-                                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-lg shadow-emerald-600/20"
+                                    className="px-5 py-2.5 rounded-xl bg-[#468366] hover:bg-[#396953] text-white text-xs font-semibold transition-all shadow-xs cursor-pointer"
                                 >
                                     {isSavingReply ? "Menyimpan..." : "Kirim Tanggapan Resmi"}
                                 </button>
